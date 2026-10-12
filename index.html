@@ -3,524 +3,404 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Проверим, что видно о вашем аккаунте снаружи. Наблюдение за адресом</title>
-<meta name="description" content="Смотрим, что о вас знают сервисы: адрес, сеть, платёжные данные, признаки прокси. Объясняем простыми словами и следим за изменениями. Первая проверка бесплатная.">
-<meta property="og:title" content="Что видно о вашем аккаунте снаружи">
-<meta property="og:description" content="Проверяем адрес и объясняем простыми словами. Следим за изменениями и предупреждаем заранее. Первая проверка бесплатная.">
+<title>Видно снаружи — проверка адреса и наблюдение</title>
+<meta name="description" content="Смотрим на ваш адрес глазами сервиса: адрес, окружение, платёжные данные. Находим расхождения и следим за изменениями. Первая проверка бесплатная.">
+<meta property="og:title" content="Смотрим на ваш адрес глазами сервиса">
+<meta property="og:description" content="Находим, почему платёж не проходит и что видно о вас снаружи. Первая проверка бесплатная.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0a0c10">
+<meta name="theme-color" content="#08090a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308090a'/><circle cx='50' cy='50' r='24' fill='none' stroke='%2350d183' stroke-width='9'/><circle cx='50' cy='50' r='7' fill='%2350d183'/></svg>">
 <style>
 :root{
-  --bg:#0a0c10; --bg2:#0e1117; --card:#12161d; --card2:#0f1319; --line:#1f2530;
-  --line2:#2b3341; --fg:#eef1f6; --fg2:#c2c9d4; --dim:#8b93a1; --dim2:#69717e;
-  --acc:#4ec97f; --acc-d:#0c2a19; --warn:#e8b64c; --bad:#e4604f;
-  --serif:Georgia,"Times New Roman",serif;
+  --bg:#08090a; --panel:#0e1014; --card:#101318; --line:rgba(255,255,255,.07);
+  --line2:rgba(255,255,255,.12); --fg:#ffffff; --fg2:#c9ced6; --dim:#8b939f; --dim2:#5c6470;
+  --acc:#50d183; --acc-soft:rgba(80,209,131,.12);
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
-  --w:940px;
+  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  --w:1140px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
-  font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;overflow-x:hidden}
-.wrap{max-width:var(--w);margin:0 auto;padding:0 20px}
+  font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  font-variant-numeric:lining-nums tabular-nums}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
 a{color:var(--acc);text-decoration:none}
-a:hover{text-decoration:underline}
-.serif{font-family:var(--serif)}
-.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--dim2);
-  margin:0 0 14px;font-weight:600}
-h1,h2,h3{font-family:var(--serif);font-weight:700;letter-spacing:-.5px;margin:0}
-h1{font-size:clamp(30px,6.2vw,50px);line-height:1.08;margin-bottom:20px}
-h2{font-size:clamp(23px,4.4vw,34px);line-height:1.15;margin-bottom:12px}
-h3{font-size:19px;line-height:1.3;margin-bottom:8px;letter-spacing:-.2px}
-p{margin:0 0 16px;color:var(--fg2)}
-.lead{font-size:clamp(17px,2.5vw,19.5px);color:#d3d9e2;max-width:40em}
-.small{font-size:14.5px}
-.muted{color:var(--dim)}
-section{padding:64px 0;border-top:1px solid var(--line)}
-section.plain{border-top:0}
-.hr{height:1px;background:var(--line);margin:0}
+a:hover{color:#74e09d}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em}
+h1{font-family:var(--sans);font-size:clamp(34px,6.6vw,60px);line-height:1.04;letter-spacing:-.035em;margin-bottom:20px}
+h2{font-family:var(--sans);font-size:clamp(24px,4vw,38px);line-height:1.1;letter-spacing:-.03em;margin-bottom:12px}
+h3{font-size:17.5px;line-height:1.35;font-weight:600;letter-spacing:-.01em}
+p{margin:0 0 14px;color:var(--fg2)}
+.lead{font-size:clamp(17px,2.2vw,20px);line-height:1.55;color:#dfe4ea;max-width:30em}
+.dim{color:var(--dim)}.small{font-size:14.5px}
+.mono{font-family:var(--mono);font-size:13px;letter-spacing:.02em}
+section{padding:96px 0;border-top:1px solid var(--line);scroll-margin-top:72px}
+section.hero{border-top:0;padding:76px 0 92px}
+@media(max-width:700px){section{padding:64px 0}section.hero{padding:52px 0 64px}}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--dim2);margin:0 0 18px}
 
-/* ── шапка ── */
-header.site{position:sticky;top:0;z-index:50;background:rgba(10,12,16,.82);
-  backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid transparent;
-  transition:border-color .25s,background .25s}
-header.site.on{border-bottom-color:var(--line)}
-.navbar{display:flex;align-items:center;gap:18px;height:62px}
-.brand{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:-.2px;
-  color:var(--fg);white-space:nowrap}
-.brand span{color:var(--acc)}
-.navlinks{display:none;gap:20px;margin-left:auto;font-size:15px}
+/* шапка */
+header{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.72);backdrop-filter:blur(12px) saturate(140%);
+  border-bottom:1px solid transparent;transition:border-color .18s ease,background .18s ease}
+header.on{border-bottom-color:var(--line);background:rgba(8,9,10,.92)}
+.nav{display:flex;align-items:center;gap:28px;height:62px}
+.mark{font-size:16.5px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+.mark i{font-style:normal;color:var(--acc)}
+.navlinks{display:none;gap:26px;font-size:15px;margin-left:auto}
 .navlinks a{color:var(--dim)}
-.navlinks a:hover{color:var(--fg);text-decoration:none}
-.navcta{margin-left:auto}
-@media(min-width:760px){
-  .navlinks{display:flex}
-  .navcta{margin-left:0}
-}
+.navlinks a:hover{color:var(--fg)}
+@media(min-width:880px){.navlinks{display:flex}}
+.nav .btn{margin-left:auto}
+@media(min-width:880px){.nav .btn{margin-left:0}}
 
-/* ── кнопки ── */
-.btn{display:inline-flex;align-items:center;gap:9px;background:var(--acc);color:#04200f;
-  font-weight:700;padding:15px 24px;border-radius:12px;border:0;cursor:pointer;
-  font-size:16px;font-family:inherit;transition:transform .12s,box-shadow .2s}
-.btn:hover{text-decoration:none;transform:translateY(-1px);
-  box-shadow:0 8px 24px -8px rgba(78,201,127,.5)}
-.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line2);font-weight:600}
-.btn.ghost:hover{box-shadow:none;border-color:#3d4757;background:#12161d}
-.btn.sm{padding:11px 18px;font-size:15px;border-radius:10px}
-.btnrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+/* кнопки */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;
+  padding:0 24px;border-radius:9px;border:1px solid transparent;font:inherit;font-size:16px;
+  font-weight:600;letter-spacing:-.005em;cursor:pointer;white-space:nowrap;background:var(--acc);
+  color:#04200f;transition:transform .16s cubic-bezier(.4,0,.2,1),background .16s,border-color .16s,box-shadow .16s;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+.btn:hover{background:#63dc92;color:#04200f;transform:translateY(-1px)}
+.btn:active{transform:none}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line2);box-shadow:none;font-weight:500}
+.btn.ghost:hover{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.03);color:var(--fg)}
+.btn.s{min-height:42px;padding:0 18px;font-size:15px;border-radius:8px}
+.btn.w{width:100%}
+.btnrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:30px}
+@media(max-width:560px){.btn{width:100%}}
 
-/* ── герой ── */
-.hero{padding:72px 0 60px;position:relative}
-.hero::before{content:"";position:absolute;inset:-200px 0 auto 0;height:520px;
-  background:radial-gradient(60% 60% at 20% 0%,rgba(78,201,127,.10),transparent 70%),
-             radial-gradient(45% 45% at 90% 10%,rgba(120,160,255,.07),transparent 70%);
-  pointer-events:none}
-.hero .wrap{position:relative}
-.trust{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:30px;padding-top:22px;
-  border-top:1px solid var(--line)}
-.trust div{font-size:14.5px;color:var(--dim)}
-.trust b{color:var(--fg);font-weight:600}
+/* пилюля-анонс */
+.pill{display:inline-flex;align-items:center;gap:9px;padding:6px 14px 6px 10px;border-radius:999px;
+  border:1px solid var(--line2);background:rgba(255,255,255,.02);font-size:14px;color:var(--fg2);
+  margin-bottom:26px}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);flex:none}
+.pill b{font-weight:600;color:var(--fg)}
 
-/* ── иконки ── */
-.ico{width:26px;height:26px;stroke:var(--acc);stroke-width:1.7;fill:none;
-  stroke-linecap:round;stroke-linejoin:round;flex:none}
-.ico.w{stroke:var(--warn)}.ico.b{stroke:var(--bad)}.ico.d{stroke:var(--dim)}
+/* герой */
+.hero .cols{display:grid;gap:48px}
+@media(min-width:940px){.hero .cols{grid-template-columns:1.05fr .95fr;align-items:center}}
+.metrics{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;padding-top:24px;
+  border-top:1px solid var(--line);font-size:14.5px;color:var(--dim)}
+.metrics b{color:var(--fg);font-weight:600}
 
-/* ── карточки ── */
-.grid{display:grid;gap:14px}
-@media(min-width:700px){.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}}
-.card{background:linear-gradient(180deg,#141922,#11151c);border:1px solid var(--line);
-  border-radius:16px;padding:22px;position:relative;overflow:hidden}
-.card.flat{background:var(--card2)}
-.card .ico{margin-bottom:14px}
-.card p:last-child{margin-bottom:0}
-.step{display:flex;gap:14px;align-items:flex-start}
-.stepn{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--acc);
-  background:var(--acc-d);border:1px solid #1d4a30;border-radius:10px;
-  width:34px;height:34px;display:grid;place-items:center;flex:none}
+/* панель «что видит сервис» */
+.panel{background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008));
+  border:1px solid var(--line);border-radius:12px;padding:14px}
+.panel .top{display:flex;align-items:center;gap:7px;padding:2px 6px 12px;border-bottom:1px solid var(--line);
+  margin-bottom:6px}
+.panel .top i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12);font-style:normal}
+.panel .top span{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--dim2);letter-spacing:.08em}
+.r{display:flex;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid var(--line)}
+.r:last-child{border-bottom:0}
+.r .k{flex:1;font-size:14.5px;color:var(--fg2)}
+.r .v{font-family:var(--mono);font-size:13px;color:var(--fg)}
+.r .v.ok{color:var(--acc)}.r .v.no{color:#e8705f}.r .v.w{color:#e3b34e}
+.r .st{width:6px;height:6px;border-radius:50%;background:var(--dim2);flex:none}
+.r .st.ok{background:var(--acc)}.r .st.no{background:#e8705f}.r .st.w{background:#e3b34e}
 
-/* ── страхи ── */
-.fear{border-left:3px solid var(--warn)}
-.fear.b{border-left-color:var(--bad)}
-.fear h3{font-size:20px}
-.quote{font-family:var(--serif);font-style:italic;color:#dfe5ee;font-size:17.5px;
-  margin:0 0 12px}
+/* колонки */
+.g3{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+@media(min-width:800px){.g3{grid-template-columns:repeat(3,1fr)}}
+.g2{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}}
+.cell{background:var(--panel);padding:28px 26px}
+.cell p{margin:0;font-size:15px;color:var(--dim)}
+.cell .n{font-family:var(--mono);font-size:12px;color:var(--dim2);display:block;margin-bottom:14px;letter-spacing:.1em}
+.q{font-size:18px;color:var(--fg);line-height:1.45;margin-bottom:10px;letter-spacing:-.01em}
 
-/* ── можем / не можем ── */
-.cancan{display:grid;gap:14px}
-@media(min-width:700px){.cancan{grid-template-columns:1fr 1fr}}
-.can{border-color:#1d4a30;background:linear-gradient(180deg,#0f1a14,#0d1310)}
-.cant{border-color:#4a2620;background:linear-gradient(180deg,#1a1211,#130f0e)}
-.can h3,.cant h3{display:flex;align-items:center;gap:10px}
-ul.tick{list-style:none;padding:0;margin:0}
-ul.tick li{position:relative;padding-left:26px;margin:9px 0;color:var(--fg2);font-size:15.5px}
-ul.tick li::before{content:"";position:absolute;left:2px;top:9px;width:9px;height:9px;
-  border-radius:2px;background:var(--acc)}
-.cant ul.tick li::before{background:#c9564a;border-radius:50%}
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{position:relative;padding-left:24px;margin:11px 0;font-size:15.5px;color:var(--fg2)}
+ul.plain li::before{content:"";position:absolute;left:1px;top:9px;width:7px;height:7px;border-radius:2px;background:var(--acc)}
+ul.plain.x li::before{background:#c9564a;border-radius:50%}
 
-/* ── чек-лист ── */
-.check{background:var(--card2);border:1px solid var(--line);border-radius:16px;padding:8px 6px}
-.check label{display:flex;gap:13px;align-items:flex-start;padding:14px 16px;cursor:pointer;
-  border-radius:12px;transition:background .15s}
-.check label:hover{background:#141922}
-.check input{appearance:none;-webkit-appearance:none;width:21px;height:21px;margin:2px 0 0;
-  border:1.6px solid var(--line2);border-radius:6px;flex:none;position:relative;
-  cursor:pointer;transition:background .15s,border-color .15s}
-.check input:checked{background:var(--acc);border-color:var(--acc)}
-.check input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;
-  border:2px solid #04200f;border-top:0;border-left:0;transform:rotate(45deg)}
-.check label:has(input:checked) .ct{color:var(--dim);text-decoration:line-through;
-  text-decoration-color:#3a4350}
-.ct{font-size:15.5px;color:var(--fg2)}
-.ct b{color:var(--fg);font-weight:600}
-.checkbar{display:flex;align-items:center;gap:14px;margin-top:16px;flex-wrap:wrap}
-.track{flex:1;min-width:160px;height:8px;background:#171c24;border-radius:99px;overflow:hidden}
-.fill{height:100%;width:0;background:var(--acc);border-radius:99px;transition:width .3s}
-#cnum{font-variant-numeric:tabular-nums;color:var(--fg);font-weight:700}
-#cmsg{font-size:15px;color:var(--dim)}
+/* шаги */
+.steps{display:grid;gap:36px;margin-top:44px}
+@media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr);gap:28px}}
+.step .n{font-family:var(--mono);font-size:12.5px;color:var(--acc);letter-spacing:.12em;display:block;margin-bottom:12px}
+.step p{margin:6px 0 0;font-size:15px;color:var(--dim)}
 
-/* ── таблица замера ── */
-.measure{background:var(--card2);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.measure table{width:100%;border-collapse:collapse;font-size:15px}
-.measure th,.measure td{padding:13px 16px;text-align:left;border-bottom:1px solid #171c24}
-.measure th{font-size:12.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--dim2);
-  font-weight:600;background:#0d1116}
-.measure tr:last-child td{border-bottom:0}
-.measure td:first-child{color:var(--dim)}
-.measure td:not(:first-child){font-variant-numeric:tabular-nums}
-.ok{color:var(--acc)}.warn{color:var(--warn)}.bad{color:var(--bad)}
-.tip{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px 18px;
-  background:#12161d;border:1px solid var(--line);border-radius:14px}
-.tip .ico{margin:1px 0 0}
+/* цены */
+.offers{display:grid;gap:14px;margin-top:44px}
+@media(min-width:840px){.offers{grid-template-columns:repeat(3,1fr)}}
+.offer{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 24px;
+  display:flex;flex-direction:column}
+.offer.main{border-color:rgba(80,209,131,.35);background:linear-gradient(180deg,rgba(80,209,131,.07),rgba(80,209,131,.015))}
+.offer .sum{font-size:32px;font-weight:600;letter-spacing:-.04em;margin:10px 0 8px}
+.offer .sum small{font-size:15px;color:var(--dim);font-weight:400;letter-spacing:0}
+.offer p{margin:0 0 22px;font-size:14.5px;color:var(--dim)}
+.offer .btn{margin-top:auto}
+.offer .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--acc);margin-bottom:10px;display:block}
 
-/* ── цены ── */
-.price{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:-.5px;margin:6px 0 10px}
-.pcard{display:flex;flex-direction:column}
-.pcard .tag{position:absolute;top:16px;right:16px;font-size:11.5px;letter-spacing:1px;
-  text-transform:uppercase;color:var(--acc);background:var(--acc-d);
-  border:1px solid #1d4a30;border-radius:99px;padding:4px 11px;font-weight:600}
-.pcard.hot{border-color:#245139;background:linear-gradient(180deg,#101d16,#0e1411)}
-.pcard ul{margin:4px 0 0;padding-left:20px;font-size:15px;color:var(--fg2)}
-.pcard li{margin:6px 0}
-
-/* ── вопросы ── */
-details{border-bottom:1px solid var(--line);padding:4px 0}
+/* вопросы */
+details{border-bottom:1px solid var(--line)}
 details:first-of-type{border-top:1px solid var(--line)}
-summary{cursor:pointer;padding:18px 30px 18px 0;font-weight:600;font-size:16.5px;
-  position:relative;list-style:none;color:var(--fg)}
+summary{cursor:pointer;list-style:none;padding:20px 32px 20px 0;position:relative;font-size:16.5px;
+  font-weight:500;color:var(--fg);letter-spacing:-.01em}
 summary::-webkit-details-marker{display:none}
-summary::after{content:"";position:absolute;right:6px;top:26px;width:8px;height:8px;
-  border-right:1.8px solid var(--dim);border-bottom:1.8px solid var(--dim);
-  transform:rotate(45deg);transition:transform .2s}
+summary::after{content:"";position:absolute;right:4px;top:26px;width:7px;height:7px;
+  border-right:1.5px solid var(--dim);border-bottom:1.5px solid var(--dim);transform:rotate(45deg);
+  transition:transform .16s cubic-bezier(.4,0,.2,1)}
 details[open] summary::after{transform:rotate(-135deg)}
-details .ans{padding:0 0 18px;color:var(--fg2);font-size:15.5px;max-width:62em}
+details .a{padding:0 0 22px;color:var(--fg2);font-size:15.5px;max-width:60em}
 
-/* ── финал ── */
-.cta{background:
-   radial-gradient(70% 120% at 50% 0%,rgba(78,201,127,.13),transparent 65%),
-   linear-gradient(180deg,#101620,#0c0f14);
-  border-top:1px solid var(--line);text-align:center;padding:74px 0}
-.cta h2{margin-bottom:14px}
-.cta .btnrow{justify-content:center}
-footer.site{padding:40px 0 60px;color:var(--dim2);font-size:14px}
-footer.site p{color:var(--dim2);font-size:14px}
-footer.site .cols{display:grid;gap:22px}
-@media(min-width:700px){footer.site .cols{grid-template-columns:1.2fr 1fr 1fr}}
+/* финал */
+.final{text-align:center;padding:104px 0;border-top:1px solid var(--line);
+  background:radial-gradient(70% 120% at 50% 0%,rgba(80,209,131,.09),transparent 62%)}
+.final h2{margin-bottom:14px}
+.final .lead{margin:0 auto 6px}
+footer{border-top:1px solid var(--line);padding:44px 0 72px;font-size:14px;color:var(--dim2)}
+footer .cols{display:grid;gap:28px}
+@media(min-width:760px){footer .cols{grid-template-columns:1.5fr 1fr 1fr}}
+footer h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);margin:0 0 12px;font-weight:500}
+footer a{color:var(--dim)}
+footer a:hover{color:var(--acc)}
+footer p{margin:0;font-size:13.5px;color:var(--dim2)}
 
-/* ── появление при прокрутке ── */
-.rv{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.2,.6,.2,1),
-  transform .6s cubic-bezier(.2,.6,.2,1)}
+.rv{opacity:0;transform:translateY(12px);transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
 .rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){
-  .rv{opacity:1;transform:none;transition:none}
-  html{scroll-behavior:auto}
-}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
-<header class="site" id="hdr">
-  <div class="wrap navbar">
-    <span class="brand">видно<span>.</span>снаружи</span>
+<header id="hdr">
+  <div class="wrap nav">
+    <span class="mark">видно<i>.</i>снаружи</span>
     <nav class="navlinks">
       <a href="#how">Как это работает</a>
-      <a href="#can">Что можем</a>
-      <a href="#check">Самопроверка</a>
-      <a href="#price">Цены</a>
+      <a href="#offer">Стоимость</a>
+      <a href="#faq">Вопросы</a>
       <a href="issledovanie.html">Исследование</a>
     </nav>
-    <span class="navcta"><a class="btn sm" href="https://t.me/totallyaverage">Написать нам</a></span>
+    <a class="btn s" href="https://t.me/totallyaverage">Написать нам</a>
   </div>
 </header>
 
-<!-- ═══ ГЕРОЙ ═══ -->
-<section class="hero plain">
+<section class="hero">
   <div class="wrap">
-    <p class="eyebrow">проверка адреса и наблюдение</p>
-    <h1>Посмотрим, что видно<br>о вашем аккаунте снаружи</h1>
-    <p class="lead">Вы пользуетесь сервисом и не хотите однажды увидеть отказ в оплате или
-    письмо о блокировке. Мы проверяем всё, что о вас знают сервисы, объясняем простыми словами
-    и следим за изменениями. Без обещаний, которые никто не может выполнить.</p>
-    <div class="btnrow">
-      <a class="btn" href="https://t.me/totallyaverage">
-        <svg class="ico" style="stroke:#04200f;width:20px;height:20px" viewBox="0 0 24 24"><path d="M21 4 3 11l5 2 2 6 3-4 5 3 3-14Z"/></svg>
-        Проверить бесплатно</a>
-      <a class="btn ghost" href="#check">Пройти самопроверку за минуту</a>
-    </div>
-    <div class="trust">
-      <div><b>4,5 секунды</b> занимает один замер</div>
-      <div><b>6 источников</b> данных в каждом отчёте</div>
-      <div><b>10 сервисов</b> разобрано по их документам</div>
-      <div>работаем как <b>самозанятый</b>, чек на оплату</div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ ЗАЧЕМ ═══ -->
-<section id="why">
-  <div class="wrap">
-    <p class="eyebrow rv">зачем это нужно</p>
-    <h2 class="rv">Два страха, с которыми к нам приходят</h2>
-    <p class="rv">Мы поговорили с людьми, которые к нам обращались, и выделили две настоящие
-    причины. Всё остальное обычно следствие.</p>
-    <div class="grid g2" style="margin-top:26px">
-      <div class="card fear rv">
-        <svg class="ico w" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
-        <p class="quote">«Оплата вдруг перестала проходить, а карта рабочая»</p>
-        <p class="small">Обычно дело не в карте. Данные о вас перестают сходиться между собой:
-        адрес говорит одно, окружение другое, платёжные данные третье. Мы находим, что именно
-        разошлось, и показываем по пунктам.</p>
+    <span class="pill"><span class="dot"></span>Первая проверка <b>бесплатно</b></span>
+    <div class="cols">
+      <div>
+        <h1>Смотрим на ваш адрес глазами сервиса</h1>
+        <p class="lead">Проверяем, что о вас видно снаружи: адрес, окружение, платёжные данные.
+        Находим расхождения и следим за изменениями, пока они не дали о себе знать.</p>
+        <div class="btnrow">
+          <a class="btn" href="https://t.me/totallyaverage">Проверить адрес</a>
+          <a class="btn ghost" href="#how">Как это работает</a>
+        </div>
+        <div class="metrics">
+          <span><b>4 секунды</b> на замер</span>
+          <span><b>6 источников</b> в отчёте</span>
+          <span>чек на оплату</span>
+        </div>
       </div>
-      <div class="card fear b rv">
-        <svg class="ico b" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6l-8-3Z"/><path d="M12 9v4M12 16.5v.01"/></svg>
-        <p class="quote">«Аккаунт могут забрать, и я узнаю последним»</p>
-        <p class="small">Изменения приходят молча. Адрес меняет репутацию без вашего участия:
-        его переоформляют, соседи по блоку попадают в списки. Мы смотрим регулярно и пишем,
-        если что-то поехало.</p>
+      <div class="panel rv">
+        <div class="top"><i></i><i></i><i></i><span>ЧТО ВИДИТ СЕРВИС</span></div>
+        <div class="r"><span class="st ok"></span><span class="k">Адрес и страна</span><span class="v ok">совпадает</span></div>
+        <div class="r"><span class="st ok"></span><span class="k">Часовой пояс</span><span class="v ok">совпадает</span></div>
+        <div class="r"><span class="st w"></span><span class="k">Тип сети</span><span class="v w">датацентр</span></div>
+        <div class="r"><span class="st no"></span><span class="k">Страна карты</span><span class="v no">другая</span></div>
+        <div class="r" style="border-top:1px solid var(--line);margin-top:6px">
+          <span class="k" style="color:var(--dim)">Итог</span><span class="v no">данные не сходятся</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ КАК ЭТО РАБОТАЕТ ═══ -->
+<section id="pain">
+  <div class="wrap">
+    <p class="label rv">с чем приходят</p>
+    <h2 class="rv" style="max-width:16em">Три причины, по которым к нам пишут</h2>
+    <div class="g3 rv" style="margin-top:40px">
+      <div class="cell">
+        <p class="q">«Карта рабочая, а платёж не проходит»</p>
+        <p>Обычно дело не в карте. Данные о вас перестали сходиться: адрес говорит одно, окружение
+        другое, платёжные данные третье.</p>
+      </div>
+      <div class="cell">
+        <p class="q">«Просят подтвердить личность»</p>
+        <p>Значит система увидела расхождение и хочет убедиться. Показываем, что именно её насторожило.</p>
+      </div>
+      <div class="cell">
+        <p class="q">«Боюсь однажды не войти»</p>
+        <p>Профиль адреса меняется сам: диапазоны переоформляют, соседи по блоку попадают в списки.
+        Без проверок вы узнаете об этом последним.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="how">
   <div class="wrap">
-    <p class="eyebrow rv">как это работает</p>
-    <h2 class="rv">Три шага, и разбираться самому не нужно</h2>
-    <div class="grid g3" style="margin-top:26px">
-      <div class="card rv">
-        <div class="step"><span class="stepn">1</span><div>
-          <h3>Вы пишете адрес</h3>
-          <p class="small">Одно сообщение в Telegram. Если серверов несколько, пришлите все.
-          Больше ничего не нужно.</p></div></div>
-      </div>
-      <div class="card rv">
-        <div class="step"><span class="stepn">2</span><div>
-          <h3>Мы проверяем</h3>
-          <p class="small">Прогоняем адрес по шести источникам, сверяем их между собой
-          и смотрим, что не сходится. Обычно это несколько минут.</p></div></div>
-      </div>
-      <div class="card rv">
-        <div class="step"><span class="stepn">3</span><div>
-          <h3>Вы получаете ответ</h3>
-          <p class="small">Простым языком: что видно, что это значит для вашего сервиса
-          и что стоит поправить. Плюс список того, что мы проверить не смогли.</p></div></div>
-      </div>
+    <p class="label rv">как это работает</p>
+    <h2 class="rv" style="max-width:20em">Одно сообщение от вас, дальше наша работа</h2>
+    <div class="steps">
+      <div class="step rv"><span class="n">01</span>
+        <h3>Присылаете адрес</h3>
+        <p>В Telegram. Если адресов несколько, перечислите все.</p></div>
+      <div class="step rv"><span class="n">02</span>
+        <h3>Мы проверяем</h3>
+        <p>Шесть источников, сверка между собой, поиск расхождений. Минуты.</p></div>
+      <div class="step rv"><span class="n">03</span>
+        <h3>Вы получаете отчёт</h3>
+        <p>Что видно, что это значит и что поправить. И чего проверить нельзя.</p></div>
     </div>
-    <div class="tip rv">
-      <svg class="ico d" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
-      <p class="small" style="margin:0">Дальше по желанию: разовый подробный разбор за 1 000 ₽
-      или наблюдение за 1 000 ₽ в месяц. Наблюдение нужно потому, что адрес меняется сам,
-      а вы об этом не узнаете.</p>
-    </div>
+    <div class="btnrow rv"><a class="btn" href="https://t.me/totallyaverage">Проверить адрес</a></div>
   </div>
 </section>
 
-<!-- ═══ ЧТО МОЖЕМ / НЕ МОЖЕМ ═══ -->
-<section id="can">
-  <div class="wrap">
-    <p class="eyebrow rv">честно о границах</p>
-    <h2 class="rv">Что мы можем, и чего не можем</h2>
-    <p class="rv">Это самая важная часть страницы. Мы говорим прямо, потому что вы платите
-    за правду, а не за успокоение.</p>
-    <div class="cancan" style="margin-top:26px">
-      <div class="card can rv">
-        <h3><svg class="ico" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Можем</h3>
-        <ul class="tick">
-          <li>Увидеть, что о вас знают сервисы: адрес, сеть, тип подключения, окружение</li>
-          <li>Найти противоречия между данными и показать, что именно не сходится</li>
-          <li>Проверить по пяти чёрным спискам и посмотреть, есть ли жалобы</li>
-          <li>Следить за изменениями и предупредить до того, как что-то сломается</li>
-          <li>Объяснить простыми словами, без терминов, и ответить на вопросы</li>
-        </ul>
-      </div>
-      <div class="card cant rv">
-        <h3><svg class="ico b" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m6 6 12 12"/></svg>Не можем</h3>
-        <ul class="tick">
-          <li>Обещать, что вас не заблокируют. Решение принимает сервис, а не мы</li>
-          <li>Знать, какие пороги у проверяющих систем: их не публикуют</li>
-          <li>Влиять на чужие базы и удалять вас из списков</li>
-          <li>Продавать серверы и доступы: мы ничего не предоставляем</li>
-          <li>Советовать конкретные сервисы: это реклама, за неё штрафуют</li>
-        </ul>
-      </div>
-    </div>
-    <p class="small muted rv" style="margin-top:18px">Если кто-то обещает вам «безопасность
-    аккаунта» или «невидимость», он обещает то, чего не может знать. Мы так не делаем.</p>
-  </div>
-</section>
-
-<!-- ═══ САМОПРОВЕРКА ═══ -->
-<section id="check">
-  <div class="wrap">
-    <p class="eyebrow rv">бесплатно и без нас</p>
-    <h2 class="rv">Самопроверка: шесть пунктов за минуту</h2>
-    <p class="rv">Отметьте то, что у вас в порядке. Если отметок меньше пяти, стоит
-    поговорить: значит что-то из этого уже расходится.</p>
-    <div class="check rv" style="margin-top:22px">
-      <label><input type="checkbox" class="ck"><span class="ct"><b>Страна карты и страна адреса совпадают.</b> Это первое, на что смотрят при оплате.</span></label>
-      <label><input type="checkbox" class="ck"><span class="ct"><b>Способ оплаты не менялся последний месяц.</b> Резкая смена платёжного звена чаще всего совпадает с проблемами.</span></label>
-      <label><input type="checkbox" class="ck"><span class="ct"><b>Все устройства выходят с одного адреса.</b> Разные адреса у одного аккаунта выглядят как переезды.</span></label>
-      <label><input type="checkbox" class="ck"><span class="ct"><b>Адрес не «скачет» между странами.</b> Переключения туда-сюда заметны сильнее, чем постоянный адрес.</span></label>
-      <label><input type="checkbox" class="ck"><span class="ct"><b>Я знаю, что о моём адресе говорят базы.</b> Тип сети, признаки прокси, жалобы.</span></label>
-      <label><input type="checkbox" class="ck"><span class="ct"><b>Я проверял это за последний месяц.</b> Профиль адреса меняется сам, без вашего участия.</span></label>
-    </div>
-    <div class="checkbar rv">
-      <span><span id="cnum">0</span> из 6</span>
-      <span class="track"><span class="fill" id="cfill"></span></span>
-      <span id="cmsg">отметьте пункты слева</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ ЗАМЕР ═══ -->
 <section id="proof">
   <div class="wrap">
-    <p class="eyebrow rv">почему одной проверки мало</p>
-    <h2 class="rv">Два адреса из нашей выборки</h2>
-    <p class="rv">Проверены по одним и тем же базам в один момент времени. Названия баз
-    оставили в таблице, чтобы было видно, откуда цифры.</p>
-    <div class="measure rv" style="margin-top:22px">
-      <table>
-        <thead><tr><th>Показатель</th><th>Адрес A</th><th>Адрес B</th></tr></thead>
-        <tbody>
-          <tr><td>Страна</td><td>Польша</td><td>Малайзия</td></tr>
-          <tr><td>Классификация базы</td><td class="ok">Business, риск 0</td><td class="bad">VPN, риск 66</td></tr>
-          <tr><td>Fraud score</td><td>0 (низкий)</td><td class="warn">0 (низкий)</td></tr>
-          <tr><td>Признаки</td><td class="warn">VPN, датацентр</td><td class="warn">VPN, датацентр</td></tr>
-          <tr><td>Жалобы</td><td>0</td><td>0</td></tr>
-        </tbody>
-      </table>
+    <p class="label rv">пример замера</p>
+    <h2 class="rv" style="max-width:24em">Одна цифра врёт. Смотрите на совокупность</h2>
+    <div class="g2 rv" style="margin-top:40px">
+      <div class="cell">
+        <span class="n">АДРЕС A</span>
+        <div class="r"><span class="st ok"></span><span class="k">Классификация</span><span class="v ok">Business, риск 0</span></div>
+        <div class="r"><span class="st ok"></span><span class="k">Fraud score</span><span class="v ok">0</span></div>
+        <div class="r"><span class="st w"></span><span class="k">Признаки</span><span class="v w">VPN, датацентр</span></div>
+      </div>
+      <div class="cell">
+        <span class="n">АДРЕС B</span>
+        <div class="r"><span class="st no"></span><span class="k">Классификация</span><span class="v no">VPN, риск 66</span></div>
+        <div class="r"><span class="st ok"></span><span class="k">Fraud score</span><span class="v ok">0</span></div>
+        <div class="r"><span class="st w"></span><span class="k">Признаки</span><span class="v w">VPN, датацентр</span></div>
+      </div>
     </div>
-    <div class="tip rv">
-      <svg class="ico w" viewBox="0 0 24 24"><path d="M12 4 2 20h20L12 4Z"/><path d="M12 10v4M12 17v.01"/></svg>
-      <p class="small" style="margin:0"><b>Смотрите на строку fraud score у адреса B.</b>
-      Там ноль, то есть бесплатные проверки скажут «всё чисто». А другая база в тот же момент
-      называет этот адрес VPN с риском 66. Поэтому мы никогда не делаем вывод по одной цифре.</p>
-    </div>
+    <p class="rv small" style="margin-top:22px;max-width:60em">У адреса B fraud score равен нулю,
+    и бесплатные проверки скажут «чисто». Вторая база в тот же момент называет его VPN с риском 66.
+    Поэтому вывод по одному показателю мы не делаем.</p>
   </div>
 </section>
 
-<!-- ═══ ЦЕНЫ ═══ -->
-<section id="price">
+<section id="limits">
   <div class="wrap">
-    <p class="eyebrow rv">цены</p>
-    <h2 class="rv">Просто и без подписок в нагрузку</h2>
-    <div class="grid g3" style="margin-top:26px">
-      <div class="card pcard rv">
-        <h3>Проверка адреса</h3>
-        <div class="price">0 ₽</div>
-        <p class="small">Смотрим адрес по шести источникам и говорим, что видно. Без оплаты
-        и без обязательств.</p>
+    <p class="label rv">границы</p>
+    <h2 class="rv">Что мы обеспечиваем</h2>
+    <div class="g2 rv" style="margin-top:40px">
+      <div class="cell">
+        <ul class="plain" style="margin:0">
+          <li>Полную картину того, что о вас видно</li>
+          <li>Расхождения с указанием источника по каждой строке</li>
+          <li>Проверку по пяти чёрным спискам и базам жалоб</li>
+          <li>Регулярный контроль и уведомление об изменениях</li>
+        </ul>
       </div>
-      <div class="card pcard hot rv">
-        <span class="tag">главное</span>
-        <h3>Наблюдение</h3>
-        <div class="price">1 000 ₽ / мес</div>
-        <p class="small">Проверяем до трёх сервисов регулярно и пишем, если что-то изменилось.
-        Именно это спасает от «внезапных» проблем.</p>
-      </div>
-      <div class="card pcard rv">
-        <h3>Разбор + наблюдение</h3>
-        <div class="price">1 000 ₽ разово</div>
-        <p class="small">Подробный разбор текущего состояния и конфигурации. Дальше можно
-        подключить наблюдение или остановиться.</p>
+      <div class="cell">
+        <ul class="plain x" style="margin:0">
+          <li>Гарантию, что аккаунт не заблокируют: решение принимает сервис</li>
+          <li>Знание внутренних порогов проверяющих систем</li>
+          <li>Влияние на чужие базы и удаление из списков</li>
+          <li>Рекомендации конкретных сервисов</li>
+        </ul>
       </div>
     </div>
-    <p class="small muted rv" style="margin-top:18px">Если сервисов больше трёх: 2 000 ₽ в месяц
-    за десять. Оплата в рублях, чек на каждую оплату.</p>
+    <p class="small dim rv" style="margin-top:20px">Если обещают «безопасность аккаунта» — обещают
+    то, чего нельзя знать заранее. Мы работаем с тем, что измеряется.</p>
   </div>
 </section>
 
-<!-- ═══ ВОПРОСЫ ═══ -->
+<section id="offer">
+  <div class="wrap">
+    <p class="label rv">стоимость</p>
+    <h2 class="rv">Три варианта</h2>
+    <div class="offers rv">
+      <div class="offer">
+        <h3>Проверка адреса</h3>
+        <div class="sum">0 ₽</div>
+        <p>Шесть источников, краткий результат.</p>
+        <a class="btn ghost w" href="https://t.me/totallyaverage">Прислать адрес</a>
+      </div>
+      <div class="offer main">
+        <span class="tag">основное</span>
+        <h3>Наблюдение</h3>
+        <div class="sum">1 000 ₽ <small>/ мес</small></div>
+        <p>До трёх сервисов: проверяем регулярно и сообщаем об изменениях.</p>
+        <a class="btn w" href="https://t.me/totallyaverage">Подключить</a>
+      </div>
+      <div class="offer">
+        <h3>Разбор</h3>
+        <div class="sum">1 000 ₽</div>
+        <p>Подробный разбор состояния и конфигурации. Разово.</p>
+        <a class="btn ghost w" href="https://t.me/totallyaverage">Заказать</a>
+      </div>
+    </div>
+    <p class="small dim rv" style="margin-top:18px">Больше трёх сервисов — 2 000 ₽ в месяц.
+    Оплата в рублях, чек на каждую оплату.</p>
+  </div>
+</section>
+
 <section id="faq">
   <div class="wrap">
-    <p class="eyebrow rv">частые вопросы</p>
-    <h2 class="rv">Что обычно спрашивают</h2>
-    <div class="rv" style="margin-top:20px">
-      <details><summary>Это законно?</summary><div class="ans">Да. Мы оказываем информационные
-      услуги: измеряем и объясняем. Мы не предоставляем доступ к ресурсам, не передаём трафик
-      и не продаём серверы. Работаем как самозанятый, на каждую оплату выдаём чек.</div></details>
-      <details><summary>Вы гарантируете, что меня не заблокируют?</summary><div class="ans">Нет,
-      и никто не гарантирует. Решение принимает сервис, и его пороги не публикуются. Мы показываем,
-      что о вас видно, и отдельно перечисляем, чего мы проверить не смогли.</div></details>
-      <details><summary>Нужно ли мне разбираться в технике?</summary><div class="ans">Нет. Вы пишете
-      адрес, мы отвечаем человеческим языком. Если чего-то не поняли, переспросите: объясним
-      иначе. Термины оставляем для тех, кому они нужны.</div></details>
-      <details><summary>А можно проверить всё это самому?</summary><div class="ans">Можете, все
-      источники открытые, мы их не скрываем. Но обычно нужен час и понимание, какие расхождения
-      важны, а какие шум. Плюс наблюдение: проверять себя каждую неделю мало кто будет.</div></details>
-      <details><summary>Что вы делаете с моими данными?</summary><div class="ans">Используем
-      только для проверки и не передаём третьим лицам. Доступы к вашему серверу, если они нужны,
-      не сохраняем. Отчёт удаляем по вашему требованию.</div></details>
-      <details><summary>Почему нет оплаты криптой?</summary><div class="ans">Потому что мы
-      платим налог и выдаём чек. Оплата в рублях, так у вас есть документ, а у нас нет проблем
-      с налоговой. Это в интересах обеих сторон.</div></details>
+    <p class="label rv">вопросы</p>
+    <h2 class="rv" style="margin-bottom:32px">Коротко</h2>
+    <div class="rv">
+      <details><summary>Вы гарантируете, что аккаунт не заблокируют?</summary>
+        <div class="a">Нет, и таких гарантий не даёт никто: решение принимает сервис, а его пороги
+        не публикуются. Мы показываем, что о вас видно, и отдельно перечисляем, чего проверить нельзя.</div></details>
+      <details><summary>Нужно ли разбираться в технике?</summary>
+        <div class="a">Нет. Вы присылаете адрес, мы отвечаем человеческим языком. Если что-то осталось
+        непонятным, переспросите: объясним иначе.</div></details>
+      <details><summary>Это законно?</summary>
+        <div class="a">Да. Мы оказываем информационные услуги: измеряем и объясняем. Не предоставляем
+        доступ к ресурсам, не передаём трафик и не продаём оборудование. Работаем как самозанятый,
+        на каждую оплату выдаём чек.</div></details>
+      <details><summary>Зачем наблюдение, если есть одна проверка?</summary>
+        <div class="a">Профиль адреса меняется сам: диапазоны переоформляют, соседи по блоку попадают
+        в списки, меняется имя сети. Одна проверка фиксирует состояние на дату, наблюдение ловит изменения.</div></details>
     </div>
   </div>
 </section>
 
-<!-- ═══ ФИНАЛ ═══ -->
-<section class="cta" id="zayavka">
+<section class="final" id="start">
   <div class="wrap">
-    <h2>Пришлите адрес, ответим что по нему видно</h2>
-    <p class="lead" style="margin:0 auto 6px">Первая проверка бесплатная. Дальше решите сами:
-    нужен разбор, наблюдение или ничего.</p>
-    <div class="btnrow">
+    <h2>Пришлите адрес — ответим, что по нему видно</h2>
+    <p class="lead">Первая проверка бесплатная. Дальше решите сами.</p>
+    <div class="btnrow" style="justify-content:center">
       <a class="btn" href="https://t.me/totallyaverage">Написать в Telegram</a>
     </div>
-    
+    <p class="small dim" style="margin-top:22px">Отвечаем в течение дня.</p>
   </div>
 </section>
 
-<footer class="site">
+<footer>
   <div class="wrap cols">
     <div>
-      <span class="brand">видно<span>.</span>снаружи</span>
-      <p style="margin-top:10px">Проверка адреса и наблюдение за изменениями. Информационные
-      услуги, без гарантий по решениям сторонних сервисов.</p>
+      <span class="mark">видно<i>.</i>снаружи</span>
+      <p style="margin-top:12px">Проверка адреса и наблюдение за изменениями. Информационные услуги.
+      Гарантий по решениям сторонних сервисов не даём.</p>
     </div>
     <div>
-      <p style="color:#8b93a1;font-weight:600;margin-bottom:6px">Разделы</p>
-      <p><a href="#how">Как это работает</a><br><a href="#can">Что можем</a><br>
-      <a href="#check">Самопроверка</a><br><a href="#price">Цены</a><br>
-      <a href="issledovanie.html">Наше исследование</a><br>
+      <h4>Разделы</h4>
+      <p><a href="#how">Как это работает</a><br><a href="#offer">Стоимость</a><br><a href="#faq">Вопросы</a></p>
+    </div>
+    <div>
+      <h4>Материалы</h4>
+      <p><a href="issledovanie.html">Исследование</a><br>
       <a href="karta-strogosti.html">Карта строгости сервисов</a><br>
       <a href="razbor-odin-ip-dve-pravdy.html">Почему базы расходятся</a></p>
-    </div>
-    <div>
-      <p style="color:#8b93a1;font-weight:600;margin-bottom:6px">Для специалистов</p>
-      <p>Источники данных: ipinfo, ipapi.is, proxycheck.io, scamalytics, stopforumspam,
-      RDAP (RIPE, APNIC), публичные списки DNSBL. Расхождения между источниками публикуем
-      как есть.</p>
     </div>
   </div>
 </footer>
 
 <script>
-// появление блоков при прокрутке
 (function(){
   var io = new IntersectionObserver(function(es){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+  }, {rootMargin:'0px 0px -5% 0px', threshold:.05});
   document.querySelectorAll('.rv').forEach(function(el,i){
-    el.style.transitionDelay = (Math.min(i,6)*40)+'ms';
-    io.observe(el);
+    el.style.transitionDelay = (Math.min(i,5)*35)+'ms'; io.observe(el);
   });
 })();
-
-// шапка: линия появляется при прокрутке
 (function(){
   var h = document.getElementById('hdr');
-  var f = function(){ h.classList.toggle('on', window.scrollY > 8); };
+  var f = function(){ h.classList.toggle('on', window.scrollY > 6); };
   f(); window.addEventListener('scroll', f, {passive:true});
-})();
-
-// самопроверка
-(function(){
-  var boxes = document.querySelectorAll('.ck');
-  var num = document.getElementById('cnum'), fill = document.getElementById('cfill'),
-      msg = document.getElementById('cmsg');
-  var texts = {
-    0:'отметьте пункты слева',
-    1:'стоит провериться: многое может расходиться',
-    2:'есть на что посмотреть',
-    3:'половина в порядке, половину стоит проверить',
-    4:'уже неплохо, но пара пунктов выпадает',
-    5:'почти всё в порядке. Проверьте последний пункт',
-    6:'всё отмечено. Хороший знак, но адрес всё равно меняется сам'
-  };
-  function upd(){
-    var n = 0;
-    boxes.forEach(function(b){ if(b.checked) n++; });
-    num.textContent = n;
-    fill.style.width = (n/boxes.length*100)+'%';
-    msg.textContent = texts[n];
-  }
-  boxes.forEach(function(b){ b.addEventListener('change', upd); });
-  upd();
 })();
 </script>
 
@@ -529,7 +409,7 @@ footer.site .cols{display:grid;gap:22px}
  "@context":"https://schema.org",
  "@type":"ProfessionalService",
  "name":"Видно снаружи: проверка адреса и наблюдение",
- "description":"Проверка IP-адреса по открытым источникам и наблюдение за изменениями. Объясняем простыми словами, что о вас знают сервисы, и отдельно перечисляем, чего проверить нельзя.",
+ "description":"Проверка IP-адреса по открытым источникам и наблюдение за изменениями. Показываем, что о вас знают сервисы, и отдельно перечисляем, чего проверить нельзя.",
  "areaServed":"RU","availableLanguage":"ru",
  "serviceType":["проверка IP-адреса","наблюдение за репутацией адреса","разбор конфигурации"],
  "hasOfferCatalog":{"@type":"OfferCatalog","name":"Услуги","itemListElement":[
@@ -537,8 +417,7 @@ footer.site .cols{display:grid;gap:22px}
    {"@type":"Offer","name":"Разбор адреса и конфигурации","price":"1000","priceCurrency":"RUB"},
    {"@type":"Offer","name":"Наблюдение, до трёх сервисов, месяц","price":"1000","priceCurrency":"RUB"},
    {"@type":"Offer","name":"Наблюдение, до десяти сервисов, месяц","price":"2000","priceCurrency":"RUB"}]},
- "knowsAbout":["проверка IP-адреса","репутация адреса","признаки прокси и VPN",
-   "чёрные списки","согласованность платёжных данных"]
+ "knowsAbout":["проверка IP-адреса","репутация адреса","признаки прокси и VPN","чёрные списки"]
 }
 </script>
 </body>

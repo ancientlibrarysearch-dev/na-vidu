@@ -1,0 +1,24 @@
+/* Общий стиль кнопок и плашек — подключается на всех страницах сайта.
+   Правится в одном месте: меняем здесь, меняется везде. */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;
+  padding:0 26px;border-radius:12px;border:1.5px solid transparent;font-size:16px;font-weight:600;
+  font-family:inherit;cursor:pointer;white-space:nowrap;text-decoration:none;
+  background:linear-gradient(180deg,#4ec97f,#3fb96e);color:#04200f;
+  box-shadow:0 1px 0 rgba(255,255,255,.16) inset,0 6px 18px -10px rgba(78,201,127,.65);
+  transition:transform .14s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease}
+.btn:hover{transform:translateY(-2px);color:#04200f;text-decoration:none;
+  box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 12px 26px -12px rgba(78,201,127,.75)}
+.btn:active{transform:translateY(0)}
+.btn.ghost{background:transparent;color:#eef1f6;border-color:#2c3543;box-shadow:none;font-weight:500}
+.btn.ghost:hover{border-color:#3f4a5b;background:#121722;color:#eef1f6;transform:translateY(-2px)}
+.btn.sm{min-height:42px;padding:0 18px;font-size:15px;border-radius:10px}
+.btn.wide{width:100%}
+.btnrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btnrow.center{justify-content:center}
+@media(max-width:520px){.btn{width:100%}}
+a:focus-visible,summary:focus-visible{outline:2px solid #4ec97f;outline-offset:3px;border-radius:6px}
+.block-cta{display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:space-between;
+  background:linear-gradient(180deg,#131824,#0f131b);border:1px solid #1e2531;border-radius:16px;
+  padding:24px;margin:34px 0 0}
+.block-cta h3{font-family:Georgia,"Times New Roman",serif;font-size:19px;margin:0 0 6px;color:#eef1f6}
+.block-cta p{margin:0;font-size:14.5px;color:#8b93a1}
