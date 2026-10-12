@@ -10,175 +10,32 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#08090a">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308090a'/><circle cx='50' cy='50' r='24' fill='none' stroke='%2350d183' stroke-width='9'/><circle cx='50' cy='50' r='7' fill='%2350d183'/></svg>">
-<style>
-:root{
-  --bg:#08090a; --panel:#0e1014; --card:#101318; --line:rgba(255,255,255,.07);
-  --line2:rgba(255,255,255,.12); --fg:#ffffff; --fg2:#c9ced6; --dim:#8b939f; --dim2:#5c6470;
-  --acc:#50d183; --acc-soft:rgba(80,209,131,.12);
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
-  --w:1140px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
-  font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-  font-variant-numeric:lining-nums tabular-nums}
-.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
-a{color:var(--acc);text-decoration:none}
-a:hover{color:#74e09d}
-:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:4px}
-h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em}
-h1{font-family:var(--sans);font-size:clamp(34px,6.6vw,60px);line-height:1.04;letter-spacing:-.035em;margin-bottom:20px}
-h2{font-family:var(--sans);font-size:clamp(24px,4vw,38px);line-height:1.1;letter-spacing:-.03em;margin-bottom:12px}
-h3{font-size:17.5px;line-height:1.35;font-weight:600;letter-spacing:-.01em}
-p{margin:0 0 14px;color:var(--fg2)}
-.lead{font-size:clamp(17px,2.2vw,20px);line-height:1.55;color:#dfe4ea;max-width:30em}
-.dim{color:var(--dim)}.small{font-size:14.5px}
-.mono{font-family:var(--mono);font-size:13px;letter-spacing:.02em}
-section{padding:96px 0;border-top:1px solid var(--line);scroll-margin-top:72px}
-section.hero{border-top:0;padding:76px 0 92px}
-@media(max-width:700px){section{padding:64px 0}section.hero{padding:52px 0 64px}}
-.label{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--dim2);margin:0 0 18px}
-
-/* шапка */
-header{position:sticky;top:0;z-index:50;background:rgba(8,9,10,.72);backdrop-filter:blur(12px) saturate(140%);
-  border-bottom:1px solid transparent;transition:border-color .18s ease,background .18s ease}
-header.on{border-bottom-color:var(--line);background:rgba(8,9,10,.92)}
-.nav{display:flex;align-items:center;gap:28px;height:62px}
-.mark{font-size:16.5px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
-.mark i{font-style:normal;color:var(--acc)}
-.navlinks{display:none;gap:26px;font-size:15px;margin-left:auto}
-.navlinks a{color:var(--dim)}
-.navlinks a:hover{color:var(--fg)}
-@media(min-width:880px){.navlinks{display:flex}}
-.nav .btn{margin-left:auto}
-@media(min-width:880px){.nav .btn{margin-left:0}}
-
-/* кнопки */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;
-  padding:0 24px;border-radius:9px;border:1px solid transparent;font:inherit;font-size:16px;
-  font-weight:600;letter-spacing:-.005em;cursor:pointer;white-space:nowrap;background:var(--acc);
-  color:#04200f;transition:transform .16s cubic-bezier(.4,0,.2,1),background .16s,border-color .16s,box-shadow .16s;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
-.btn:hover{background:#63dc92;color:#04200f;transform:translateY(-1px)}
-.btn:active{transform:none}
-.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line2);box-shadow:none;font-weight:500}
-.btn.ghost:hover{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.03);color:var(--fg)}
-.btn.s{min-height:42px;padding:0 18px;font-size:15px;border-radius:8px}
-.btn.w{width:100%}
-.btnrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:30px}
-@media(max-width:560px){.btn{width:100%}}
-
-/* пилюля-анонс */
-.pill{display:inline-flex;align-items:center;gap:9px;padding:6px 14px 6px 10px;border-radius:999px;
-  border:1px solid var(--line2);background:rgba(255,255,255,.02);font-size:14px;color:var(--fg2);
-  margin-bottom:26px}
-.pill .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);flex:none}
-.pill b{font-weight:600;color:var(--fg)}
-
-/* герой */
-.hero .cols{display:grid;gap:48px}
-@media(min-width:940px){.hero .cols{grid-template-columns:1.05fr .95fr;align-items:center}}
-.metrics{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;padding-top:24px;
-  border-top:1px solid var(--line);font-size:14.5px;color:var(--dim)}
-.metrics b{color:var(--fg);font-weight:600}
-
-/* панель «что видит сервис» */
-.panel{background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008));
-  border:1px solid var(--line);border-radius:12px;padding:14px}
-.panel .top{display:flex;align-items:center;gap:7px;padding:2px 6px 12px;border-bottom:1px solid var(--line);
-  margin-bottom:6px}
-.panel .top i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12);font-style:normal}
-.panel .top span{margin-left:8px;font-family:var(--mono);font-size:12px;color:var(--dim2);letter-spacing:.08em}
-.r{display:flex;align-items:center;gap:12px;padding:11px 6px;border-bottom:1px solid var(--line)}
-.r:last-child{border-bottom:0}
-.r .k{flex:1;font-size:14.5px;color:var(--fg2)}
-.r .v{font-family:var(--mono);font-size:13px;color:var(--fg)}
-.r .v.ok{color:var(--acc)}.r .v.no{color:#e8705f}.r .v.w{color:#e3b34e}
-.r .st{width:6px;height:6px;border-radius:50%;background:var(--dim2);flex:none}
-.r .st.ok{background:var(--acc)}.r .st.no{background:#e8705f}.r .st.w{background:#e3b34e}
-
-/* колонки */
-.g3{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-@media(min-width:800px){.g3{grid-template-columns:repeat(3,1fr)}}
-.g2{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-@media(min-width:760px){.g2{grid-template-columns:1fr 1fr}}
-.cell{background:var(--panel);padding:28px 26px}
-.cell p{margin:0;font-size:15px;color:var(--dim)}
-.cell .n{font-family:var(--mono);font-size:12px;color:var(--dim2);display:block;margin-bottom:14px;letter-spacing:.1em}
-.q{font-size:18px;color:var(--fg);line-height:1.45;margin-bottom:10px;letter-spacing:-.01em}
-
-ul.plain{list-style:none;padding:0;margin:0}
-ul.plain li{position:relative;padding-left:24px;margin:11px 0;font-size:15.5px;color:var(--fg2)}
-ul.plain li::before{content:"";position:absolute;left:1px;top:9px;width:7px;height:7px;border-radius:2px;background:var(--acc)}
-ul.plain.x li::before{background:#c9564a;border-radius:50%}
-
-/* шаги */
-.steps{display:grid;gap:36px;margin-top:44px}
-@media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr);gap:28px}}
-.step .n{font-family:var(--mono);font-size:12.5px;color:var(--acc);letter-spacing:.12em;display:block;margin-bottom:12px}
-.step p{margin:6px 0 0;font-size:15px;color:var(--dim)}
-
-/* цены */
-.offers{display:grid;gap:14px;margin-top:44px}
-@media(min-width:840px){.offers{grid-template-columns:repeat(3,1fr)}}
-.offer{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 24px;
-  display:flex;flex-direction:column}
-.offer.main{border-color:rgba(80,209,131,.35);background:linear-gradient(180deg,rgba(80,209,131,.07),rgba(80,209,131,.015))}
-.offer .sum{font-size:32px;font-weight:600;letter-spacing:-.04em;margin:10px 0 8px}
-.offer .sum small{font-size:15px;color:var(--dim);font-weight:400;letter-spacing:0}
-.offer p{margin:0 0 22px;font-size:14.5px;color:var(--dim)}
-.offer .btn{margin-top:auto}
-.offer .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--acc);margin-bottom:10px;display:block}
-
-/* вопросы */
-details{border-bottom:1px solid var(--line)}
-details:first-of-type{border-top:1px solid var(--line)}
-summary{cursor:pointer;list-style:none;padding:20px 32px 20px 0;position:relative;font-size:16.5px;
-  font-weight:500;color:var(--fg);letter-spacing:-.01em}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"";position:absolute;right:4px;top:26px;width:7px;height:7px;
-  border-right:1.5px solid var(--dim);border-bottom:1.5px solid var(--dim);transform:rotate(45deg);
-  transition:transform .16s cubic-bezier(.4,0,.2,1)}
-details[open] summary::after{transform:rotate(-135deg)}
-details .a{padding:0 0 22px;color:var(--fg2);font-size:15.5px;max-width:60em}
-
-/* финал */
-.final{text-align:center;padding:104px 0;border-top:1px solid var(--line);
-  background:radial-gradient(70% 120% at 50% 0%,rgba(80,209,131,.09),transparent 62%)}
-.final h2{margin-bottom:14px}
-.final .lead{margin:0 auto 6px}
-footer{border-top:1px solid var(--line);padding:44px 0 72px;font-size:14px;color:var(--dim2)}
-footer .cols{display:grid;gap:28px}
-@media(min-width:760px){footer .cols{grid-template-columns:1.5fr 1fr 1fr}}
-footer h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--dim);margin:0 0 12px;font-weight:500}
-footer a{color:var(--dim)}
-footer a:hover{color:var(--acc)}
-footer p{margin:0;font-size:13.5px;color:var(--dim2)}
-
-.rv{opacity:0;transform:translateY(12px);transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1)}
-.rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
-</style>
+<link rel="stylesheet" href="stil-sayta.css">
 </head>
 <body>
 
 <header id="hdr">
   <div class="wrap nav">
-    <span class="mark">видно<i>.</i>снаружи</span>
+    <a class="mark" href="index.html">видно<i>.</i>снаружи</a>
     <nav class="navlinks">
+      <a href="issledovanie.html">Исследование</a>
+      <a href="karta-strogosti.html">Карта строгости</a>
+      <a href="razbor-odin-ip-dve-pravdy.html">Разборы</a>
       <a href="#how">Как это работает</a>
       <a href="#offer">Стоимость</a>
-      <a href="#faq">Вопросы</a>
-      <a href="issledovanie.html">Исследование</a>
     </nav>
-    <a class="btn s" href="https://t.me/totallyaverage">Написать нам</a>
+    <a class="btn s" href="https://t.me/totallyaverage">Проверить адрес</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobmenu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button>
   </div>
+  <nav class="mobmenu" id="mobmenu">
+    <a href="issledovanie.html">Исследование</a>
+    <a href="karta-strogosti.html">Карта строгости</a>
+    <a href="razbor-odin-ip-dve-pravdy.html">Разборы</a>
+    <a href="#how">Как это работает</a>
+    <a href="#offer">Стоимость</a>
+    <a href="#faq">Вопросы</a>
+    <a class="btn" href="https://t.me/totallyaverage">Проверить адрес</a>
+  </nav>
 </header>
 
 <section class="hero">
@@ -190,7 +47,7 @@ footer p{margin:0;font-size:13.5px;color:var(--dim2)}
         <p class="lead">Проверяем, что о вас видно снаружи: адрес, окружение, платёжные данные.
         Находим расхождения и следим за изменениями, пока они не дали о себе знать.</p>
         <div class="btnrow">
-          <a class="btn" href="https://t.me/totallyaverage">Проверить адрес</a>
+          <a class="btn" href="https://t.me/totallyaverage?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81.%20%D0%9E%D1%82%D0%B2%D0%B5%D1%87%D0%B0%D1%8E%20%D0%BD%D0%B0%20%D0%BF%D1%8F%D1%82%D1%8C%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2%3A%0A%0A1.%20%D0%A7%D1%82%D0%BE%20%D0%B7%D0%B0%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D0%B8%20%D1%87%D0%B5%D0%B9%20%28%D0%B2%D0%B0%D1%88%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%2C%20%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%2C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0%29%3A%0A2.%20%D0%9A%D0%B0%D0%BA%D0%B8%D0%B5%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B%20%D0%B8%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D1%8B%20%D0%B2%D0%B0%D0%B6%D0%BD%D1%8B%3A%0A3.%20%D0%A7%D1%82%D0%BE%20%D0%BD%D0%B5%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82%20%28%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0%20%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%2C%20%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0%29%3A%0A4.%20%D0%A7%D1%82%D0%BE%20%D0%BC%D0%B5%D0%BD%D1%8F%D0%BB%D0%BE%D1%81%D1%8C%20%D0%B7%D0%B0%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86%20%28%D0%B0%D0%B4%D1%80%D0%B5%D1%81%2C%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%2C%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE%29%3A%0A5.%20%D0%A7%D1%82%D0%BE%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%28%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%B0%2C%20%D0%BF%D0%BB%D0%B0%D0%BD%2C%20%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%29%3A">Проверить адрес</a>
           <a class="btn ghost" href="#how">Как это работает</a>
         </div>
         <div class="metrics">
@@ -213,6 +70,32 @@ footer p{margin:0;font-size:13.5px;color:var(--dim2)}
 </section>
 
 <section id="pain">
+  <div class="wrap">
+    <p class="label rv">кого мы разбираем</p>
+    <h2 class="rv" style="max-width:22em">Четырнадцать сервисов, по которым есть разбор документов</h2>
+    <p class="servisy-cap rv">Найдите свой: по каждому — что он требует по своим же правилам
+    и что считается нарушением. Полный разбор с дословными цитатами — в
+    <a href="karta-strogosti.html">карте строгости</a>.</p>
+    <div class="servisy rv">
+      <span class="logo-tile" title="Steam"><img src="logo/steam.svg" alt="Steam" loading="lazy"></span>
+      <span class="logo-tile" title="Google Play"><img src="logo/google-play.svg" alt="Google Play" loading="lazy"></span>
+      <span class="logo-tile" title="Netflix"><img src="logo/netflix.svg" alt="Netflix" loading="lazy"></span>
+      <span class="logo-tile" title="Spotify"><img src="logo/spotify.svg" alt="Spotify" loading="lazy"></span>
+      <span class="logo-tile" title="Claude"><img src="logo/claude.svg" alt="Claude" loading="lazy"></span>
+      <span class="logo-tile" title="ChatGPT"><img src="logo/chatgpt.svg" alt="ChatGPT" loading="lazy"></span>
+      <span class="logo-tile" title="Apple ID"><img src="logo/apple.svg" alt="Apple ID" loading="lazy"></span>
+      <span class="logo-tile" title="Stripe"><img src="logo/stripe.svg" alt="Stripe" loading="lazy"></span>
+      <span class="logo-tile" title="Upwork"><img src="logo/upwork.svg" alt="Upwork" loading="lazy"></span>
+      <span class="logo-tile" title="Revolut"><img src="logo/revolut.svg" alt="Revolut" loading="lazy"></span>
+      <span class="logo-tile" title="Binance"><img src="logo/binance.svg" alt="Binance" loading="lazy"></span>
+      <span class="logo-tile" title="Bybit"><img src="logo/bybit.svg" alt="Bybit" loading="lazy"></span>
+      <span class="logo-tile" title="Coinbase"><img src="logo/coinbase.svg" alt="Coinbase" loading="lazy"></span>
+      <span class="logo-tile" title="Midjourney"><img src="logo/midjourney.svg" alt="Midjourney" loading="lazy"></span>
+    </div>
+  </div>
+</section>
+
+<section id="pain2">
   <div class="wrap">
     <p class="label rv">с чем приходят</p>
     <h2 class="rv" style="max-width:16em">Три причины, по которым к нам пишут</h2>
@@ -362,7 +245,8 @@ footer p{margin:0;font-size:13.5px;color:var(--dim2)}
     <h2>Пришлите адрес — ответим, что по нему видно</h2>
     <p class="lead">Первая проверка бесплатная. Дальше решите сами.</p>
     <div class="btnrow" style="justify-content:center">
-      <a class="btn" href="https://t.me/totallyaverage">Написать в Telegram</a>
+      <a class="btn" href="https://t.me/totallyaverage?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81.%20%D0%9E%D1%82%D0%B2%D0%B5%D1%87%D0%B0%D1%8E%20%D0%BD%D0%B0%20%D0%BF%D1%8F%D1%82%D1%8C%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2%3A%0A%0A1.%20%D0%A7%D1%82%D0%BE%20%D0%B7%D0%B0%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D0%B8%20%D1%87%D0%B5%D0%B9%20%28%D0%B2%D0%B0%D1%88%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%2C%20%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%2C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0%29%3A%0A2.%20%D0%9A%D0%B0%D0%BA%D0%B8%D0%B5%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B%20%D0%B8%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D1%8B%20%D0%B2%D0%B0%D0%B6%D0%BD%D1%8B%3A%0A3.%20%D0%A7%D1%82%D0%BE%20%D0%BD%D0%B5%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82%20%28%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0%20%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%2C%20%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0%29%3A%0A4.%20%D0%A7%D1%82%D0%BE%20%D0%BC%D0%B5%D0%BD%D1%8F%D0%BB%D0%BE%D1%81%D1%8C%20%D0%B7%D0%B0%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86%20%28%D0%B0%D0%B4%D1%80%D0%B5%D1%81%2C%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%2C%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE%29%3A%0A5.%20%D0%A7%D1%82%D0%BE%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%28%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%B0%2C%20%D0%BF%D0%BB%D0%B0%D0%BD%2C%20%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%29%3A">Ответить на 5 вопросов</a>
+      <a class="btn ghost" href="https://t.me/totallyaverage">Написать без анкеты</a>
     </div>
     <p class="small dim" style="margin-top:22px">Отвечаем в течение дня.</p>
   </div>
@@ -376,14 +260,17 @@ footer p{margin:0;font-size:13.5px;color:var(--dim2)}
       Гарантий по решениям сторонних сервисов не даём.</p>
     </div>
     <div>
-      <h4>Разделы</h4>
-      <p><a href="#how">Как это работает</a><br><a href="#offer">Стоимость</a><br><a href="#faq">Вопросы</a></p>
+      <h4>Разборы</h4>
+      <p><a href="razbor-odin-ip-dve-pravdy.html">Почему базы расходятся</a><br>
+      <a href="razbor-pochemu-ne-prohodit-oplata.html">Почему не проходит оплата</a><br>
+      <a href="razbor-google-play-strana.html">Google Play и смена страны</a></p>
     </div>
     <div>
       <h4>Материалы</h4>
       <p><a href="issledovanie.html">Исследование</a><br>
       <a href="karta-strogosti.html">Карта строгости сервисов</a><br>
-      <a href="razbor-odin-ip-dve-pravdy.html">Почему базы расходятся</a></p>
+      <a href="index.html#how">Как это работает</a><br>
+      <a href="index.html#offer">Стоимость</a></p>
     </div>
   </div>
 </footer>
@@ -401,6 +288,24 @@ footer p{margin:0;font-size:13.5px;color:var(--dim2)}
   var h = document.getElementById('hdr');
   var f = function(){ h.classList.toggle('on', window.scrollY > 6); };
   f(); window.addEventListener('scroll', f, {passive:true});
+})();
+(function(){
+  var b = document.getElementById('burger'), m = document.getElementById('mobmenu');
+  if(!b || !m) return;
+  b.addEventListener('click', function(){
+    var open = m.classList.toggle('on');
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  m.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      m.classList.remove('on'); b.setAttribute('aria-expanded','false');
+    });
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && m.classList.contains('on')){
+      m.classList.remove('on'); b.setAttribute('aria-expanded','false'); b.focus();
+    }
+  });
 })();
 </script>
 

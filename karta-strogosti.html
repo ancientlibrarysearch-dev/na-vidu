@@ -3,238 +3,313 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Карта строгости: что сервисы официально говорят про VPN, адрес и оплату</title>
-<meta name="description" content="Десять сервисов по их собственным документам: где маскировка адреса запрещена прямо (Steam), где VPN назван причиной отказа (Google Play, Netflix, Spotify), где слова «VPN» нет вовсе (Claude, ChatGPT), и где VPN разрешён (Upwork). Дословные цитаты.">
-<meta property="og:title" content="Карта строгости: что сервисы официально говорят про VPN, адрес и оплату">
-<meta property="og:description" content="Десять сервисов по их собственным документам: где маскировка адреса запрещена прямо (Steam), где VPN назван причиной отказа (Google Play, Netflix, Spotify), где слова «VPN» нет вовсе (Claude, ChatGPT), и где VPN разрешён (Upwork). Дословные цитаты.">
+<title>Карта строгости: что сервисы официально говорят про адрес, регион и оплату</title>
+<meta name="description" content="Четырнадцать сервисов по их собственным документам: где VPN запрещён прямо, где назван причиной отказа, а где правила сформулированы через регион и платёж. С дословными цитатами.">
+<meta property="og:title" content="Карта строгости: что сервисы официально говорят про адрес, регион и оплату">
+<meta property="og:description" content="Четырнадцать сервисов по их собственным документам: где VPN запрещён прямо, где назван причиной отказа, а где правила сформулированы через регион и платёж. С дословными цитатами.">
 <meta property="og:type" content="article">
-<style>
-:root{--bg:#0c0e12;--panel:#15181e;--panel2:#11141a;--line:#272c35;--fg:#eef1f5;--dim:#98a0ac;
---acc:#5ed28c;--warn:#f0c45a;--bad:#ee6a5e;}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,
-"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:880px;margin:0 auto;padding:24px 20px 80px}
-nav{margin:0 0 10px;font-size:14px}
-nav a{color:var(--dim);text-decoration:none;margin-right:14px}
-nav a:hover{color:var(--acc)}
-h1{font-size:clamp(26px,5vw,40px);line-height:1.14;margin:18px 0 14px;letter-spacing:-.6px}
-h2{font-size:clamp(20px,3.6vw,26px);margin:44px 0 12px;letter-spacing:-.4px}
-h3{font-size:18px;margin:26px 0 8px}
-p{margin:0 0 14px}
-.lead{font-size:18px;color:var(--dim)}
-.muted{color:var(--dim)}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0}
-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--dim);font-weight:600}
-.ok{color:var(--acc)}.no{color:var(--bad)}.mid{color:var(--warn)}
-ul,ol{margin:0 0 14px;padding-left:22px}li{margin:7px 0}
-blockquote{margin:12px 0;padding:12px 16px;background:var(--panel2);border-left:3px solid #3a4453;
-border-radius:0 10px 10px 0;color:#dfe4ea;font-size:15px}
-blockquote cite{display:block;margin-top:6px;color:var(--dim);font-size:13px;font-style:normal}
-.tag{display:inline-block;font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--acc);
-border:1px solid #2c4a38;background:#101a14;border-radius:999px;padding:3px 10px;margin-bottom:8px}
-.tag.i{color:#ff9d92;border-color:#5a2a26;background:#1b100f}
-.tag.ii{color:#f0c45a;border-color:#5a4a20;background:#1a1710}
-.tag.iii{color:#8fc6ff;border-color:#26415a;background:#101820}
-.tag.iv{color:#5ed28c;border-color:#2c4a38;background:#101a14}
-.note{border-left:3px solid var(--warn);padding-left:14px;color:var(--dim)}
-.cta{display:inline-block;background:var(--acc);color:#06210f;font-weight:700;padding:14px 22px;
-border-radius:12px;text-decoration:none;margin:8px 10px 8px 0}
-.cta.second{background:transparent;color:var(--fg);border:1px solid var(--line)}
-footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:14px}
-a{color:var(--acc)}
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
-</style>
-<link rel="stylesheet" href="stil-knopok.css">
+<meta name="theme-color" content="#08090a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308090a'/><circle cx='50' cy='50' r='24' fill='none' stroke='%2350d183' stroke-width='9'/><circle cx='50' cy='50' r='7' fill='%2350d183'/></svg>">
+<link rel="stylesheet" href="stil-sayta.css">
 </head>
 <body>
-<div class="wrap">
-<nav><a href="index.html">Главная</a><a href="issledovanie.html">Исследование</a><a href="karta-strogosti.html">Карта строгости</a><a href="razbor-odin-ip-dve-pravdy.html">Один адрес — две правды</a><a href="razbor-pochemu-ne-prohodit-oplata.html">Почему не проходит оплата</a><a href="razbor-google-play-strana.html">Google Play: смена страны</a></nav>
+<header id="hdr"><div class="wrap nav"><a class="mark" href="index.html">видно<i>.</i>снаружи</a><nav class="navlinks"><a href="index.html">Как это работает</a><a href="issledovanie.html">Исследование</a><a href="karta-strogosti.html" aria-current="page">Карта строгости</a><a href="razbor-odin-ip-dve-pravdy.html">Разборы</a></nav><a class="btn s" href="https://t.me/totallyaverage">Проверить адрес</a><button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobmenu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button></div><nav class="mobmenu" id="mobmenu"><a href="index.html">Как это работает</a><a href="issledovanie.html">Исследование</a><a href="karta-strogosti.html" aria-current="page">Карта строгости</a><a href="razbor-odin-ip-dve-pravdy.html">Разборы</a><a class="btn" href="https://t.me/totallyaverage">Проверить адрес</a></nav></header>
 
-<span class="tag">справочник</span>
-<h1>Карта строгости: что сервисы официально говорят про адрес, регион и оплату</h1>
-<p class="lead">Десять сервисов, разобранных по их собственным документам. Везде, где можно, —
-дословные цитаты. Там, где вывод наш, так и написано: «наша оценка».</p>
-
-<div class="card">
-<p><strong>Зачем эта карта.</strong> Люди делят сервисы на «лояльные» и «строгие» по слухам.
-На самом деле разница видна в документах, и она не в слове «VPN»: у одних запрет написан прямо,
-у других его нет вовсе, но есть требование находиться в стране. Это разные вещи и разные
-последствия.</p>
-<p class="muted" style="margin:0">Карта описывает, <strong>что требует сервис</strong>. Мы не даём
-инструкций по обходу этих требований.</p>
-</div>
-
-<h2>Шкала: четыре категории</h2>
-<table>
-<thead><tr><th>Категория</th><th>Что в документах</th><th>Кто сюда попадает</th></tr></thead>
-<tbody>
-<tr><td><span class="tag i">I</span> прямой запрет</td><td>маскировка адреса запрещена прямым
-текстом, санкции названы</td><td>Steam</td></tr>
-<tr><td><span class="tag ii">II</span> называют VPN причиной</td><td>есть предписание отключить VPN
-или ошибка с этим словом</td><td>Google Play, Netflix, Spotify</td></tr>
-<tr><td><span class="tag iii">III</span> слова «VPN» нет</td><td>запрет обхода региональных
-ограничений, требование находиться в стране</td><td>Claude, ChatGPT, Apple ID, Stripe</td></tr>
-<tr><td><span class="tag iv">IV</span> прямо разрешают</td><td>VPN разрешён при честной стране
-в профиле</td><td>Upwork</td></tr>
-</tbody>
-</table>
-
-<h2><span class="tag i">I</span> Прямой запрет</h2>
-<h3>Steam</h3>
-<blockquote>«You agree that you will not use <strong>IP proxying or other methods to disguise the
-place of your residence</strong>…»
-<cite>Steam Subscriber Agreement, ред. 10.09.2026, п. 3.A</cite></blockquote>
-<blockquote>«using a proxy or VPN to disguise your location is <strong>strictly against the Steam
-Terms of Service</strong> and may result in restrictions on your Steam account»
-<cite>Steam, Region Restrictions FAQ</cite></blockquote>
-<blockquote>«All transactions that are initiated through anonymous proxies will be declined by Steam»
-<cite>Steam, там же</cite></blockquote>
-<blockquote>«<strong>no refund</strong>, including of any Subscription fees or of any unused funds
-in your Steam Wallet»
-<cite>Steam, о санкции за нарушение соглашения</cite></blockquote>
-<p class="muted">Наша оценка: самый жёсткий из проверенных. Формулировка «без возврата средств» —
-редкость даже среди тех, кто VPN не любит.</p>
-
-<h2><span class="tag ii">II</span> Прямо называют VPN причиной</h2>
-<h3>Google Play</h3>
-<blockquote>«После того как вы впервые укажете страну в Google Play, изменить ее можно будет
-не раньше чем через <strong>90 дней</strong>»
-<cite>Google Play, справка о смене страны</cite></blockquote>
-<blockquote>«You aren't currently in a new country. This is based on <strong>your IP address</strong>»
-и «…Or <strong>if you are using a VPN</strong> or other proxy Services»
-<cite>Google Play, причины отказа в смене страны</cite></blockquote>
-<blockquote>«Google Play can't be used with… <strong>Virtual Credit Cards (VCC)</strong>»
-<cite>Google Play, справка о способах оплаты</cite></blockquote>
-<p class="muted">Наша оценка: самый чувствительный к адресу канал из проверенных — VPN назван прямо,
-смена страны заперта на 90 дней, виртуальные карты не принимаются вовсе.</p>
-
-<h3>Netflix</h3>
-<blockquote>с VPN «you may only be shown TV shows and movies Netflix has <strong>worldwide
-licensing</strong> for»
-<cite>Netflix, справка</cite></blockquote>
-<blockquote>ошибка <strong>E106</strong>: «You seem to be using a VPN or proxy. Please turn off…»
-<cite>Netflix, сообщение об ошибке</cite></blockquote>
-<p class="muted">Наша оценка: VPN не мешает войти, но лишает подписку смысла — каталог урезается,
-а домохозяйство привязано к адресу.</p>
-
-<h3>Spotify</h3>
-<blockquote>«You're using a VPN» → предписание «<strong>disable your VPN</strong>»
-<cite>Spotify, статья «Abuse detection»</cite></blockquote>
-<p class="muted">Наша оценка: отдельной политики «VPN запрещён» нет; практика — блокировка запросов,
-а не аккаунта. Бан за VPN компания публично не подтверждала.</p>
-
-<h2><span class="tag iii">III</span> Слова «VPN» нет, но есть региональные правила</h2>
-<h3>Claude (Anthropic)</h3>
-<p><strong>Слов «VPN» и «proxy» в официальных документах нет</strong> — проверены AUP, Consumer
-Terms, Supported Regions Policy, Usage Policy. Зато есть запрет обхода региональной политики и
-требование <strong>физически находиться</strong> в поддерживаемой стране.</p>
-<blockquote>«Resell, <strong>proxy</strong>, or otherwise… consumer subscriptions»
-<cite>Anthropic, Usage Policy — здесь «proxy» в смысле перепродажи доступа, а не сети</cite></blockquote>
-<p class="muted">Наша оценка: риск не в слове «VPN», а в смене страны и платёжного звена. Поддержка
-требует, чтобы биллинг-адрес совпадал со страной карты.</p>
-
-<h3>ChatGPT (OpenAI)</h3>
-<p><strong>Слов «VPN» и «proxy» в Terms of Use и Usage Policies нет вообще.</strong> В справке VPN
-упоминается дважды — как помеха при ошибке «Unusual activity has been detected from your device»
-(«Disable your VPN») и при 3-D Secure.</p>
-<p class="muted">Наша оценка: главный фактор — <strong>регион выпуска карты</strong> и резкая смена
-адреса; сам факт VPN в правилах не назван.</p>
-
-<h3>Apple ID</h3>
-<p>Прямого запрета нет. Карта продавцу не передаётся: передаются <strong>Subscriber ID и
-страна</strong>.</p>
-<p class="muted">Наша оценка: мягче остальных по требованиям к адресу, но санкция при нарушениях —
-вплоть до блокировки аккаунта.</p>
-
-<h3>Stripe (платёжный слой)</h3>
-<p>Не про VPN. В данных каждого платежа есть блок IP: адрес, страна, регион, тип подключения,
-признак прокси/Tor и <strong>расстояние между адресом и биллинг-адресом</strong>. Правило «карта и
-IP из разных стран» Stripe прямо предлагает проверять, с готовым примером.</p>
-<p class="muted">Наша оценка: именно здесь «видно» несовпадение адреса и платёжных данных — проблема
-может проявиться не в правилах сервиса, а в платёжном слое.</p>
-
-<h2><span class="tag iv">IV</span> Прямо разрешают</h2>
-<h3>Upwork</h3>
-<blockquote>«<strong>Yes, using a VPN is allowed</strong>, as long as: You're still accurately
-representing your country of residence on your profile; Your VPN use doesn't mimic suspicious
-behavior, like <strong>rapidly switching countries</strong>…»
-<cite>Upwork, справка «Can I use a VPN on Upwork?»</cite></blockquote>
-<blockquote>«<strong>Keep your VPN region consistent with your real physical location</strong>»
-<cite>Upwork, там же</cite></blockquote>
-<p class="muted">Наша оценка: критерий не «есть VPN / нет VPN», а совпадает ли заявленное с реальным.</p>
-
-<h2>Особая пометка: Revolut</h2>
-<p>Про VPN не сказано; требование — <strong>проживание</strong> в поддерживаемой стране. При переезде
-в неподдерживаемую страну аккаунт закрывают. Это пример требования, которое адресом не решается.</p>
-
-<h2>Сводная таблица</h2>
-<table>
-<thead><tr><th>Сервис</th><th>Категория</th><th>Что сказано официально</th><th>Ключевой риск</th></tr></thead>
-<tbody>
-<tr><td>Steam</td><td class="no">I</td><td>прямой запрет IP-прокси в соглашении</td>
-<td>лишение аккаунта <strong>без возврата средств</strong></td></tr>
-<tr><td>Google Play</td><td class="mid">II</td><td>VPN назван причиной отказа; VCC не принимаются</td>
-<td>смена страны заперта на 90 дней</td></tr>
-<tr><td>Netflix</td><td class="mid">II</td><td>ошибка E106 «вы, похоже, с VPN»</td>
-<td>подписка теряет смысл: каталог урезается</td></tr>
-<tr><td>Spotify</td><td class="mid">II</td><td>«disable your VPN»</td><td>блокировка запросов</td></tr>
-<tr><td>Claude</td><td>III</td><td>слова «VPN» нет; требование физического нахождения</td>
-<td>смена страны и платёжного звена</td></tr>
-<tr><td>ChatGPT</td><td>III</td><td>слов «VPN»/«proxy» нет; карта из поддерживаемой страны</td>
-<td>регион выпуска карты</td></tr>
-<tr><td>Apple ID</td><td>III</td><td>прямого запрета нет; карта не передаётся</td><td>блокировка при нарушениях</td></tr>
-<tr><td>Stripe</td><td>III</td><td>не про VPN: несовпадение стран карты и IP</td>
-<td>расхождение адреса и платежа</td></tr>
-<tr><td>Upwork</td><td class="ok">IV</td><td>VPN разрешён при честной стране</td>
-<td>искажение местоположения</td></tr>
-<tr><td>Revolut</td><td>особая</td><td>требование проживания</td><td>для РФ не вариант</td></tr>
-</tbody>
-</table>
-
-<h2>Два заблуждения, которые эта карта разбивает</h2>
-<ol>
-<li><strong>«Раз слова VPN нет, значит можно».</strong> У Claude и ChatGPT его нет именно потому,
-что запрет сформулирован через регион и платёж. Отсутствие слова не означает отсутствие правила.</li>
-<li><strong>«У меня чистый адрес, значит всё в порядке».</strong> В наших замерах адрес
-одновременно «чистый» в одной базе и «VPN, риск 66» — в другой. Одной цифры недостаточно.</li>
-</ol>
-
-<p><a class="btn" href="index.html#zayavka">Проверить свой адрес</a></p>
-
-
-
-<div class="block-cta">
-  <div>
-    <h3 style="margin:0 0 6px">Проверим ваш адрес</h3>
-    <p class="small muted" style="margin:0">Первая проверка бесплатная. Напишите адрес, ответим,
-    что по нему видно.</p>
+<section class="hero first">
+  <div class="wrap">
+    <p class="label rv">справочник</p>
+    <h1 class="rv">Что сервисы официально говорят про адрес, регион и оплату</h1>
+    <p class="lead rv">Четырнадцать сервисов, разобранных по их собственным документам: соглашения, справки, политики. Везде, где возможно — дословные цитаты. Там, где вывод наш, так и написано: «наша оценка».</p>
+    <div class="btnrow rv"><a class="btn" href="https://t.me/totallyaverage">Проверить адрес</a><a class="btn ghost" href="#tablica">Сводная таблица</a></div>
+    
   </div>
-  <a class="btn" href="https://t.me/totallyaverage">Написать в Telegram</a>
-</div>
+</section>
+<section>
+  <div class="wrap">
+    <p class="label rv">шкала</p>
+    <h2 class="rv">Четыре категории строгости</h2>
+    <p class="rv" style="max-width:60em">Разница между сервисами видна в документах, и она не в слове
+    «VPN»: у одних запрет написан прямо, у других слова нет вовсе, но есть требование находиться
+    в стране. Это разные вещи и разные последствия.</p>
+    <div class="tablewrap rv" style="margin-top:32px">
+      <table>
+        <thead><tr><th>Категория</th><th>Что в документах</th><th>Кто сюда попадает</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag i">I</span> Прямой запрет</td><td>маскировка адреса запрещена прямым текстом, санкции названы</td><td>Steam</td></tr><tr><td><span class="tag ii">II</span> VPN назван причиной</td><td>есть предписание отключить VPN или ошибка с этим словом</td><td>Google Play, Netflix, Spotify</td></tr><tr><td><span class="tag iii">III</span> Слова «VPN» нет</td><td>запрет обхода региональных правил, требование находиться в стране</td><td>Claude, ChatGPT, Apple ID, Stripe</td></tr><tr><td><span class="tag iv">IV</span> Прямо разрешают</td><td>VPN разрешён при честно указанной стране в профиле</td><td>Upwork</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note rv" style="margin-top:22px">Четыре категории описывают, что сервис требует
+    <b>от адреса и региона</b>. Два сервиса в шкалу не укладываются: <b>Revolut</b> и
+    <b>Coinbase</b> требуют не адреса, а проживания в поддерживаемой стране, — это адресом
+    не решается. У <b>Midjourney</b> запрета нет вовсе, зато есть право заблокировать аккаунт
+    без объяснения причин. Карта описывает, <b>что требует сервис</b>: инструкций по обходу
+    этих требований мы не даём и не публикуем.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label rv">разбор по сервисам</p>
+    <h2 class="rv">Четырнадцать сервисов</h2>
+    <p class="rv" style="max-width:60em">Нажмите «Дословные цитаты», чтобы увидеть формулировки
+    из документов сервиса.</p>
+    <div style="margin-top:32px">
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/steam.svg" alt="Steam" loading="lazy"></span>
+        <span class="tag i">I</span><h3 style="margin:0">Steam</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> запрет IP-прокси в соглашении (п. 3.A); транзакции через анонимные прокси отклоняются</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> лишение аккаунта <b>без возврата средств</b>, включая остаток кошелька</p>
+      <details><summary>Дословные цитаты (4)</summary><div class="a"><blockquote>«You agree that you will not use IP proxying or other methods to disguise the place of your residence…»<cite>Steam Subscriber Agreement, ред. 10.09.2026, п. 3.A</cite></blockquote><blockquote>«using a proxy or VPN to disguise your location is strictly against the Steam Terms of Service and may result in restrictions on your Steam account»<cite>Steam, Region Restrictions FAQ</cite></blockquote><blockquote>«All transactions that are initiated through anonymous proxies will be declined by Steam»<cite>Steam, Region Restrictions FAQ</cite></blockquote><blockquote>«no refund, including of any Subscription fees or of any unused funds in your Steam Wallet»<cite>Steam, о санкции за нарушение соглашения</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/google-play.svg" alt="Google Play" loading="lazy"></span>
+        <span class="tag ii">II</span><h3 style="margin:0">Google Play</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> VPN назван причиной отказа в смене страны; виртуальные карты не принимаются</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> смена страны заперта на 90 дней</p>
+      <details><summary>Дословные цитаты (3)</summary><div class="a"><blockquote>«После того как вы впервые укажете страну в Google Play, изменить ее можно будет не раньше чем через 90 дней»<cite>Google Play, справка о смене страны</cite></blockquote><blockquote>«You aren't currently in a new country. This is based on your IP address… Or if you are using a VPN or other proxy Services»<cite>Google Play, причины отказа в смене страны</cite></blockquote><blockquote>«Google Play can't be used with… Virtual Credit Cards (VCC)»<cite>Google Play, справка о способах оплаты</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/netflix.svg" alt="Netflix" loading="lazy"></span>
+        <span class="tag ii">II</span><h3 style="margin:0">Netflix</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> ошибка E106 называет VPN и прокси; каталог зависит от региона</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> подписка теряет смысл: каталог урезается</p>
+      <details><summary>Дословные цитаты (2)</summary><div class="a"><blockquote>«You seem to be using a VPN or proxy. Please turn off…»<cite>Netflix, сообщение об ошибке E106</cite></blockquote><blockquote>«you may only be shown TV shows and movies Netflix has worldwide licensing for»<cite>Netflix, справка</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/spotify.svg" alt="Spotify" loading="lazy"></span>
+        <span class="tag ii">II</span><h3 style="margin:0">Spotify</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> в статье о выявлении злоупотреблений — предписание отключить VPN</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> блокировка запросов, отдельной политики «VPN запрещён» нет</p>
+      <details><summary>Дословные цитаты (1)</summary><div class="a"><blockquote>«You're using a VPN… disable your VPN»<cite>Spotify, статья «Abuse detection»</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/claude.svg" alt="Claude" loading="lazy"></span>
+        <span class="tag iii">III</span><h3 style="margin:0">Claude</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> слов «VPN» и «proxy» в документах нет; требуется <b>физически находиться</b> в поддерживаемой стране</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> смена страны и платёжного звена</p>
+      <details><summary>Дословные цитаты (1)</summary><div class="a"><blockquote>«Resell, proxy, or otherwise… consumer subscriptions»<cite>Anthropic, Usage Policy — «proxy» здесь в смысле перепродажи доступа, а не сети</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/chatgpt.svg" alt="ChatGPT" loading="lazy"></span>
+        <span class="tag iii">III</span><h3 style="margin:0">ChatGPT</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> слов «VPN» и «proxy» в условиях нет; карта должна быть из поддерживаемой страны</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> регион выпуска карты, резкая смена адреса</p>
+      <details><summary>Дословные цитаты (1)</summary><div class="a"><blockquote>«Disable your VPN»<cite>OpenAI, справка при ошибке «Unusual activity has been detected from your device»</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/apple.svg" alt="Apple ID" loading="lazy"></span>
+        <span class="tag iii">III</span><h3 style="margin:0">Apple ID</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> прямого запрета нет; карта продавцу не передаётся — передаются Subscriber ID и страна</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> блокировка при нарушениях</p>
+      <details><summary>Дословных цитат нет</summary><div class="a">Слова «VPN» и «proxy» в проверенных документах отсутствуют — это и есть факт, который важен для вывода.</div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/stripe.svg" alt="Stripe" loading="lazy"></span>
+        <span class="tag iii">III</span><h3 style="margin:0">Stripe</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> не про VPN: в данных платежа видно несовпадение стран карты и адреса</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> расхождение адреса и платёжных данных</p>
+      <details><summary>Дословные цитаты (1)</summary><div class="a"><blockquote>«расстояние между адресом и биллинг-адресом»<cite>Stripe, описание данных платежа (блок IP)</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/upwork.svg" alt="Upwork" loading="lazy"></span>
+        <span class="tag iv">IV</span><h3 style="margin:0">Upwork</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> VPN разрешён при честной стране в профиле</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> искажение реального местоположения</p>
+      <details><summary>Дословные цитаты (2)</summary><div class="a"><blockquote>«Yes, using a VPN is allowed, as long as: You're still accurately representing your country of residence on your profile; Your VPN use doesn't mimic suspicious behavior, like rapidly switching countries…»<cite>Upwork, справка «Can I use a VPN on Upwork?»</cite></blockquote><blockquote>«Keep your VPN region consistent with your real physical location»<cite>Upwork, там же</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/binance.svg" alt="Binance" loading="lazy"></span>
+        <span class="tag i">I</span><h3 style="margin:0">Binance</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> прямой запрет обходить ограничения, <b>в том числе через virtual private network</b>; запрет быть резидентом запрещённой юрисдикции</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> заморозка средств и аккаунта до выяснения; список запрещённых стран не опубликован открыто</p>
+      <details><summary>Дословные цитаты (3)</summary><div class="a"><blockquote>«You must not attempt in any way to circumvent any such restriction, including by use of any virtual private network to modify your internet protocol address.»<cite>Binance Terms of Use, ред. 21.07.2026, п. 25.5 — слова «VPN» в документе нет, только полная форма</cite></blockquote><blockquote>«not be located, incorporated, otherwise established in, resident of, or (to the extent applicable) a citizen of or operating in a jurisdiction… listed in our List of Prohibited Countries.»<cite>Binance Terms of Use, п. 2.1(f)</cite></blockquote><blockquote>«We may, but have no obligation to, place a hold on the affected funds and your Binance Account…»<cite>Binance Terms of Use, п. 25.4 «Unlawful Possession»</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/bybit.svg" alt="Bybit" loading="lazy"></span>
+        <span class="tag iii">III</span><h3 style="margin:0">Bybit</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> слова «VPN» нет; запрещены <b>неверные сведения о местоположении и месте жительства</b>, есть список исключённых юрисдикций</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> немедленное закрытие аккаунта с ликвидацией позиций; блокировка транзакций и средств</p>
+      <details><summary>Дословные цитаты (3)</summary><div class="a"><blockquote>«if it is determined that you have given false representations of your location or place of residence … including termination of any Account immediately and liquidating any open positions»<cite>Bybit Platform Terms and Conditions, ред. 02.09.2026, п. 11.3</cite></blockquote><blockquote>«We also do not offer services or products to Users in a few excluded jurisdictions including the Australia, United States, the Chinese Mainland, Hong Kong, Singapore, Canada, France, North Korea, Cuba, Iran, Uzbekistan, Russian-controlled regions of Ukraine (currently including the Crimea, Donetsk, and Luhansk regions), Sevastopol, Sudan, Syria…»<cite>Bybit, там же: Россия как государство в перечне НЕ названа — названы Крым, Донецк, Луганск и Севастополь</cite></blockquote><blockquote>«We may, at any time and at our sole discretion, limit, suspend, restrict, freeze or terminate the Account…»<cite>Bybit, п. 23.2</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/coinbase.svg" alt="Coinbase" loading="lazy"></span>
+        <span class="tag zero">особая</span><h3 style="margin:0">Coinbase</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> слова «VPN» нет; в полученной редакции — требование <b>проживания в США</b> (редакция для США от 22.07.2026)</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> блокировка аккаунта без объяснения причин; на вывод средств после закрытия — 90 дней</p>
+      <details><summary>Дословные цитаты (2)</summary><div class="a"><blockquote>«To be eligible to use the Coinbase Services, you must be at least 18 years old, and reside in the United States.»<cite>Coinbase Individual User Agreement, ред. 22.07.2026, п. 1.1 — процитирована редакция для США; для других регионов текст другой, проверить не удалось</cite></blockquote><blockquote>«Coinbase may suspend, restrict, or terminate your access to any or all of the Coinbase Services… with immediate effect for any reason at its sole discretion…»<cite>Coinbase, п. 6.10 «Suspension, Termination, and Cancellation»</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/midjourney.svg" alt="Midjourney" loading="lazy"></span>
+        <span class="tag zero">особая</span><h3 style="margin:0">Midjourney</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> слов «VPN», «proxy», «virtual private network» нет ни в условиях, ни в правилах сообщества; требований к стране нет</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> блокировка «в любое время и по любой причине» без объяснения; это <b>вне шкалы</b> — запрета нет, но и разрешения нет</p>
+      <details><summary>Дословные цитаты (2)</summary><div class="a"><blockquote>«Midjourney reserves the right to suspend or ban Your access to the Services at any time, and for any reason.»<cite>Midjourney Terms of Service, ред. 27.05.2026, разд. 1 «Service Availability and Quality»</cite></blockquote><blockquote>«No results for "VPN"»<cite>поиск по всей справке docs.midjourney.com — так и отвечает на запрос «VPN»</cite></blockquote></div></details>
+    </div>
+    <div class="card rv">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px">
+        <span class="logo-tile"><img src="logo/revolut.svg" alt="Revolut" loading="lazy"></span>
+        <span class="tag zero">особая</span><h3 style="margin:0">Revolut</h3>
+      </div>
+      <p class="small" style="margin-bottom:6px"><b>Что требует:</b> требуется <b>проживание</b> в поддерживаемой стране; при переезде в неподдерживаемую аккаунт закрывают</p>
+      <p class="small dim" style="margin-bottom:0"><b>Ключевой риск:</b> для РФ не вариант: адресом не решается</p>
+      <details><summary>Дословных цитат нет</summary><div class="a">Про VPN в документах не сказано: требование сформулировано через проживание в поддерживаемой стране.</div></details>
+    </div></div>
+  </div>
+</section>
+
+<section id="tablica">
+  <div class="wrap">
+    <p class="label rv">итог</p>
+    <h2 class="rv">Сводная таблица</h2>
+    <div class="tablewrap rv" style="margin-top:32px">
+      <table>
+        <thead><tr><th>Сервис</th><th>Кат.</th><th>Что сказано официально</th><th>Ключевой риск</th></tr></thead>
+        <tbody>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/steam.svg" alt="" loading="lazy"></span><b>Steam</b></span></td><td><span class="tag i">I</span></td><td>запрет IP-прокси в соглашении (п. 3.A); транзакции через анонимные прокси отклоняются</td><td>лишение аккаунта <b>без возврата средств</b>, включая остаток кошелька</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/google-play.svg" alt="" loading="lazy"></span><b>Google Play</b></span></td><td><span class="tag ii">II</span></td><td>VPN назван причиной отказа в смене страны; виртуальные карты не принимаются</td><td>смена страны заперта на 90 дней</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/netflix.svg" alt="" loading="lazy"></span><b>Netflix</b></span></td><td><span class="tag ii">II</span></td><td>ошибка E106 называет VPN и прокси; каталог зависит от региона</td><td>подписка теряет смысл: каталог урезается</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/spotify.svg" alt="" loading="lazy"></span><b>Spotify</b></span></td><td><span class="tag ii">II</span></td><td>в статье о выявлении злоупотреблений — предписание отключить VPN</td><td>блокировка запросов, отдельной политики «VPN запрещён» нет</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/claude.svg" alt="" loading="lazy"></span><b>Claude</b></span></td><td><span class="tag iii">III</span></td><td>слов «VPN» и «proxy» в документах нет; требуется <b>физически находиться</b> в поддерживаемой стране</td><td>смена страны и платёжного звена</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/chatgpt.svg" alt="" loading="lazy"></span><b>ChatGPT</b></span></td><td><span class="tag iii">III</span></td><td>слов «VPN» и «proxy» в условиях нет; карта должна быть из поддерживаемой страны</td><td>регион выпуска карты, резкая смена адреса</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/apple.svg" alt="" loading="lazy"></span><b>Apple ID</b></span></td><td><span class="tag iii">III</span></td><td>прямого запрета нет; карта продавцу не передаётся — передаются Subscriber ID и страна</td><td>блокировка при нарушениях</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/stripe.svg" alt="" loading="lazy"></span><b>Stripe</b></span></td><td><span class="tag iii">III</span></td><td>не про VPN: в данных платежа видно несовпадение стран карты и адреса</td><td>расхождение адреса и платёжных данных</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/upwork.svg" alt="" loading="lazy"></span><b>Upwork</b></span></td><td><span class="tag iv">IV</span></td><td>VPN разрешён при честной стране в профиле</td><td>искажение реального местоположения</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/binance.svg" alt="" loading="lazy"></span><b>Binance</b></span></td><td><span class="tag i">I</span></td><td>прямой запрет обходить ограничения, <b>в том числе через virtual private network</b>; запрет быть резидентом запрещённой юрисдикции</td><td>заморозка средств и аккаунта до выяснения; список запрещённых стран не опубликован открыто</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/bybit.svg" alt="" loading="lazy"></span><b>Bybit</b></span></td><td><span class="tag iii">III</span></td><td>слова «VPN» нет; запрещены <b>неверные сведения о местоположении и месте жительства</b>, есть список исключённых юрисдикций</td><td>немедленное закрытие аккаунта с ликвидацией позиций; блокировка транзакций и средств</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/coinbase.svg" alt="" loading="lazy"></span><b>Coinbase</b></span></td><td><span class="tag zero">особая</span></td><td>слова «VPN» нет; в полученной редакции — требование <b>проживания в США</b> (редакция для США от 22.07.2026)</td><td>блокировка аккаунта без объяснения причин; на вывод средств после закрытия — 90 дней</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/midjourney.svg" alt="" loading="lazy"></span><b>Midjourney</b></span></td><td><span class="tag zero">особая</span></td><td>слов «VPN», «proxy», «virtual private network» нет ни в условиях, ни в правилах сообщества; требований к стране нет</td><td>блокировка «в любое время и по любой причине» без объяснения; это <b>вне шкалы</b> — запрета нет, но и разрешения нет</td></tr><tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/revolut.svg" alt="" loading="lazy"></span><b>Revolut</b></span></td><td><span class="tag zero">особая</span></td><td>требуется <b>проживание</b> в поддерживаемой стране; при переезде в неподдерживаемую аккаунт закрывают</td><td>для РФ не вариант: адресом не решается</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="rv" style="margin-top:52px">Два заблуждения, которые разбивает эта карта</h3>
+    <div class="g2 rv" style="margin-top:24px">
+      <div class="cell">
+        <p class="q">«Раз слова «VPN» нет, значит можно»</p>
+        <p>У Claude и ChatGPT слова нет именно потому, что правило сформулировано через регион
+        и платёжное звено. Отсутствие слова не означает отсутствие правила.</p>
+      </div>
+      <div class="cell">
+        <p class="q">«У меня чистый адрес, значит всё в порядке»</p>
+        <p>В наших замерах один адрес одновременно «чистый» в одной базе и «VPN, риск 66» —
+        в другой. Одной цифры недостаточно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="zayavka">
+  <div class="wrap">
+    <h2>Проверим ваш адрес</h2>
+    <p class="lead">Первая проверка бесплатная. Пришлите адрес — ответим, что по нему видно.</p>
+    <div class="btnrow">
+      <a class="btn" href="https://t.me/totallyaverage?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81.%20%D0%9E%D1%82%D0%B2%D0%B5%D1%87%D0%B0%D1%8E%20%D0%BD%D0%B0%20%D0%BF%D1%8F%D1%82%D1%8C%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2%3A%0A%0A1.%20%D0%A7%D1%82%D0%BE%20%D0%B7%D0%B0%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D0%B8%20%D1%87%D0%B5%D0%B9%20%28%D0%B2%D0%B0%D1%88%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%2C%20%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%2C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0%29%3A%0A2.%20%D0%9A%D0%B0%D0%BA%D0%B8%D0%B5%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B%20%D0%B8%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D1%8B%20%D0%B2%D0%B0%D0%B6%D0%BD%D1%8B%3A%0A3.%20%D0%A7%D1%82%D0%BE%20%D0%BD%D0%B5%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82%20%28%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0%20%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%2C%20%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0%29%3A%0A4.%20%D0%A7%D1%82%D0%BE%20%D0%BC%D0%B5%D0%BD%D1%8F%D0%BB%D0%BE%D1%81%D1%8C%20%D0%B7%D0%B0%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86%20%28%D0%B0%D0%B4%D1%80%D0%B5%D1%81%2C%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%2C%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE%29%3A%0A5.%20%D0%A7%D1%82%D0%BE%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%28%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%B0%2C%20%D0%BF%D0%BB%D0%B0%D0%BD%2C%20%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%29%3A">Ответить на 5 вопросов</a>
+      <a class="btn ghost" href="https://t.me/totallyaverage">Написать без анкеты</a>
+    </div>
+    <p class="small dim" style="margin-top:22px">Анкета — пять вопросов: без них разбор
+    получится «про адрес вообще», а не про вашу задачу. Отвечаем в течение дня, чек на каждую
+    оплату.</p>
+  </div>
+</section>
+
 
 <footer>
-  <p><strong>Источники.</strong> Официальные документы сервисов (соглашения, справки, политики),
-  открытые базы и реестры: ipinfo, ipapi.is, proxycheck.io, scamalytics, stopforumspam,
-  RDAP (RIPE, APNIC), публичные чёрные списки DNSBL. Данные на дату проверки.</p>
-  <p>Материал носит информационный характер и не является юридической консультацией. Гарантий по
-  решениям сторонних сервисов не даём: в наших отчётах всегда есть раздел «Чего мы не знаем».</p>
+  <div class="wrap cols">
+    <div>
+      <span class="mark">видно<i>.</i>снаружи</span>
+      <p style="margin-top:12px">Проверка адреса и наблюдение за изменениями.
+      Информационные услуги: измеряем и объясняем. Доступ к ресурсам не предоставляем,
+      трафик через себя не пропускаем.</p>
+    </div>
+    <div>
+      <h4>Разборы</h4>
+      <p><a href="razbor-odin-ip-dve-pravdy.html">Почему базы расходятся</a><br>
+      <a href="razbor-pochemu-ne-prohodit-oplata.html">Почему не проходит оплата</a><br>
+      <a href="razbor-google-play-strana.html">Google Play и смена страны</a></p>
+    </div>
+    <div>
+      <h4>Материалы</h4>
+      <p><a href="issledovanie.html">Исследование</a><br>
+      <a href="karta-strogosti.html">Карта строгости сервисов</a><br>
+      <a href="index.html#how">Как это работает</a><br>
+      <a href="index.html#offer">Стоимость</a></p>
+    </div>
+  </div>
 </footer>
 
-</div>
+
+<script>
+(function(){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -5% 0px', threshold:.05});
+  document.querySelectorAll('.rv').forEach(function(el,i){
+    el.style.transitionDelay = (Math.min(i,5)*35)+'ms'; io.observe(el);
+  });
+})();
+(function(){
+  var h = document.getElementById('hdr');
+  if(h){
+    var f = function(){ h.classList.toggle('on', window.scrollY > 6); };
+    f(); window.addEventListener('scroll', f, {passive:true});
+  }
+  var b = document.getElementById('burger'), m = document.getElementById('mobmenu');
+  if(b && m){
+    b.addEventListener('click', function(){
+      var open = m.classList.toggle('on');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    m.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        m.classList.remove('on'); b.setAttribute('aria-expanded','false');
+      });
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && m.classList.contains('on')){
+        m.classList.remove('on'); b.setAttribute('aria-expanded','false'); b.focus();
+      }
+    });
+  }
+})();
+</script>
+
 <script type="application/ld+json">{
  "@context": "https://schema.org",
  "@type": "Article",
  "headline": "Карта строгости: что сервисы официально говорят про адрес, регион и оплату",
  "about": [
-  "правила сервисов о VPN и прокси",
-  "требования к региону аккаунта",
-  "проверка IP-адреса",
-  "региональные политики сервисов"
+  "Steam",
+  "Google Play",
+  "Netflix",
+  "Spotify",
+  "Claude",
+  "ChatGPT",
+  "Apple ID",
+  "Stripe",
+  "Upwork",
+  "Binance",
+  "Bybit",
+  "Coinbase",
+  "Midjourney",
+  "Revolut"
  ],
- "inLanguage": "ru"
+ "inLanguage": "ru",
+ "isAccessibleForFree": true
 }</script>
 </body>
 </html>

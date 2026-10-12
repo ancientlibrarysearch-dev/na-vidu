@@ -4,408 +4,385 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Исследование: что видно об адресе снаружи и как это меняется</title>
-<meta name="description" content="Проверяем IP-адрес по открытым базам и следим за изменениями. Показываем все источники сразу, включая те, что противоречат друг другу. Первая проверка бесплатная.">
+<meta name="description" content="Проверяем IP-адрес по открытым источникам и следим за изменениями. В отчёте — шесть групп данных, включая противоречащие друг другу. Первая проверка бесплатная.">
 <meta property="og:title" content="Что о вас видно снаружи">
-<meta property="og:description" content="Смотрим адрес по шести открытым базам, показываем противоречия и следим за изменениями. Без обещаний про аккаунты.">
-<meta property="og:type" content="website">
-<style>
-:root{
-  --bg:#0b0d11; --card:#14171d; --card2:#101318; --line:#252a33;
-  --fg:#eceff4; --dim:#939ba7; --dim2:#6f7885;
-  --ok:#57cf87; --warn:#eec257; --bad:#e8665a; --blue:#7fb6ff;
-  --r:14px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--fg);
-  font:16px/1.62 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-  -webkit-font-smoothing:antialiased}
-.wrap{max-width:900px;margin:0 auto;padding:0 18px 90px}
-a{color:var(--ok)}
-nav.top{display:flex;flex-wrap:wrap;gap:6px 18px;padding:18px 0;font-size:14px;
-  border-bottom:1px solid var(--line);margin-bottom:8px}
-nav.top a{color:var(--dim);text-decoration:none}
-nav.top a:hover{color:var(--fg)}
-h1{font-size:clamp(28px,5.6vw,46px);line-height:1.1;letter-spacing:-1px;margin:34px 0 16px}
-h2{font-size:clamp(21px,3.8vw,29px);letter-spacing:-.5px;margin:0 0 8px}
-h3{font-size:17px;margin:0 0 6px}
-p{margin:0 0 14px}
-.lead{font-size:clamp(17px,2.6vw,20px);color:#c3cad4;max-width:44em}
-.muted{color:var(--dim)}
-.small{font-size:14px}
-section{padding:34px 0;border-top:1px solid var(--line)}
-section:first-of-type{border-top:0}
-.kicker{font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim2);margin:0 0 10px}
-.btn{display:inline-block;background:var(--ok);color:#05200f;font-weight:700;padding:14px 22px;
-  border-radius:11px;text-decoration:none;border:0;font-size:16px;cursor:pointer;font-family:inherit}
-.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line);font-weight:600}
-.btnrow{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px}
-.grid{display:grid;gap:12px}
-@media(min-width:640px){
-  .g2{grid-template-columns:1fr 1fr}
-  .g3{grid-template-columns:repeat(3,1fr)}
-}
-table{width:100%;border-collapse:collapse;font-size:15px}
-th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
-th{color:var(--dim);font-weight:600;font-size:14px}
-tbody tr:hover{background:#171b22}
-.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
-ul,ol{margin:0 0 12px;padding-left:20px}
-li{margin:6px 0}
-.tag{display:inline-block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;
-  border-radius:999px;padding:3px 10px;border:1px solid var(--line);color:var(--dim);
-  background:var(--card2);margin:0 6px 6px 0}
-.tag.l1{color:#ff9e93;border-color:#57292a}
-.tag.l2{color:#f0c45a;border-color:#54451f}
-.tag.l3{color:#8fc6ff;border-color:#26415a}
-.tag.l4{color:#57cf87;border-color:#24513a}
-.steps{display:grid;gap:10px;margin-top:6px}
-@media(min-width:700px){.steps{grid-template-columns:repeat(4,1fr)}}
-.step{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px}
-.step b{display:block;margin-bottom:6px;font-size:15px}
-.step .n{font-size:12px;color:var(--dim2);letter-spacing:1px;display:block;margin-bottom:8px}
-.step.warnbox{border-color:#4d411d}
-.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
-.tab{background:var(--card2);border:1px solid var(--line);color:var(--dim);border-radius:999px;
-  padding:8px 14px;font-size:14px;cursor:pointer;font-family:inherit}
-.tab:hover{color:var(--fg)}
-.tab[aria-selected="true"]{background:#1b2129;color:var(--fg);border-color:#39424f}
-.panel{display:none}
-.panel.on{display:block}
-.demo{background:var(--card2);border:1px solid var(--line);border-radius:var(--r);padding:16px}
-.demobar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.demobar select,.demobar input{background:#0e1116;border:1px solid var(--line);color:var(--fg);
-  border-radius:10px;padding:11px 12px;font-size:15px;font-family:inherit}
-.demoout{margin-top:14px}
-.line{display:flex;justify-content:space-between;gap:12px;padding:8px 0;
-  border-bottom:1px solid #1c2129;font-size:15px;opacity:0;transform:translateY(4px);
-  transition:opacity .28s,transform .28s}
-.line.show{opacity:1;transform:none}
-.line span:first-child{color:var(--dim)}
-.line span:last-child{text-align:right}
-.spin{display:inline-block;width:13px;height:13px;border:2px solid #2b323d;border-top-color:var(--ok);
-  border-radius:50%;animation:sp .7s linear infinite;vertical-align:-2px;margin-right:7px}
-@keyframes sp{to{transform:rotate(360deg)}}
-details{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--card2);
-  margin:10px 0}
-summary{cursor:pointer;color:var(--fg);font-weight:600}
-details[open] summary{margin-bottom:10px}
-.price{font-size:27px;font-weight:700;letter-spacing:-.5px}
-.day{border-left:2px solid var(--line);padding:0 0 16px 16px}
-.day:last-child{border-left-color:transparent;padding-bottom:0}
-.day b{display:block}
-.day.good{border-left-color:var(--ok)}
-.day.bad{border-left-color:var(--bad)}
-footer{border-top:1px solid var(--line);margin-top:40px;padding-top:22px;color:var(--dim);font-size:14px}
-.note{border-left:3px solid var(--warn);padding-left:14px;color:#b9c1cc}
-</style>
-<link rel="stylesheet" href="stil-knopok.css">
+<meta property="og:description" content="Шесть групп открытых данных об адресе, расхождения между базами и наблюдение за изменениями. Без обещаний про аккаунты.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#08090a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308090a'/><circle cx='50' cy='50' r='24' fill='none' stroke='%2350d183' stroke-width='9'/><circle cx='50' cy='50' r='7' fill='%2350d183'/></svg>">
+<link rel="stylesheet" href="stil-sayta.css">
 </head>
 <body>
-<div class="wrap">
 
-<nav class="top">
-  <a href="index.html">Главная</a>
-  <a href="karta-strogosti.html">Карта строгости</a>
-  <a href="razbor-odin-ip-dve-pravdy.html">Базы противоречат друг другу</a>
-  <a href="razbor-pochemu-ne-prohodit-oplata.html">Почему не проходит оплата</a>
-  <a href="razbor-google-play-strana.html">Google Play и страна</a>
-</nav>
-
-<!-- БЛОК 1. ЗАГОЛОВОК -->
-<section>
-  <p class="kicker">проверка адреса и наблюдение</p>
-  <h1>Что о вас видно снаружи</h1>
-  <p class="lead">Мы исследуем, что о человеке видно снаружи по открытым источникам, и как эти
-  данные меняются со временем. Публикуем замеры, цитаты из документов сервисов и разборы
-  расхождений между базами. Проверяем адреса и наблюдаем за ними.</p>
-  <div class="btnrow">
-    <a class="btn" href="#zayavka">Проверить адрес бесплатно</a>
-    <a class="btn ghost" href="#demo">Посмотреть, как выглядит проверка</a>
+<header id="hdr">
+  <div class="wrap nav">
+    <a class="mark" href="index.html">видно<i>.</i>снаружи</a>
+    <nav class="navlinks">
+      <a href="issledovanie.html" aria-current="page">Исследование</a>
+      <a href="karta-strogosti.html">Карта строгости</a>
+      <a href="razbor-odin-ip-dve-pravdy.html">Разборы</a>
+      <a href="index.html#how">Как это работает</a>
+      <a href="index.html#offer">Стоимость</a>
+    </nav>
+    <a class="btn s" href="https://t.me/totallyaverage">Проверить адрес</a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobmenu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button>
   </div>
-  <p class="small muted" style="margin-top:14px">Мы работаем как самозанятый, на каждую оплату
-  выдаём чек. Сохранность аккаунтов не гарантируем и ниже объясняем, почему это невозможно
-  в принципе.</p>
-</section>
+  <nav class="mobmenu" id="mobmenu">
+    <a href="issledovanie.html" aria-current="page">Исследование</a>
+    <a href="karta-strogosti.html">Карта строгости</a>
+    <a href="razbor-odin-ip-dve-pravdy.html">Разборы</a>
+    <a href="index.html#how">Как это работает</a>
+    <a href="index.html#offer">Стоимость</a>
+    <a href="index.html#faq">Вопросы</a>
+    <a class="btn" href="https://t.me/totallyaverage">Проверить адрес</a>
+  </nav>
+</header>
 
-<!-- БЛОК 2. ДЕГРАДАЦИЯ -->
-<section>
-  <p class="kicker">зачем это нужно</p>
-  <h2>Адрес меняется без вас. И обычно молча</h2>
-  <p>Мы провели серию замеров и посмотрели в реестры. Диапазон, в котором находится один из
-  проверяемых нами адресов, зарегистрирован <strong>79 дней назад</strong> и ведётся
-  организацией-брокером, то есть структурой, которая сдаёт блоки адресов в аренду. Второй
-  диапазон из нашей выборки зарегистрирован <strong>172 дня назад</strong>.</p>
-  <p>Такие блоки переоформляют и пересдают. Адрес остаётся тем же, а владелец, сеть и репутация
-  меняются, и уведомлений об этом не приходит. Ниже четыре механизма, которые мы наблюдали
-  и которые прямо влияют на работу с сервисами.</p>
-
-  <div class="steps">
-    <div class="step warnbox"><span class="n">МЕХАНИЗМ 1</span><b>Диапазон переоформлен</b>
-      <span class="small muted">Адрес остаётся прежним, а владелец и история меняются. В реестре
-      это видно по датам и по держателю записи.</span></div>
-    <div class="step warnbox"><span class="n">МЕХАНИЗМ 2</span><b>Пометка приходит на весь блок</b>
-      <span class="small muted">Часть списков оценивает диапазон целиком, а не отдельный адрес.
-      В наших замерах такая пометка появлялась у адреса, который сам жалоб не имел.</span></div>
-    <div class="step warnbox"><span class="n">МЕХАНИЗМ 3</span><b>Меняется имя сети в реестре</b>
-      <span class="small muted">При смене сети или провайдера запись обновляется, и это первое,
-      на что смотрят проверяющие системы.</span></div>
-    <div class="step warnbox"><span class="n">МЕХАНИЗМ 4</span><b>Базы расходятся между собой</b>
-      <span class="small muted">Один и тот же адрес получает разные оценки в разных базах.
-      Мы показываем это в замерах ниже: это правило, а не исключение.</span></div>
-  </div>
-
-  <h3 style="margin-top:26px">Сводный случай из нашей выборки</h3>
-  <div class="card">
-    <div class="day good"><b>Период 1. Профиль ровный.</b>
-      <span class="muted small">Свежий диапазон, жалоб нет, признаков анонимизации нет.
-      В таком состоянии адрес проходит проверки без замечаний.</span></div>
-    <div class="day"><b>Период 2. Появляется первая пометка.</b>
-      <span class="muted small">В одной из баз адрес отмечен как датацентр. Само по себе это
-      не приговор, но выясняется только повторным замером: в первый раз пометки не было.</span></div>
-    <div class="day bad"><b>Период 3. Расхождение становится видимым.</b>
-      <span class="muted small">Адрес, окружение и платёжные данные перестают сходиться между
-      собой. Это то состояние, на которое реагируют проверки при оплате.</span></div>
-    <div class="day bad"><b>Период 4. Диапазон переоформлен.</b>
-      <span class="muted small">Запись в реестре обновлена: другой держатель, другая сеть.
-      У сервиса при этом остаётся история прошлых обращений, и она уже не совпадает
-      с текущим профилем адреса.</span></div>
-  </div>
-  <p class="note small" style="margin-top:16px">Это обобщённый случай, собранный из наших
-  наблюдений, а не предсказание для конкретного аккаунта. Мы не располагаем данными о том, как
-  поступит тот или иной сервис. Установленный факт другой: изменения происходят постоянно
-  и без уведомления. Наблюдение превращает молчание в измеримый сигнал.</p>
-</section>
-
-<!-- БЛОК 3. ЧТО ИЗМЕРЯЕМ -->
-<section>
-  <p class="kicker">методика</p>
-  <h2>Шесть групп данных, по которым оценивается адрес</h2>
-  <p>Каждый показатель берётся из открытого источника, и в отчёте указывается, из какого.
-  Оценки мы не додумываем и не выдаём за измерения.</p>
-  <div class="grid g2">
-    <div class="card"><h3>Кто владеет адресом</h3><p class="small muted" style="margin:0">Страна,
-    город, организация и номер сети. Плюс имя сети в реестре: там часто стоит слово, которое
-    читают проверяющие системы.</p></div>
-    <div class="card"><h3>Какой это адрес по типу</h3><p class="small muted" style="margin:0">Домашний
-    провайдер, датацентр или мобильный. Сервисы эту разницу видят, даже когда вам кажется,
-    что её нет.</p></div>
-    <div class="card"><h3>Признаки анонимизации</h3><p class="small muted" style="margin:0">Прокси,
-    VPN и Tor по двум независимым базам. Расхождение между ними фиксируется отдельной строкой
-    отчёта, а не сглаживается.</p></div>
-    <div class="card"><h3>Чёрные списки</h3><p class="small muted" style="margin:0">Пять основных
-    списков. Отказ списка отвечать фиксируется отдельно: это не то же самое, что отсутствие
-    попаданий.</p></div>
-    <div class="card"><h3>Жалобы</h3><p class="small muted" style="margin:0">Попадания в базы вроде
-    stopforumspam: показывает, фиксировался ли адрес в нежелательных рассылках.</p></div>
-    <div class="card"><h3>Границы измерения</h3><p class="small muted" style="margin:0">Обязательный
-    раздел отчёта: какие источники не ответили, что не проверялось и какие выводы из данных
-    сделать нельзя.</p></div>
-  </div>
-</section>
-
-<!-- БЛОК 4. ДЕМОНСТРАЦИЯ -->
-<section id="demo">
-  <p class="kicker">примеры из выборки</p>
-  <h2>Разные адреса пробиваются по-разному</h2>
-  <p>Ниже три случая из наших замеров: ровный адрес, адрес хостинга с признаками анонимизации
-  и адрес, недавно сменивший держателя. Выберите случай и посмотрите результат.</p>
-
-  <div class="demo">
-    <div class="demobar">
-      <select id="case" aria-label="Пример адреса">
-        <option value="clean">Адрес, который сегодня в порядке</option>
-        <option value="hosting">Адрес хостинга с признаками прокси</option>
-        <option value="moved">Адрес, который недавно перешёл к другому владельцу</option>
-      </select>
-      <button class="btn" id="go">Показать проверку</button>
+<section class="hero first">
+  <div class="wrap">
+    <p class="label rv">проверка адреса и наблюдение</p>
+    <h1 class="rv">Что о вас видно снаружи</h1>
+    <p class="lead rv">Измеряем, что об адресе известно по открытым источникам, и следим, как эти
+    данные меняются. Публикуем замеры, цитаты из документов сервисов и расхождения между базами.</p>
+    <div class="btnrow rv">
+      <a class="btn" href="https://t.me/totallyaverage?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81.%20%D0%9E%D1%82%D0%B2%D0%B5%D1%87%D0%B0%D1%8E%20%D0%BD%D0%B0%20%D0%BF%D1%8F%D1%82%D1%8C%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2%3A%0A%0A1.%20%D0%A7%D1%82%D0%BE%20%D0%B7%D0%B0%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D0%B8%20%D1%87%D0%B5%D0%B9%20%28%D0%B2%D0%B0%D1%88%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%2C%20%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%2C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0%29%3A%0A2.%20%D0%9A%D0%B0%D0%BA%D0%B8%D0%B5%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B%20%D0%B8%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D1%8B%20%D0%B2%D0%B0%D0%B6%D0%BD%D1%8B%3A%0A3.%20%D0%A7%D1%82%D0%BE%20%D0%BD%D0%B5%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82%20%28%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0%20%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%2C%20%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0%29%3A%0A4.%20%D0%A7%D1%82%D0%BE%20%D0%BC%D0%B5%D0%BD%D1%8F%D0%BB%D0%BE%D1%81%D1%8C%20%D0%B7%D0%B0%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86%20%28%D0%B0%D0%B4%D1%80%D0%B5%D1%81%2C%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%2C%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE%29%3A%0A5.%20%D0%A7%D1%82%D0%BE%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%28%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%B0%2C%20%D0%BF%D0%BB%D0%B0%D0%BD%2C%20%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%29%3A">Проверить адрес бесплатно</a>
+      <a class="btn ghost" href="#demo">Формат отчёта</a>
     </div>
-    <div class="demoout" id="out"></div>
+    <div class="metrics rv">
+      <span><b>4,5 секунды</b> на замер</span>
+      <span><b>6 групп данных</b> в отчёте</span>
+      <span>чек на оплату</span>
+    </div>
   </div>
-  <p class="small muted" style="margin-top:12px">Приведены реальные адреса из нашей выборки
-  с результатами замеров, чтобы был виден формат отчёта. Адреса клиентов мы обрабатываем
-  вручную: заявки принимает и разбор делает человек, а не скрипт.</p>
 </section>
 
-<!-- БЛОК 5. ДОКАЗАТЕЛЬСТВО -->
 <section>
-  <p class="kicker">наш замер</p>
-  <h2>Один показатель вводит в заблуждение. Поэтому мы приводим шесть</h2>
-  <p>Два адреса из выборки, проверенные по одним и тем же базам в один момент времени.</p>
-  <div class="card" style="padding:6px 14px 12px">
-  <table>
-    <thead><tr><th>Показатель</th><th>Адрес A</th><th>Адрес B</th></tr></thead>
-    <tbody>
-      <tr><td>Страна</td><td>Польша</td><td>Малайзия</td></tr>
-      <tr><td>proxycheck: прокси / тип / риск</td><td class="ok">no / Business / 0</td>
-        <td class="bad">yes / VPN / 66</td></tr>
-      <tr><td>fraud score (scamalytics)</td><td>0 (low)</td><td>0 (low)</td></tr>
-      <tr><td>признаки (scamalytics)</td><td class="warn">VPN: да, датацентр: да</td>
-        <td class="warn">VPN: да, датацентр: да</td></tr>
-      <tr><td>жалобы на спам</td><td>0</td><td>0</td></tr>
-      <tr><td>диапазон зарегистрирован</td><td>79 дней назад</td>
-        <td class="bad">172 дня назад</td></tr>
-    </tbody>
-  </table>
+  <div class="wrap">
+    <p class="label rv">зачем это нужно</p>
+    <h2 class="rv">Адрес меняется без вас и без уведомления</h2>
+    <p class="rv" style="max-width:64em">По реестрам (RDAP): диапазон, в котором находится один
+    из проверяемых нами адресов, зарегистрирован <b>79 дней назад</b> и ведётся брокером
+    IP-адресов; второй диапазон из выборки — <b>172 дня назад</b>. Такие блоки переоформляют
+    и пересдают. Адрес остаётся прежним, а владелец, имя сети и репутация меняются.</p>
+
+    <div class="g2 rv" style="margin-top:36px">
+      <div class="cell"><span class="n">МЕХАНИЗМ 1</span><h3>Диапазон переоформлен</h3>
+        <p>Владелец и история адреса меняются; в реестре это видно по датам и держателю записи.</p></div>
+      <div class="cell"><span class="n">МЕХАНИЗМ 2</span><h3>Пометка на весь блок</h3>
+        <p>Часть списков оценивает диапазон целиком. В наших замерах пометка появлялась у адреса,
+        который сам жалоб не имел.</p></div>
+      <div class="cell"><span class="n">МЕХАНИЗМ 3</span><h3>Меняется имя сети в реестре</h3>
+        <p>При смене сети или провайдера запись обновляется: у нашего выхода в имени сети прямо
+        стоит хостинг.</p></div>
+      <div class="cell"><span class="n">МЕХАНИЗМ 4</span><h3>Источники расходятся</h3>
+        <p>Один адрес получает разные оценки в разных базах. Для наших замеров это правило,
+        а не исключение.</p></div>
+    </div>
+
+    <h3 class="rv" style="margin-top:52px">Как менялся профиль одного адреса</h3>
+    <div class="steps rv" style="margin-top:28px;grid-template-columns:repeat(2,1fr)">
+      <div class="step"><span class="n">ПЕРИОД 1</span><h3>Профиль ровный</h3>
+        <p>Свежий диапазон, жалоб нет, признаков анонимизации нет.</p></div>
+      <div class="step"><span class="n">ПЕРИОД 2</span><h3>Первая пометка</h3>
+        <p>Одна из баз отмечает адрес как датацентр. В первом замере этой пометки не было.</p></div>
+      <div class="step"><span class="n">ПЕРИОД 3</span><h3>Расхождение видно</h3>
+        <p>Адрес, окружение и платёжные данные перестают сходиться между собой.</p></div>
+      <div class="step"><span class="n">ПЕРИОД 4</span><h3>Диапазон переоформлен</h3>
+        <p>В реестре другой держатель и другая сеть, а у сервиса осталась история прошлых
+        обращений.</p></div>
+    </div>
+    <p class="note rv" style="margin-top:30px;max-width:64em">Это обобщение наших наблюдений,
+    а не прогноз для конкретного аккаунта: как поступит сервис, нам не известно. Установленный
+    факт: изменения происходят постоянно и без уведомления.</p>
   </div>
-  <p style="margin-top:16px">Обратите внимание на строку с fraud score у адреса B: значение
-  <strong>равно нулю</strong>, то есть популярные бесплатные проверки покажут «чисто». При этом
-  вторая база в тот же момент времени классифицирует этот адрес как VPN с риском 66. Это и есть
-  причина, по которой мы не публикуем вывод по одному показателю.</p>
-  <p class="small muted">Подробный разбор, почему базы расходятся,
-  <a href="razbor-odin-ip-dve-pravdy.html">в отдельной заметке</a>.</p>
 </section>
 
-<!-- БЛОК 6. СЕРВИСЫ -->
 <section>
-  <p class="kicker">справочник</p>
-  <h2>Сервисы относятся к этому по-разному</h2>
-  <p>Мы разобрали десять сервисов по их собственным документам и распределили по четырём
-  категориям: от прямого запрета до прямого разрешения. Переключайте категории.</p>
-
-  <div class="tabs" role="tablist">
-    <button class="tab" role="tab" aria-selected="true" data-p="p1">Запрещают прямо</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="p2">Называют VPN</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="p3">Слова «VPN» нет</button>
-    <button class="tab" role="tab" aria-selected="false" data-p="p4">Разрешают</button>
+  <div class="wrap">
+    <p class="label rv">методика</p>
+    <h2 class="rv">Шесть групп данных</h2>
+    <div class="tablewrap rv" style="margin-top:32px">
+      <table>
+        <thead><tr><th>Группа</th><th>Что в неё входит</th><th>Источник</th></tr></thead>
+        <tbody>
+          <tr><td>Владелец адреса</td><td>страна, город, организация, номер сети, имя сети в реестре</td><td class="mono">ipinfo, RDAP</td></tr>
+          <tr><td>Тип адреса</td><td>домашний провайдер, датацентр или мобильный</td><td class="mono">proxycheck</td></tr>
+          <tr><td>Признаки анонимизации</td><td>прокси, VPN и Tor по двум независимым базам</td><td class="mono">ipapi.is, scamalytics</td></tr>
+          <tr><td>Чёрные списки</td><td>пять основных списков DNSBL; отказ списка отвечать — отдельная строка</td><td class="mono">DNSBL</td></tr>
+          <tr><td>Жалобы</td><td>попадания в базы вроде stopforumspam</td><td class="mono">stopforumspam</td></tr>
+          <tr><td>Границы измерения</td><td>какие источники не ответили и какие выводы из данных сделать нельзя</td><td class="mono">наш раздел</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small dim rv" style="margin-top:18px">Каждый показатель берётся из открытого
+    источника, и в отчёте указано, из какого. Оценки не выдаём за измерения.</p>
   </div>
-
-  <div class="panel on" id="p1">
-    <div class="card"><span class="tag l1">Steam</span>
-      <p class="small" style="margin:8px 0 0">В соглашении прямой запрет на маскировку места
-      проживания через IP-прокси, а транзакции через анонимные прокси отклоняются. Санкция:
-      лишение аккаунта, причём <strong>без возврата средств</strong>, включая остаток
-      кошелька.</p></div>
-  </div>
-  <div class="panel" id="p2">
-    <div class="card"><span class="tag l2">Google Play</span>
-      <p class="small" style="margin:8px 0 0">В причинах отказа в смене страны прямо сказано:
-      «вы находитесь за пределами страны» и «или если вы используете VPN». Смена страны возможна
-      не раньше чем через 90 дней. Виртуальные карты не принимаются.</p></div>
-    <div class="card" style="margin-top:10px"><span class="tag l2">Netflix</span>
-      <p class="small" style="margin:8px 0 0">Ошибка E106: «похоже, вы используете VPN или прокси».
-      Войти это не мешает, но каталог урезается до того, на что у сервиса есть права
-      по всему миру.</p></div>
-    <div class="card" style="margin-top:10px"><span class="tag l2">Spotify</span>
-      <p class="small" style="margin:8px 0 0">В статье про выявление злоупотреблений: «вы
-      используете VPN» и предписание отключить его. Отдельной политики «VPN запрещён» нет.</p></div>
-  </div>
-  <div class="panel" id="p3">
-    <div class="card"><span class="tag l3">Claude</span>
-      <p class="small" style="margin:8px 0 0">Слов «VPN» и «proxy» в документах нет, мы проверили
-      все политики и условия. Зато есть требование <strong>физически находиться</strong>
-      в поддерживаемой стране и правила по платёжным данным.</p></div>
-    <div class="card" style="margin-top:10px"><span class="tag l3">ChatGPT</span>
-      <p class="small" style="margin:8px 0 0">Слов «VPN» и «proxy» в условиях нет вообще.
-      В справке VPN упоминается как помеха при проверке активности. Карта должна быть
-      из поддерживаемой страны.</p></div>
-    <div class="card" style="margin-top:10px"><span class="tag l3">Apple ID и Stripe</span>
-      <p class="small" style="margin:8px 0 0">У Apple прямого запрета нет, карта продавцу
-      не передаётся. У Stripe речь не про VPN, а про несовпадение стран карты и адреса:
-      это видно в данных платежа.</p></div>
-  </div>
-  <div class="panel" id="p4">
-    <div class="card"><span class="tag l4">Upwork</span>
-      <p class="small" style="margin:8px 0 0">Единственный из разобранных, кто говорит прямо:
-      «да, использовать VPN разрешено», при условии что страна в профиле указана честно
-      и адрес не скачет между странами.</p></div>
-  </div>
-
-  <p class="small muted" style="margin-top:14px">Ключевой вывод разбора: отсутствие слова «VPN»
-  в документах не означает отсутствия правила. У Claude и ChatGPT этого слова нет потому, что
-  требование сформулировано через страну и платёжное звено. Полная карта с цитатами
-  <a href="karta-strogosti.html">здесь</a>.</p>
 </section>
 
-<!-- БЛОК 7. ЦЕНЫ -->
+<section id="demo">
+  <div class="wrap">
+    <p class="label rv">примеры из выборки</p>
+    <h2 class="rv">Формат отчёта</h2>
+    <p class="rv">Три случая из наших замеров. Выберите любой.</p>
+
+    <div class="demo rv" style="margin-top:32px">
+      <div class="demobar">
+        <select id="case" aria-label="Пример адреса">
+          <option value="clean">Адрес, который сегодня в порядке</option>
+          <option value="hosting">Адрес хостинга с признаками прокси</option>
+          <option value="moved">Адрес, который недавно перешёл к другому владельцу</option>
+        </select>
+        <button class="btn" id="go">Показать проверку</button>
+      </div>
+      <div class="demoout" id="out"></div>
+    </div>
+    <p class="small dim rv" style="margin-top:18px">Адреса реальные, результаты — из наших замеров.
+    Адреса клиентов обрабатываются вручную: заявку принимает и разбор делает человек.</p>
+  </div>
+</section>
+
 <section>
-  <p class="kicker">цены</p>
-  <h2>Сколько это стоит</h2>
-  <div class="grid g2" style="margin-top:14px">
-    <div class="card"><span class="tag">вход</span>
-      <div class="price">0 ₽</div>
-      <p class="small muted" style="margin:8px 0 0">Проверка одного адреса: страна, сеть, тип,
-      признаки, чёрные списки. Без оплаты и без обязательств.</p></div>
-    <div class="card"><span class="tag">разбор</span>
-      <div class="price">1 000 ₽</div>
-      <p class="small muted" style="margin:8px 0 0">Отчёт, разбор конфигурации и выводы по вашей
-      ситуации. Один раз, плюс ответы на вопросы после отчёта.</p></div>
-    <div class="card" style="border-color:#24513a"><span class="tag l4">главное</span>
-      <div class="price">1 000 ₽ / мес</div>
-      <p class="small muted" style="margin:8px 0 0">Наблюдение за тремя сервисами. Перепроверяю
-      регулярно и пишу, если что-то изменилось.</p></div>
-    <div class="card"><span class="tag">для нескольких аккаунтов</span>
-      <div class="price">2 000 ₽ / мес</div>
-      <p class="small muted" style="margin:8px 0 0">То же самое, но для десяти сервисов.</p></div>
+  <div class="wrap">
+    <p class="label rv">наш замер</p>
+    <h2 class="rv">Один показатель вводит в заблуждение</h2>
+    <p class="rv" style="max-width:64em">Два адреса, проверенные по одним и тем же источникам
+    в один момент времени.</p>
+    <div class="tablewrap rv" style="margin-top:32px">
+      <table>
+        <thead><tr><th>Показатель</th><th>Адрес A</th><th>Адрес B</th></tr></thead>
+        <tbody>
+          <tr><td>Страна</td><td>Польша</td><td>Малайзия</td></tr>
+          <tr><td>proxycheck: прокси / тип / риск</td><td class="ok">no / Business / 0</td>
+            <td class="no">yes / VPN / 66</td></tr>
+          <tr><td>fraud score (scamalytics)</td><td>0 (low)</td><td>0 (low)</td></tr>
+          <tr><td>признаки (scamalytics)</td><td class="warn">VPN: да, датацентр: да</td>
+            <td class="warn">VPN: да, датацентр: да</td></tr>
+          <tr><td>жалобы на спам</td><td>0</td><td>0</td></tr>
+          <tr><td>диапазон зарегистрирован</td><td>79 дней назад</td>
+            <td class="no">172 дня назад</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="rv" style="margin-top:26px;max-width:64em">У адреса B fraud score <b>равен нулю</b>:
+    бесплатные проверки покажут «чисто». Вторая база в тот же момент классифицирует этот адрес
+    как VPN с риском 66. Поэтому вывода по одному показателю мы не публикуем.</p>
+    <div class="btnrow rv">
+      <a class="btn ghost" href="razbor-odin-ip-dve-pravdy.html">Разбор расхождения</a>
+    </div>
   </div>
-  <p style="margin-top:16px">Подписка дороже разовой проверки потому, что она длится. Разовый
-  отчёт фиксирует состояние на дату, а наблюдение выявляет изменения, которые в единичном
-  замере не видны: профиль адреса может измениться через две недели после проверки.</p>
 </section>
 
-<!-- БЛОК 8. ГРАНИЦЫ -->
 <section>
-  <p class="kicker">границы</p>
-  <h2>Чего мы не делаем и почему</h2>
-  <div class="grid g2">
-    <div class="card" style="border-color:#4f2723">
-      <h3>Не гарантируем сохранность аккаунта</h3>
-      <p class="small muted" style="margin:0">Решение принимает сервис, а не мы. Тот, кто
-      гарантирует сохранность аккаунта, обещает то, чего не может знать. В каждом отчёте есть
-      раздел о границах измерения.</p></div>
-    <div class="card" style="border-color:#4f2723">
-      <h3>Не продаём доступы и серверы</h3>
-      <p class="small muted" style="margin:0">Мы не предоставляем доступ к ресурсам и не пропускаем
-      через себя трафик. Предмет работы: измерение адреса, который у вас уже есть, и конфигурации
-      вашего оборудования.</p></div>
-    <div class="card" style="border-color:#4f2723">
-      <h3>Не рекомендуем сервисы и не публикуем ссылки</h3>
-      <p class="small muted" style="margin:0">Рекомендация конкретного сервиса за вознаграждение
-      является рекламой, а реклама средств обхода наказывается штрафом. Мы в этом не
-      участвуем.</p></div>
-    <div class="card" style="border-color:#4f2723">
-      <h3>Не выясняем, зачем вам адрес</h3>
-      <p class="small muted" style="margin:0">Предмет работы: измерение. Консультирование
-      по обходу ограничений в него не входит. Решение о том, как использовать отчёт, принимаете
-      вы.</p></div>
+  <div class="wrap">
+    <p class="label rv">справочник</p>
+    <h2 class="rv">Четырнадцать сервисов и их требования</h2>
+    <p class="rv" style="max-width:64em">Разобрали четырнадцать сервисов по их собственным документам
+    и распределили по четырём категориям строгости: от прямого запрета маскировки адреса
+    до прямого разрешения.</p>
+
+    <div class="tablewrap rv" style="margin-top:32px">
+      <table>
+        <thead><tr><th>Сервис</th><th>Кат.</th><th>Что требует по документам</th><th>Ключевой риск</th></tr></thead>
+        <tbody>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/steam.svg" alt="" loading="lazy"></span><b>Steam</b></span></td><td><span class="tag i">I</span></td>
+            <td>прямой запрет IP-прокси в соглашении (п. 3.A)</td>
+            <td>лишение аккаунта <b>без возврата средств</b></td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/google-play.svg" alt="" loading="lazy"></span><b>Google Play</b></span></td><td><span class="tag ii">II</span></td>
+            <td>VPN назван причиной отказа в смене страны; виртуальные карты не принимаются</td>
+            <td>смена страны заперта на 90 дней</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/netflix.svg" alt="" loading="lazy"></span><b>Netflix</b></span></td><td><span class="tag ii">II</span></td>
+            <td>ошибка E106: «похоже, вы используете VPN или прокси»</td>
+            <td>каталог урезается до глобальных прав сервиса</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/spotify.svg" alt="" loading="lazy"></span><b>Spotify</b></span></td><td><span class="tag ii">II</span></td>
+            <td>в статье о злоупотреблениях: «вы используете VPN» и предписание отключить</td>
+            <td>блокировка запросов</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/claude.svg" alt="" loading="lazy"></span><b>Claude</b></span></td><td><span class="tag iii">III</span></td>
+            <td>слов «VPN» и «proxy» нет; требуется <b>физически находиться</b> в стране</td>
+            <td>смена страны и платёжного звена</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/chatgpt.svg" alt="" loading="lazy"></span><b>ChatGPT</b></span></td><td><span class="tag iii">III</span></td>
+            <td>слов «VPN»/«proxy» нет; карта должна быть из поддерживаемой страны</td>
+            <td>регион выпуска карты, резкая смена адреса</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/apple.svg" alt="" loading="lazy"></span><b>Apple ID</b></span></td><td><span class="tag iii">III</span></td>
+            <td>прямого запрета нет; карта продавцу не передаётся</td>
+            <td>блокировка при нарушениях</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/stripe.svg" alt="" loading="lazy"></span><b>Stripe</b></span></td><td><span class="tag iii">III</span></td>
+            <td>не про VPN: несовпадение стран карты и адреса видно в платеже</td>
+            <td>расхождение адреса и платёжных данных</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/upwork.svg" alt="" loading="lazy"></span><b>Upwork</b></span></td><td><span class="tag iv">IV</span></td>
+            <td>VPN разрешён при честно указанной стране в профиле</td>
+            <td>искажение реального местоположения</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/binance.svg" alt="" loading="lazy"></span><b>Binance</b></span></td><td><span class="tag i">I</span></td>
+            <td>запрет обходить ограничения, в том числе через virtual private network; запрет быть резидентом запрещённой юрисдикции</td>
+            <td>заморозка средств и аккаунта до выяснения</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/bybit.svg" alt="" loading="lazy"></span><b>Bybit</b></span></td><td><span class="tag iii">III</span></td>
+            <td>слова «VPN» нет; запрещены неверные сведения о местоположении и месте жительства</td>
+            <td>закрытие аккаунта с ликвидацией позиций</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/coinbase.svg" alt="" loading="lazy"></span><b>Coinbase</b></span></td><td><span class="tag zero">особая</span></td>
+            <td>слова «VPN» нет; в полученной редакции — требуется проживание в США</td>
+            <td>блокировка без объяснения; 90 дней на вывод</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/midjourney.svg" alt="" loading="lazy"></span><b>Midjourney</b></span></td><td><span class="tag zero">вне шкалы</span></td>
+            <td>слов «VPN», «proxy», «virtual private network» нет; требований к стране нет</td>
+            <td>блокировка «в любое время и по любой причине»</td></tr>
+          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/revolut.svg" alt="" loading="lazy"></span><b>Revolut</b></span></td><td><span class="tag zero">особая</span></td>
+            <td>требуется <b>проживание</b> в поддерживаемой стране</td>
+            <td>для РФ не вариант: адресом не решается</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="small dim rv" style="margin-top:18px;max-width:64em">Категория I — прямой запрет;
+    II — VPN назван причиной; III — слова «VPN» в документах нет, но есть требования по стране
+    и платежу; IV — VPN разрешён. Отдельно стоят те, у кого требование не решается адресом вовсе:
+    <b>Revolut</b> и <b>Coinbase</b> требуют проживания в поддерживаемой стране, а у
+    <b>Midjourney</b> запрета нет, но есть право заблокировать аккаунт без объяснения причин. Главный вывод: отсутствие слова «VPN» не означает отсутствия
+    правила — у Claude и ChatGPT оно сформулировано через регион и платёжное звено. Требования
+    сервисов мы документируем, но не консультируем по их обходу.</p>
+    <div class="btnrow rv">
+      <a class="btn ghost" href="karta-strogosti.html">Полная карта с цитатами</a>
+    </div>
   </div>
 </section>
 
-<!-- БЛОК 9. ЗАЯВКА -->
-<section id="zayavka">
-  <p class="kicker">начать</p>
-  <h2>Пришлите адрес, и мы покажем, что по нему видно</h2>
-  <p>Первая проверка бесплатная. Если понадобится разбор или наблюдение, сообщим стоимость
-  и условия без уговоров.</p>
-  <div class="btnrow">
-    <a class="btn" href="https://t.me/totallyaverage">Написать в Telegram</a>
+<section>
+  <div class="wrap">
+    <p class="label rv">цены</p>
+    <h2 class="rv">Стоимость</h2>
+    <div class="offers rv">
+      <div class="offer">
+        <span class="tag gray">вход</span>
+        <h3>Проверка адреса</h3>
+        <div class="sum">0 ₽</div>
+        <p>Страна, сеть, тип, признаки, чёрные списки.</p>
+        <a class="btn ghost w" href="https://t.me/totallyaverage">Прислать адрес</a>
+      </div>
+      <div class="offer main">
+        <span class="tag">главное</span>
+        <h3>Наблюдение</h3>
+        <div class="sum">1 000 ₽ <small>/ мес</small></div>
+        <p>До трёх сервисов: перепроверяем регулярно и сообщаем, если что-то изменилось.</p>
+        <a class="btn w" href="https://t.me/totallyaverage">Подключить</a>
+      </div>
+      <div class="offer">
+        <span class="tag gray">разово</span>
+        <h3>Разбор</h3>
+        <div class="sum">1 000 ₽</div>
+        <p>Отчёт, разбор конфигурации и выводы по вашей ситуации, с ответами на вопросы.</p>
+        <a class="btn ghost w" href="https://t.me/totallyaverage">Заказать</a>
+      </div>
+    </div>
+    <p class="small dim rv" style="margin-top:18px">Больше трёх сервисов — 2 000 ₽ в месяц.
+    Разовый отчёт фиксирует состояние на дату; наблюдение ловит изменения, которых в единичном
+    замере не видно.</p>
   </div>
-  <p class="small muted" style="margin-top:14px"> Оплата
-  в рублях, чек на каждую оплату. Гарантий по решениям сторонних сервисов мы не даём.</p>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label rv">границы</p>
+    <h2 class="rv">Чего мы не делаем</h2>
+    <div class="g2 rv" style="margin-top:36px">
+      <div class="cell">
+        <ul class="plain x">
+          <li>Не гарантируем сохранность аккаунта: решение принимает сервис</li>
+          <li>Не продаём доступы, серверы и не пропускаем через себя трафик</li>
+          <li>Не публикуем ссылки на средства обхода и не рекламируем их</li>
+          <li>Не консультируем по обходу ограничений сервисов</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <p class="q">Что в отчёте всегда есть</p>
+        <p>Источник по каждой строке, расхождения между источниками без сглаживания и отдельный
+        раздел «Чего мы не знаем»: какие источники не ответили и какие выводы из данных сделать
+        нельзя.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="zayavka">
+  <div class="wrap">
+    <h2>Пришлите адрес — покажем, что по нему видно</h2>
+    <p class="lead">Первая проверка бесплатная. Если понадобится разбор или наблюдение,
+    сообщим стоимость и условия.</p>
+    <div class="btnrow">
+      <a class="btn" href="https://t.me/totallyaverage?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81.%20%D0%9E%D1%82%D0%B2%D0%B5%D1%87%D0%B0%D1%8E%20%D0%BD%D0%B0%20%D0%BF%D1%8F%D1%82%D1%8C%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2%3A%0A%0A1.%20%D0%A7%D1%82%D0%BE%20%D0%B7%D0%B0%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D0%B8%20%D1%87%D0%B5%D0%B9%20%28%D0%B2%D0%B0%D1%88%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%2C%20%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%2C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0%29%3A%0A2.%20%D0%9A%D0%B0%D0%BA%D0%B8%D0%B5%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B%20%D0%B8%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D1%8B%20%D0%B2%D0%B0%D0%B6%D0%BD%D1%8B%3A%0A3.%20%D0%A7%D1%82%D0%BE%20%D0%BD%D0%B5%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82%20%28%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0%20%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%2C%20%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0%29%3A%0A4.%20%D0%A7%D1%82%D0%BE%20%D0%BC%D0%B5%D0%BD%D1%8F%D0%BB%D0%BE%D1%81%D1%8C%20%D0%B7%D0%B0%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86%20%28%D0%B0%D0%B4%D1%80%D0%B5%D1%81%2C%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%2C%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE%29%3A%0A5.%20%D0%A7%D1%82%D0%BE%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%28%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%B0%2C%20%D0%BF%D0%BB%D0%B0%D0%BD%2C%20%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%29%3A">Ответить на 5 вопросов</a>
+      <a class="btn ghost" href="https://t.me/totallyaverage">Написать без анкеты</a>
+    </div>
+    <p class="small dim" style="margin-top:22px">Отвечаем в течение дня. Оплата в рублях,
+    чек на каждую оплату. Гарантий по решениям сторонних сервисов не даём.</p>
+  </div>
 </section>
 
 <footer>
-  <p><strong>Источники данных.</strong> Открытые базы и реестры: ipinfo, ipapi.is, proxycheck.io,
-  scamalytics, stopforumspam, RDAP (RIPE и APNIC), публичные чёрные списки DNSBL. Все значения
-  приведены на дату замера; даты регистрации диапазонов получены из RDAP.</p>
-  <p><strong>Как мы работаем с данными.</strong> Каждый показатель указывается вместе
-  с источником. Расхождения между источниками не сглаживаются, а публикуются как есть. Отказы
-  источников и непроверенные параметры выносятся в отдельный раздел отчёта.</p>
-  <p>Отчёт носит информационный характер и не является юридической консультацией.</p>
+  <div class="wrap cols">
+    <div>
+      <span class="mark">видно<i>.</i>снаружи</span>
+      <p style="margin-top:12px">Проверка адреса и наблюдение за изменениями. Информационные
+      услуги: измеряем и объясняем. Доступ к ресурсам не предоставляем, трафик через себя
+      не пропускаем.</p>
+    </div>
+    <div>
+      <h4>Источники данных</h4>
+      <p>ipinfo, ipapi.is, proxycheck.io, scamalytics, stopforumspam, RDAP (RIPE, APNIC),
+      публичные чёрные списки DNSBL. Значения приведены на дату замера.</p>
+    </div>
+    <div>
+      <h4>Разборы</h4>
+      <p><a href="razbor-odin-ip-dve-pravdy.html">Почему базы расходятся</a><br>
+      <a href="razbor-pochemu-ne-prohodit-oplata.html">Почему не проходит оплата</a><br>
+      <a href="razbor-google-play-strana.html">Google Play и смена страны</a></p>
+    </div>
+    <div>
+      <h4>Разделы</h4>
+      <p><a href="index.html#how">Как это работает</a><br>
+      <a href="index.html#offer">Стоимость</a><br>
+      <a href="karta-strogosti.html">Карта строгости</a></p>
+    </div>
+  </div>
+  <div class="wrap">
+    <p style="margin-top:26px">Отчёт носит информационный характер и не является юридической
+    консультацией. Гарантий по решениям сторонних сервисов не даём.</p>
+  </div>
 </footer>
 
-</div>
+<script>
+(function(){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -5% 0px', threshold:.05});
+  document.querySelectorAll('.rv').forEach(function(el,i){
+    el.style.transitionDelay = (Math.min(i,5)*35)+'ms'; io.observe(el);
+  });
+})();
+(function(){
+  var h = document.getElementById('hdr');
+  if(h){
+    var f = function(){ h.classList.toggle('on', window.scrollY > 6); };
+    f(); window.addEventListener('scroll', f, {passive:true});
+  }
+  var b = document.getElementById('burger'), m = document.getElementById('mobmenu');
+  if(b && m){
+    b.addEventListener('click', function(){
+      var open = m.classList.toggle('on');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    m.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        m.classList.remove('on'); b.setAttribute('aria-expanded','false');
+      });
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && m.classList.contains('on')){
+        m.classList.remove('on'); b.setAttribute('aria-expanded','false'); b.focus();
+      }
+    });
+  }
+})();
+</script>
 
 <script>
-document.querySelectorAll('.tab').forEach(function(t){
-  t.addEventListener('click', function(){
-    document.querySelectorAll('.tab').forEach(function(x){ x.setAttribute('aria-selected','false'); });
-    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
-    t.setAttribute('aria-selected','true');
-    document.getElementById(t.dataset.p).classList.add('on');
-  });
-});
+var out = document.getElementById('out');
+var go = document.getElementById('go');
 
 var CASES = {
   clean: { ip:'185.42.17.203', rows:[
@@ -416,31 +393,28 @@ var CASES = {
     ['Прокси и VPN','нет, обе базы чистые','ok'],
     ['Чёрные списки','пять из пяти чисто','ok'],
     ['Жалобы на спам','нет','ok'],
-    ['Что дальше','профиль ровный, хватит проверки раз в месяц','muted']]},
+    ['Что дальше','профиль ровный, хватит проверки раз в месяц','']]},
   hosting: { ip:'136.0.254.210', rows:[
     ['Страна и город','Малайзия, Куала-Лумпур',''],
     ['Владелец сети','AS149440, хостинг-провайдер',''],
     ['Имя сети в реестре','ERX-NETBLOCK',''],
-    ['Тип адреса','датацентр','warn'],
-    ['Прокси и VPN','да: тип VPN, риск 66','bad'],
-    ['Вторая база','видит VPN и датацентр','warn'],
-    ['Fraud score у третьей базы','0, то есть «чисто»','warn'],
+    ['Тип адреса','датацентр','w'],
+    ['Прокси и VPN','да: тип VPN, риск 66','no'],
+    ['Вторая база','видит VPN и датацентр','w'],
+    ['Fraud score у третьей базы','0, то есть «чисто»','w'],
     ['Жалобы на спам','нет','ok'],
-    ['Что дальше','адрес помечен как VPN, часть сервисов это увидит','bad']]},
+    ['Что дальше','адрес помечен как VPN, часть сервисов это увидит','no']]},
   moved: { ip:'201.10.90.11', rows:[
     ['Страна и город','Польша, Варшава',''],
-    ['Диапазон зарегистрирован','79 дней назад','warn'],
-    ['Кто ведёт запись','брокер IP-адресов','warn'],
-    ['Тип адреса','датацентр','warn'],
-    ['Прокси и VPN','одна база чисто, вторая видит VPN','warn'],
-    ['Чёрные списки','один список ругается на весь блок','warn'],
+    ['Диапазон зарегистрирован','79 дней назад','w'],
+    ['Кто ведёт запись','брокер IP-адресов','w'],
+    ['Тип адреса','датацентр','w'],
+    ['Прокси и VPN','одна база чисто, вторая видит VPN','w'],
+    ['Чёрные списки','один список ругается на весь блок','w'],
     ['Жалобы на спам','нет','ok'],
-    ['Что дальше','блок свежий и арендованный: при переоформлении','warn'],
-    ['','или смене сети профиль изменится','warn']]}
+    ['Что дальше','блок свежий и арендованный: при переоформлении','w'],
+    ['','или смене сети профиль изменится','w']]}
 };
-
-var out = document.getElementById('out');
-var go = document.getElementById('go');
 
 function run(){
   var c = CASES[document.getElementById('case').value];
@@ -448,7 +422,7 @@ function run(){
   var head = document.createElement('div');
   head.className = 'line show';
   head.innerHTML = '<span>Проверяю адрес ' + c.ip + '</span>'
-                 + '<span class="muted"><span class="spin"></span>опросил базы</span>';
+                 + '<span class="dim"><span class="spin"></span>опросил базы</span>';
   out.appendChild(head);
   var i = 0;
   var timer = setInterval(function(){
@@ -472,7 +446,7 @@ if (go) { go.addEventListener('click', run); }
 {
  "@context":"https://schema.org",
  "@type":"ProfessionalService",
- "name":"Проверка адреса: что видно снаружи",
+ "name":"Видно снаружи: проверка адреса и наблюдение",
  "description":"Проверка IP-адреса по открытым базам и наблюдение за изменениями: страна, владелец и номер сети, тип адреса, признаки прокси и VPN по двум базам, пять чёрных списков, жалобы. В каждом отчёте есть раздел о том, чего мы не знаем.",
  "areaServed":"RU","availableLanguage":"ru",
  "serviceType":["проверка IP-адреса","наблюдение за репутацией адреса","разбор конфигурации сети"],

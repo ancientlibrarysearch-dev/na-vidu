@@ -3,138 +3,173 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Один адрес — две правды: почему чекер говорит «чисто», а антифрод видит VPN</title>
-<meta name="description" content="Реальный замер двух адресов через шесть баз: fraud score 0 у адреса с пометкой «VPN, риск 66». Разбираем, почему базы противоречат друг другу и почему одной цифры недостаточно.">
-<meta property="og:title" content="Один адрес — две правды: почему чекер говорит «чисто», а антифрод видит VPN">
-<meta property="og:description" content="Реальный замер двух адресов через шесть баз: fraud score 0 у адреса с пометкой «VPN, риск 66». Разбираем, почему базы противоречат друг другу и почему одной цифры недостаточно.">
+<title>Один адрес — две правды: fraud score 0 против пометки «VPN, риск 66»</title>
+<meta name="description" content="Замер двух адресов по одним и тем же источникам: почему бесплатная проверка говорит «чисто», а вторая база в тот же момент видит VPN и датацентр.">
+<meta property="og:title" content="Один адрес — две правды: fraud score 0 против пометки «VPN, риск 66»">
+<meta property="og:description" content="Замер двух адресов по одним и тем же источникам: почему бесплатная проверка говорит «чисто», а вторая база в тот же момент видит VPN и датацентр.">
 <meta property="og:type" content="article">
-<style>
-:root{--bg:#0c0e12;--panel:#15181e;--panel2:#11141a;--line:#272c35;--fg:#eef1f5;--dim:#98a0ac;
---acc:#5ed28c;--warn:#f0c45a;--bad:#ee6a5e;}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,
-"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-.wrap{max-width:880px;margin:0 auto;padding:24px 20px 80px}
-nav{margin:0 0 10px;font-size:14px}
-nav a{color:var(--dim);text-decoration:none;margin-right:14px}
-nav a:hover{color:var(--acc)}
-h1{font-size:clamp(26px,5vw,40px);line-height:1.14;margin:18px 0 14px;letter-spacing:-.6px}
-h2{font-size:clamp(20px,3.6vw,26px);margin:44px 0 12px;letter-spacing:-.4px}
-h3{font-size:18px;margin:26px 0 8px}
-p{margin:0 0 14px}
-.lead{font-size:18px;color:var(--dim)}
-.muted{color:var(--dim)}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0}
-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--dim);font-weight:600}
-.ok{color:var(--acc)}.no{color:var(--bad)}.mid{color:var(--warn)}
-ul,ol{margin:0 0 14px;padding-left:22px}li{margin:7px 0}
-blockquote{margin:12px 0;padding:12px 16px;background:var(--panel2);border-left:3px solid #3a4453;
-border-radius:0 10px 10px 0;color:#dfe4ea;font-size:15px}
-blockquote cite{display:block;margin-top:6px;color:var(--dim);font-size:13px;font-style:normal}
-.tag{display:inline-block;font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--acc);
-border:1px solid #2c4a38;background:#101a14;border-radius:999px;padding:3px 10px;margin-bottom:8px}
-.tag.i{color:#ff9d92;border-color:#5a2a26;background:#1b100f}
-.tag.ii{color:#f0c45a;border-color:#5a4a20;background:#1a1710}
-.tag.iii{color:#8fc6ff;border-color:#26415a;background:#101820}
-.tag.iv{color:#5ed28c;border-color:#2c4a38;background:#101a14}
-.note{border-left:3px solid var(--warn);padding-left:14px;color:var(--dim)}
-.cta{display:inline-block;background:var(--acc);color:#06210f;font-weight:700;padding:14px 22px;
-border-radius:12px;text-decoration:none;margin:8px 10px 8px 0}
-.cta.second{background:transparent;color:var(--fg);border:1px solid var(--line)}
-footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:14px}
-a{color:var(--acc)}
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
-</style>
-<link rel="stylesheet" href="stil-knopok.css">
+<meta name="theme-color" content="#08090a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308090a'/><circle cx='50' cy='50' r='24' fill='none' stroke='%2350d183' stroke-width='9'/><circle cx='50' cy='50' r='7' fill='%2350d183'/></svg>">
+<link rel="stylesheet" href="stil-sayta.css">
 </head>
 <body>
-<div class="wrap">
-<nav><a href="index.html">Главная</a><a href="issledovanie.html">Исследование</a><a href="karta-strogosti.html">Карта строгости</a><a href="razbor-odin-ip-dve-pravdy.html">Один адрес — две правды</a><a href="razbor-pochemu-ne-prohodit-oplata.html">Почему не проходит оплата</a><a href="razbor-google-play-strana.html">Google Play: смена страны</a></nav>
+<header id="hdr"><div class="wrap nav"><a class="mark" href="index.html">видно<i>.</i>снаружи</a><nav class="navlinks"><a href="index.html">Как это работает</a><a href="issledovanie.html">Исследование</a><a href="karta-strogosti.html">Карта строгости</a><a href="razbor-odin-ip-dve-pravdy.html" aria-current="page">Разборы</a></nav><a class="btn s" href="https://t.me/totallyaverage">Проверить адрес</a><button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobmenu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button></div><nav class="mobmenu" id="mobmenu"><a href="index.html">Как это работает</a><a href="issledovanie.html">Исследование</a><a href="karta-strogosti.html">Карта строгости</a><a href="razbor-odin-ip-dve-pravdy.html" aria-current="page">Разборы</a><a class="btn" href="https://t.me/totallyaverage">Проверить адрес</a></nav></header>
 
-<span class="tag">разбор</span>
-<h1>Один адрес — две правды: почему бесплатный чекер говорит «чисто», а антифрод видит VPN</h1>
-<p class="lead">Мы прогнали два адреса через шесть открытых баз. Результат: у одного из них
-«fraud score» равен нулю — и одновременно стоит пометка «VPN, риск 66». Разбираем, почему так
-бывает и что с этим делать.</p>
-
-<h2>Что мы измерили</h2>
-<table>
-<thead><tr><th>Показатель</th><th>Адрес A (наш рабочий, Польша)</th><th>Адрес B (Малайзия)</th></tr></thead>
-<tbody>
-<tr><td>proxycheck: прокси / тип / риск</td><td class="ok">no / Business / 0</td>
-<td class="no">yes / VPN / 66</td></tr>
-<tr><td>fraud score (scamalytics)</td><td>0 (low)</td><td>0 (low)</td></tr>
-<tr><td>признаки scamalytics</td><td class="mid">VPN: да, датацентр: да</td>
-<td class="mid">VPN: да, датацентр: да</td></tr>
-<tr><td>жалобы (stopforumspam)</td><td>0</td><td>0</td></tr>
-<tr><td>страна адреса</td><td>Польша</td><td>Малайзия</td></tr>
-</tbody>
-</table>
-<p class="note">Смотрите внимательно: у адреса B, который одна база прямо называет VPN с риском 66,
-<strong>fraud score у другой базы равен нулю</strong>. Если человек откроет «проверку чистоты IP» и
-посмотрит на одну цифру — он увидит «всё хорошо».</p>
-
-<h2>Почему базы противоречат друг другу</h2>
-<ol>
-<li><strong>Разные определения.</strong> Одна база считает «прокси» по факту открытых портов,
-другая — по типу сети: адрес, принадлежащий датацентру, для неё уже подозрителен.</li>
-<li><strong>Разные источники.</strong> Одни опираются на жалобы, другие — на данные операторов и
-реестров, третьи — на собственный сбор с сети.</li>
-<li><strong>Разное время.</strong> Адрес мог быть «грязным» год назад и очиститься, или наоборот —
-попасть в список вчера. Базы обновляются не одновременно.</li>
-<li><strong>Разный смысл цифры.</strong> «Fraud score 0» часто означает не «адрес идеален», а
-«у нас нет данных, чтобы его обвинить».</li>
-</ol>
-
-<h2>Что из этого следует практически</h2>
-<ul>
-<li><strong>Одной проверки недостаточно.</strong> Нужны минимум две базы, желательно с разными
-методиками — тогда противоречие видно сразу.</li>
-<li><strong>«Fraud score 0» — не приговор в хорошую сторону.</strong> Это отсутствие обвинений,
-а не подтверждение чистоты.</li>
-<li><strong>Смотрите на тип сети и имя сети в реестре.</strong> Слова hosting, cloud, vps,
-datacenter в официальной записи диапазона читаются антифрод-системами напрямую.</li>
-<li><strong>Проверяйте регулярно.</strong> Профиль адреса меняется без вашего участия: диапазоны
-переоформляются, соседи по блоку попадают в списки, хостинг меняет сеть.</li>
-</ul>
-
-<h2>Как это делаем мы</h2>
-<p>Мы показываем все источники сразу — с указанием, откуда каждая строка, — и отдельным разделом
-пишем, чего мы не знаем. Замер по одному адресу занимает около 4,5 секунды машинного времени.</p>
-<p><a class="btn" href="index.html#zayavka">Проверить свой адрес</a></p>
-
-
-
-<div class="block-cta">
-  <div>
-    <h3 style="margin:0 0 6px">Проверим ваш адрес</h3>
-    <p class="small muted" style="margin:0">Первая проверка бесплатная. Напишите адрес, ответим,
-    что по нему видно.</p>
+<section class="hero first">
+  <div class="wrap">
+    <p class="label rv">разбор</p>
+    <h1 class="rv">Один адрес — две правды</h1>
+    <p class="lead rv">Два адреса из нашей выборки, проверенные по одним и тем же источникам в один момент времени. У одного из них fraud score равен нулю — и одновременно стоит пометка «VPN, риск 66».</p>
+    <div class="btnrow rv"><a class="btn" href="https://t.me/totallyaverage">Проверить свой адрес</a><a class="btn ghost" href="karta-strogosti.html">Карта строгости</a></div>
+    
   </div>
-  <a class="btn" href="https://t.me/totallyaverage">Написать в Telegram</a>
-</div>
+</section>
+<section>
+  <div class="wrap">
+    <p class="label rv">наш замер</p>
+    <h2 class="rv">Что показали источники</h2>
+    <div class="tablewrap rv" style="margin-top:32px">
+      <table>
+        <thead><tr><th>Показатель</th><th>Адрес A, Польша</th><th>Адрес B, Малайзия</th></tr></thead>
+        <tbody>
+          <tr><td>Страна</td><td>Польша</td><td>Малайзия</td></tr><tr><td>proxycheck: прокси / тип / риск</td><td><span class="ok">no / Business / 0</span></td><td><span class="no">yes / VPN / 66</span></td></tr><tr><td>fraud score (scamalytics)</td><td>0 (low)</td><td>0 (low)</td></tr><tr><td>признаки (scamalytics)</td><td><span class="warn">VPN: да, датацентр: да</span></td><td><span class="warn">VPN: да, датацентр: да</span></td></tr><tr><td>жалобы (stopforumspam)</td><td>0</td><td>0</td></tr><tr><td>диапазон зарегистрирован</td><td>79 дней назад</td><td>172 дня назад</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="rv" style="margin-top:26px;max-width:60em">Адрес B одна база прямо называет VPN
+    с риском 66, а fraud score у другой базы в тот же момент <b>равен нулю</b>. Кто посмотрит
+    на одну цифру, увидит «всё чисто».</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label rv">причина</p>
+    <h2 class="rv">Почему источники противоречат друг другу</h2>
+    <div class="g2 rv" style="margin-top:32px">
+      <div class="cell"><span class="n">01</span><h3>Разные определения</h3>
+        <p>Одна база считает «прокси» по открытым портам, другая — по типу сети: адрес,
+        принадлежащий датацентру, для неё уже подозрителен.</p></div>
+      <div class="cell"><span class="n">02</span><h3>Разные источники данных</h3>
+        <p>Одни опираются на жалобы, другие — на данные операторов и реестров, третьи —
+        на собственный сбор с сети.</p></div>
+      <div class="cell"><span class="n">03</span><h3>Разное время</h3>
+        <p>Адрес мог быть «грязным» год назад и очиститься — или попасть в список вчера.
+        Базы обновляются не одновременно.</p></div>
+      <div class="cell"><span class="n">04</span><h3>Разный смысл цифры</h3>
+        <p>«Fraud score 0» часто означает не «адрес идеален», а «у нас нет данных, чтобы
+        его обвинить».</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="label rv">что делать</p>
+    <h2 class="rv">Четыре вывода</h2>
+    <div class="g2 rv" style="margin-top:32px">
+      <div class="cell">
+        <ul class="plain">
+          <li>Одной проверки недостаточно: нужны минимум две базы с разными методиками —
+          тогда противоречие видно сразу.</li>
+          <li>«Fraud score 0» — это отсутствие обвинений, а не подтверждение чистоты.</li>
+          <li>Смотрите на тип и имя сети в реестре: слова hosting, cloud, vps, datacenter
+          в официальной записи читаются проверяющими системами напрямую.</li>
+          <li>Проверяйте регулярно: диапазоны переоформляют, соседи по блоку попадают в списки,
+          хостинг меняет сеть.</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <p class="q">Как это делаем мы</p>
+        <p>Показываем все источники сразу, с указанием, откуда каждая строка, и отдельным
+        разделом пишем, чего мы не знаем. Замер одного адреса — около 4,5 секунды машинного
+        времени.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final" id="zayavka">
+  <div class="wrap">
+    <h2>Проверим ваш адрес</h2>
+    <p class="lead">Первая проверка бесплатная. Пришлите адрес — ответим, что по нему видно.</p>
+    <div class="btnrow">
+      <a class="btn" href="https://t.me/totallyaverage?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81.%20%D0%9E%D1%82%D0%B2%D0%B5%D1%87%D0%B0%D1%8E%20%D0%BD%D0%B0%20%D0%BF%D1%8F%D1%82%D1%8C%20%D0%B2%D0%BE%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2%3A%0A%0A1.%20%D0%A7%D1%82%D0%BE%20%D0%B7%D0%B0%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D0%B8%20%D1%87%D0%B5%D0%B9%20%28%D0%B2%D0%B0%D1%88%20%D1%81%D0%B5%D1%80%D0%B2%D0%B5%D1%80%2C%20%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%2C%20%D0%B0%D0%B4%D1%80%D0%B5%D1%81%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0%29%3A%0A2.%20%D0%9A%D0%B0%D0%BA%D0%B8%D0%B5%20%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D1%8B%20%D0%B8%20%D0%B0%D0%BA%D0%BA%D0%B0%D1%83%D0%BD%D1%82%D1%8B%20%D0%B2%D0%B0%D0%B6%D0%BD%D1%8B%3A%0A3.%20%D0%A7%D1%82%D0%BE%20%D0%BD%D0%B5%20%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%B5%D1%82%20%28%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0%20%D0%BB%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%2C%20%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0%29%3A%0A4.%20%D0%A7%D1%82%D0%BE%20%D0%BC%D0%B5%D0%BD%D1%8F%D0%BB%D0%BE%D1%81%D1%8C%20%D0%B7%D0%B0%20%D0%BC%D0%B5%D1%81%D1%8F%D1%86%20%28%D0%B0%D0%B4%D1%80%D0%B5%D1%81%2C%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%2C%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B0%2C%20%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%BE%29%3A%0A5.%20%D0%A7%D1%82%D0%BE%20%D1%85%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%20%28%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%B0%2C%20%D0%BF%D0%BB%D0%B0%D0%BD%2C%20%D0%BD%D0%B0%D0%B1%D0%BB%D1%8E%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%29%3A">Ответить на 5 вопросов</a>
+      <a class="btn ghost" href="https://t.me/totallyaverage">Написать без анкеты</a>
+    </div>
+    <p class="small dim" style="margin-top:22px">Анкета — пять вопросов: без них разбор
+    получится «про адрес вообще», а не про вашу задачу. Отвечаем в течение дня, чек на каждую
+    оплату.</p>
+  </div>
+</section>
+
 
 <footer>
-  <p><strong>Источники.</strong> Официальные документы сервисов (соглашения, справки, политики),
-  открытые базы и реестры: ipinfo, ipapi.is, proxycheck.io, scamalytics, stopforumspam,
-  RDAP (RIPE, APNIC), публичные чёрные списки DNSBL. Данные на дату проверки.</p>
-  <p>Материал носит информационный характер и не является юридической консультацией. Гарантий по
-  решениям сторонних сервисов не даём: в наших отчётах всегда есть раздел «Чего мы не знаем».</p>
+  <div class="wrap cols">
+    <div>
+      <span class="mark">видно<i>.</i>снаружи</span>
+      <p style="margin-top:12px">Проверка адреса и наблюдение за изменениями.
+      Информационные услуги: измеряем и объясняем. Доступ к ресурсам не предоставляем,
+      трафик через себя не пропускаем.</p>
+    </div>
+    <div>
+      <h4>Разборы</h4>
+      <p><a href="razbor-odin-ip-dve-pravdy.html">Почему базы расходятся</a><br>
+      <a href="razbor-pochemu-ne-prohodit-oplata.html">Почему не проходит оплата</a><br>
+      <a href="razbor-google-play-strana.html">Google Play и смена страны</a></p>
+    </div>
+    <div>
+      <h4>Материалы</h4>
+      <p><a href="issledovanie.html">Исследование</a><br>
+      <a href="karta-strogosti.html">Карта строгости сервисов</a><br>
+      <a href="index.html#how">Как это работает</a><br>
+      <a href="index.html#offer">Стоимость</a></p>
+    </div>
+  </div>
 </footer>
 
-</div>
+
+<script>
+(function(){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {rootMargin:'0px 0px -5% 0px', threshold:.05});
+  document.querySelectorAll('.rv').forEach(function(el,i){
+    el.style.transitionDelay = (Math.min(i,5)*35)+'ms'; io.observe(el);
+  });
+})();
+(function(){
+  var h = document.getElementById('hdr');
+  if(h){
+    var f = function(){ h.classList.toggle('on', window.scrollY > 6); };
+    f(); window.addEventListener('scroll', f, {passive:true});
+  }
+  var b = document.getElementById('burger'), m = document.getElementById('mobmenu');
+  if(b && m){
+    b.addEventListener('click', function(){
+      var open = m.classList.toggle('on');
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    m.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        m.classList.remove('on'); b.setAttribute('aria-expanded','false');
+      });
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && m.classList.contains('on')){
+        m.classList.remove('on'); b.setAttribute('aria-expanded','false'); b.focus();
+      }
+    });
+  }
+})();
+</script>
+
 <script type="application/ld+json">{
  "@context": "https://schema.org",
  "@type": "Article",
- "headline": "Один адрес — две правды: почему бесплатный чекер говорит «чисто», а антифрод видит VPN",
- "about": [
-  "проверка IP-адреса",
-  "fraud score",
-  "обнаружение VPN и прокси"
- ],
- "inLanguage": "ru"
+ "headline": "Один адрес — две правды: почему базы расходятся",
+ "inLanguage": "ru",
+ "isAccessibleForFree": true
 }</script>
 </body>
 </html>
