@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Почему оплата не проходит, хотя «всё настроено»: сервис, платёжный слой и банк</title>
+<meta name="description" content="Три слоя проверок при оплате: правила сервиса (регион и карта), платёжная система (несовпадение стран карты и IP, расстояние до биллинг-адреса) и банк. Разбор по официальным документам.">
+<meta property="og:title" content="Почему оплата не проходит, хотя «всё настроено»: сервис, платёжный слой и банк">
+<meta property="og:description" content="Три слоя проверок при оплате: правила сервиса (регион и карта), платёжная система (несовпадение стран карты и IP, расстояние до биллинг-адреса) и банк. Разбор по официальным документам.">
+<meta property="og:type" content="article">
+<style>
+:root{--bg:#0c0e12;--panel:#15181e;--panel2:#11141a;--line:#272c35;--fg:#eef1f5;--dim:#98a0ac;
+--acc:#5ed28c;--warn:#f0c45a;--bad:#ee6a5e;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,
+"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:24px 20px 80px}
+nav{margin:0 0 10px;font-size:14px}
+nav a{color:var(--dim);text-decoration:none;margin-right:14px}
+nav a:hover{color:var(--acc)}
+h1{font-size:clamp(26px,5vw,40px);line-height:1.14;margin:18px 0 14px;letter-spacing:-.6px}
+h2{font-size:clamp(20px,3.6vw,26px);margin:44px 0 12px;letter-spacing:-.4px}
+h3{font-size:18px;margin:26px 0 8px}
+p{margin:0 0 14px}
+.lead{font-size:18px;color:var(--dim)}
+.muted{color:var(--dim)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:600}
+.ok{color:var(--acc)}.no{color:var(--bad)}.mid{color:var(--warn)}
+ul,ol{margin:0 0 14px;padding-left:22px}li{margin:7px 0}
+blockquote{margin:12px 0;padding:12px 16px;background:var(--panel2);border-left:3px solid #3a4453;
+border-radius:0 10px 10px 0;color:#dfe4ea;font-size:15px}
+blockquote cite{display:block;margin-top:6px;color:var(--dim);font-size:13px;font-style:normal}
+.tag{display:inline-block;font-size:12px;letter-spacing:.4px;text-transform:uppercase;color:var(--acc);
+border:1px solid #2c4a38;background:#101a14;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+.tag.i{color:#ff9d92;border-color:#5a2a26;background:#1b100f}
+.tag.ii{color:#f0c45a;border-color:#5a4a20;background:#1a1710}
+.tag.iii{color:#8fc6ff;border-color:#26415a;background:#101820}
+.tag.iv{color:#5ed28c;border-color:#2c4a38;background:#101a14}
+.note{border-left:3px solid var(--warn);padding-left:14px;color:var(--dim)}
+.cta{display:inline-block;background:var(--acc);color:#06210f;font-weight:700;padding:14px 22px;
+border-radius:12px;text-decoration:none;margin:8px 10px 8px 0}
+.cta.second{background:transparent;color:var(--fg);border:1px solid var(--line)}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--dim);font-size:14px}
+a{color:var(--acc)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="index.html">Главная</a><a href="issledovanie.html">Исследование</a><a href="karta-strogosti.html">Карта строгости</a><a href="razbor-odin-ip-dve-pravdy.html">Один адрес — две правды</a><a href="razbor-pochemu-ne-prohodit-oplata.html">Почему не проходит оплата</a><a href="razbor-google-play-strana.html">Google Play: смена страны</a></nav>
+
+<span class="tag">разбор</span>
+<h1>Почему оплата не проходит, хотя «всё настроено»: три слоя, которые смотрят по-разному</h1>
+<p class="lead">Платёж видят три разные системы, и у каждой свои признаки. Разбираем по официальным
+документам, что именно проверяется на каждом слое и почему «я всё сделал правильно» не помогает.</p>
+
+<h2>Слой 1. Сервис: регион, карта, правила</h2>
+<ul>
+<li><strong>Google Play</strong> прямо называет VPN причиной отказа в смене страны, а смена страны
+заперта на <strong>90 дней</strong>. Виртуальные карты не принимаются вовсе.</li>
+<li><strong>ChatGPT</strong>: слов «VPN» в правилах нет, но карта обязана быть выпущена в
+поддерживаемой стране.</li>
+<li><strong>Claude</strong>: слова «VPN» в документах нет; есть требование находиться в
+поддерживаемой стране, а биллинг-адрес берётся из карты.</li>
+</ul>
+<p class="muted">Вывод: у одних запрет написан прямо, у других его нет — но требование к региону
+карты остаётся. Отсутствие слова «VPN» не означает отсутствие правила.</p>
+
+<h2>Слой 2. Платёжная система: адрес против карты</h2>
+<p>Платёж проходит через платёжный сервис (например, Stripe), и в каждом платеже есть блок данных
+об IP: сам адрес, страна, регион, тип подключения, признак прокси/Tor — и <strong>расстояние между
+адресом и биллинг-адресом</strong>. Правило «карта и IP из разных стран» платёжные системы
+предлагают проверять прямо, с готовыми примерами.</p>
+<p class="muted">Вывод: даже если сервис к адресу равнодушен, расхождение может сработать на этом
+слое. И заметить его оттуда, где сидит клиент, невозможно — нужен взгляд на данные платежа.</p>
+
+<h2>Слой 3. Банк: подтверждение и проверки</h2>
+<p>Банк видит свою сторону: страну операции, устройство, историю. Именно оттуда чаще всего приходит
+«подтвердите, что вы находитесь в стране, где платите».</p>
+
+<h2>Почему «правильной настройки» не существует</h2>
+<ol>
+<li><strong>Слои смотрят разное.</strong> То, что успокаивает один слой, для другого — сигнал.</li>
+<li><strong>У каждого слоя свои пороги</strong>, и они не публикуются.</li>
+<li><strong>История важнее текущего состояния.</strong> Резкие изменения (адрес, карта, устройство)
+сами по себе являются признаком, независимо от того, «хорош» новый адрес или нет.</li>
+</ol>
+<p class="note">В публичных рассказах людей, потерявших доступ к аккаунтам, чаще всего фигурирует
+одно и то же событие — <strong>смена платёжного звена</strong> (карты или способа оплаты). Это
+наблюдение, а не гарантия: мы не знаем, как посмотрит система именно на ваш случай.</p>
+
+<h2>Что можно проверить самостоятельно</h2>
+<ul>
+<li>Совпадают ли страна адреса и страна карты (и биллинг-адреса).</li>
+<li>Что о вашем адресе говорят <strong>минимум две</strong> независимые базы — а не одна цифра.</li>
+<li>Согласованы ли между собой окружение и адрес: часовой пояс, язык, геолокация.</li>
+<li>Не менялось ли платёжное звено в последний месяц перед списанием.</li>
+</ul>
+<p><a class="cta" href="karta-strogosti.html">Посмотреть карту строгости сервисов</a></p>
+
+
+
+<div class="card" style="margin:34px 0 0;display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:space-between">
+  <div>
+    <h3 style="margin:0 0 6px">Проверим ваш адрес</h3>
+    <p class="small muted" style="margin:0">Первая проверка бесплатная. Напишите адрес, ответим,
+    что по нему видно.</p>
+  </div>
+  <a class="cta" href="https://t.me/totallyaverage">Написать в Telegram</a>
+</div>
+
+<footer>
+  <p><strong>Источники.</strong> Официальные документы сервисов (соглашения, справки, политики),
+  открытые базы и реестры: ipinfo, ipapi.is, proxycheck.io, scamalytics, stopforumspam,
+  RDAP (RIPE, APNIC), публичные чёрные списки DNSBL. Данные на дату проверки.</p>
+  <p>Материал носит информационный характер и не является юридической консультацией. Гарантий по
+  решениям сторонних сервисов не даём: в наших отчётах всегда есть раздел «Чего мы не знаем».</p>
+</footer>
+
+</div>
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Почему оплата не проходит, хотя «всё настроено»: три слоя, которые смотрят по-разному",
+ "about": [
+  "оплата зарубежных сервисов",
+  "проверки платёжных систем",
+  "регион карты и IP"
+ ],
+ "inLanguage": "ru"
+}</script>
+</body>
+</html>
