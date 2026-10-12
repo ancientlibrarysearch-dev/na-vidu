@@ -11,9 +11,9 @@
   --fg:#ffffff; --fg2:#c9ced6; --dim:#8b939f; --dim2:#5c6470;
   --acc:#50d183; --acc2:#63dc92; --acc-soft:rgba(80,209,131,.12);
   --warn:#e3b34e; --bad:#e8705f; --blue:#8fc6ff;
-  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
-  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
   --w:1140px;
 }
 
@@ -60,27 +60,34 @@ header.on{border-bottom-color:var(--line);background:rgba(8,9,10,.92)}
   font:inherit;color:var(--fg);transition:background .15s ease,border-color .15s ease}
 .burger:hover{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.22)}
 .burger svg{width:18px;height:18px;display:block}
+.burger .l{transform-origin:center;transition:transform .22s cubic-bezier(.4,0,.2,1),opacity .16s ease}
+.burger[aria-expanded="true"]{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.24)}
+.burger[aria-expanded="true"] .l1{transform:translateY(4px) rotate(45deg)}
+.burger[aria-expanded="true"] .l2{opacity:0}
+.burger[aria-expanded="true"] .l3{transform:translateY(-4px) rotate(-45deg)}
 @media(min-width:1000px){.burger{display:none}}
+.burger{margin-left:auto}
+@media(min-width:1000px){.burger{margin-left:0}}
 .mobmenu{display:none;border-top:1px solid var(--line);background:rgba(8,9,10,.96);
   backdrop-filter:blur(14px) saturate(140%);padding:10px 0 18px}
 .mobmenu.on{display:block}
 @media(min-width:1000px){.mobmenu{display:none!important}}
 .mobmenu a{display:block;padding:13px 24px;color:var(--fg2);text-decoration:none;font-size:16px}
 .mobmenu a:hover,.mobmenu a[aria-current="page"]{color:var(--fg);background:rgba(255,255,255,.04)}
-.mobmenu .btn{margin:12px 24px 0;width:calc(100% - 48px)}
+.mobmenu .btn{margin:14px 24px 0;width:calc(100% - 48px)}
 
 /* ---------- заголовки и текст ---------- */
 h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em}
-h1{font-size:clamp(30px,5.4vw,52px);line-height:1.06;letter-spacing:-.035em;margin-bottom:18px}
-h2{font-size:clamp(23px,3.8vw,36px);line-height:1.12;letter-spacing:-.03em;margin-bottom:12px}
+h1{font-size:clamp(30px,5.4vw,52px);line-height:1.06;letter-spacing:-.035em;margin-bottom:14px}
+h2{font-size:clamp(23px,3.8vw,36px);line-height:1.12;letter-spacing:-.03em;margin-bottom:10px}
 h3{font-size:17.5px;line-height:1.35;font-weight:600;letter-spacing:-.01em}
 p{margin:0 0 14px;color:var(--fg2)}
 strong,b{color:var(--fg)}
-.lead{font-size:clamp(17px,2.2vw,20px);line-height:1.55;color:#dfe4ea;max-width:34em}
+.lead{font-size:clamp(17px,2.2vw,19.5px);line-height:1.5;color:#dfe4ea;max-width:34em}
 .dim{color:var(--dim)}.small{font-size:14.5px}
 .mono{font-family:var(--mono);font-size:13px;letter-spacing:.02em}
 .label{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--dim2);margin:0 0 18px}
+  color:var(--dim2);margin:0 0 14px}
 blockquote{margin:16px 0;padding:14px 18px;background:var(--panel2);border-left:2px solid #3a4453;
   border-radius:0 10px 10px 0;color:#dfe4ea;font-size:15.5px}
 blockquote cite{display:block;margin-top:8px;color:var(--dim);font-size:13px;font-style:normal}
@@ -93,18 +100,18 @@ ul,ol{padding-left:22px}
 li{margin:8px 0;color:var(--fg2)}
 
 /* ---------- секции ---------- */
-section{padding:96px 0;border-top:1px solid var(--line);scroll-margin-top:72px}
-section.hero{border-top:0;padding:76px 0 92px}
+section{padding:72px 0;border-top:1px solid var(--line);scroll-margin-top:72px}
+section.hero{border-top:0;padding:60px 0 72px}
 section.first{border-top:0}
-@media(max-width:700px){section{padding:64px 0}section.hero{padding:52px 0 64px}}
+@media(max-width:700px){section{padding:52px 0}section.hero{padding:44px 0 52px}}
 
 /* герой: две колонки (текст + панель «что видит сервис») */
-.hero .cols{display:grid;gap:48px}
+.hero .cols{display:grid;gap:36px}
 @media(min-width:940px){.hero .cols{grid-template-columns:1.05fr .95fr;align-items:center}}
-.metrics{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;padding-top:24px;
+.metrics{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:34px;padding-top:22px;
   border-top:1px solid var(--line);font-size:14.5px;color:var(--dim)}
 .metrics b{color:var(--fg);font-weight:600}
-.final{text-align:center;padding:104px 0;border-top:1px solid var(--line);
+.final{text-align:center;padding:76px 0;border-top:1px solid var(--line);
   background:radial-gradient(70% 120% at 50% 0%,rgba(80,209,131,.09),transparent 62%)}
 .final .lead{margin:0 auto 6px}
 .final .btnrow{justify-content:center}
@@ -123,7 +130,7 @@ section.first{border-top:0}
 .btn.s{min-height:42px;padding:0 18px;font-size:15px;border-radius:8px;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 6px 16px -10px rgba(80,209,131,.65)}
 .btn.w{width:100%}
-.btnrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:30px}
+.btnrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:24px}
 @media(max-width:560px){.btn{width:100%}}
 
 /* ---------- плашки ---------- */
@@ -160,19 +167,21 @@ section.first{border-top:0}
   border-radius:12px;overflow:hidden}
 @media(min-width:800px){.g3{grid-template-columns:repeat(3,1fr)}}
 @media(min-width:760px){.g2{grid-template-columns:1fr 1fr}}
-.cell{background:var(--panel);padding:28px 26px}
+.cell{background:var(--panel);padding:22px 22px}
 .cell p{margin:0;font-size:15px;color:var(--dim)}
 .cell p+p{margin-top:10px}
 .cell .n{font-family:var(--mono);font-size:12px;color:var(--dim2);display:block;
   margin-bottom:14px;letter-spacing:.1em}
-.q{font-size:18px;color:var(--fg);line-height:1.45;margin-bottom:10px;letter-spacing:-.01em}
+.q{font-size:19px;color:var(--fg);line-height:1.4;margin-bottom:10px;letter-spacing:-.015em;
+  font-weight:600}
+.q em{font-style:normal;color:var(--acc)}
 
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px 26px;
-  margin:18px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 24px;
+  margin:14px 0}
 .card h3{margin-bottom:8px}
 .card p:last-child{margin-bottom:0}
 
-.steps{display:grid;gap:36px;margin-top:44px}
+.steps{display:grid;gap:28px;margin-top:32px}
 @media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr);gap:28px}}
 .step .n{font-family:var(--mono);font-size:12.5px;color:var(--acc);letter-spacing:.12em;
   display:block;margin-bottom:12px}
@@ -180,35 +189,31 @@ section.first{border-top:0}
 
 .note{border-left:2px solid var(--warn);padding:2px 0 2px 16px;color:var(--fg2);font-size:15.5px}
 
-/* ---------- знаки сервисов ---------- */
-/* Знаки нарисованы кодом (SVG в папке logo) — это упрощённые подсказки, а не логотипы
-   правообладателей. Плитка одна на весь сайт: главная, карточки справочника, таблицы. */
-.logo-tile{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;
-  border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.035);flex:none;
-  transition:border-color .16s ease,background .16s ease,transform .16s ease}
-.logo-tile img{width:30px;height:30px;display:block}
-.logo-tile.sm{width:34px;height:34px;border-radius:9px}
-.logo-tile.sm img{width:22px;height:22px}
-.card:hover .logo-tile{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.07)}
-.servisy{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.servisy .logo-tile{width:52px;height:52px;border-radius:13px}
-.servisy .logo-tile img{width:34px;height:34px}
-.servisy .logo-tile:hover{border-color:rgba(255,255,255,.24);background:rgba(255,255,255,.08);
-  transform:translateY(-2px)}
-.servisy-cap{font-size:14.5px;color:var(--dim);margin:26px 0 0;max-width:44em}
+/* ---------- перечисление сервисов (главная) ---------- */
+.servisy{display:grid;gap:26px;margin-top:26px}
+@media(min-width:820px){.servisy{grid-template-columns:repeat(3,1fr);gap:30px}}
+.servisy-h{font-size:12.5px;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--dim2);margin:0 0 6px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.servisy-list{list-style:none;padding:0;margin:0}
+.servisy-list li{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);margin:0;
+  font-size:15px;line-height:1.45;color:var(--dim)}
+.servisy-list li:last-child{border-bottom:0}
+.servisy-list b{display:block;color:var(--fg);font-weight:600;font-size:15.5px;letter-spacing:-.01em;
+  margin-bottom:2px}
+.servisy-cap{font-size:14.5px;color:var(--dim);margin:18px 0 0;max-width:44em}
 .servisy-cap b{color:var(--fg);font-weight:600}
 .srv-name{display:inline-flex;align-items:center;gap:10px;white-space:nowrap}
 
 /* ---------- цены ---------- */
-.offers{display:grid;gap:14px;margin-top:44px}
+.offers{display:grid;gap:12px;margin-top:32px}
 @media(min-width:840px){.offers{grid-template-columns:repeat(3,1fr)}}
-.offer{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px 24px;
+.offer{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px 22px;
   display:flex;flex-direction:column}
 .offer.main{border-color:rgba(80,209,131,.35);
   background:linear-gradient(180deg,rgba(80,209,131,.07),rgba(80,209,131,.015))}
-.offer .sum{font-size:32px;font-weight:600;letter-spacing:-.04em;margin:10px 0 8px}
+.offer .sum{font-size:30px;font-weight:600;letter-spacing:-.04em;margin:8px 0 6px}
 .offer .sum small{font-size:15px;color:var(--dim);font-weight:400;letter-spacing:0}
-.offer p{margin:0 0 22px;font-size:14.5px;color:var(--dim)}
+.offer p{margin:0 0 18px;font-size:14.5px;color:var(--dim)}
 .offer .btn{margin-top:auto}
 .offer .tag{margin-bottom:10px;color:var(--acc)}
 .offer .tag.gray{color:var(--dim)}
@@ -266,7 +271,7 @@ select:hover,input[type=text]:hover{border-color:rgba(255,255,255,.22)}
 .panelbody.on{display:block}
 
 /* ---------- подвал ---------- */
-footer{border-top:1px solid var(--line);padding:44px 0 72px;font-size:14px;color:var(--dim2)}
+footer{border-top:1px solid var(--line);padding:36px 0 56px;font-size:14px;color:var(--dim2)}
 footer .cols{display:grid;gap:28px}
 @media(min-width:760px){footer .cols{grid-template-columns:1.5fr 1fr 1fr}}
 footer h4{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;

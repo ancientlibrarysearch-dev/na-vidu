@@ -10,6 +10,7 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#08090a">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308090a'/><circle cx='50' cy='50' r='24' fill='none' stroke='%2350d183' stroke-width='9'/><circle cx='50' cy='50' r='7' fill='%2350d183'/></svg>">
+<link rel="stylesheet" href="shrifty/shrifty.css">
 <link rel="stylesheet" href="stil-sayta.css">
 </head>
 <body>
@@ -24,8 +25,7 @@
       <a href="#how">Как это работает</a>
       <a href="#offer">Стоимость</a>
     </nav>
-    <a class="btn s" href="https://t.me/totallyaverage">Проверить адрес</a>
-    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobmenu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobmenu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path class="l l1" d="M2 5h14"/><path class="l l2" d="M2 9h14"/><path class="l l3" d="M2 13h14"/></svg></button>
   </div>
   <nav class="mobmenu" id="mobmenu">
     <a href="issledovanie.html">Исследование</a>
@@ -53,7 +53,7 @@
         <div class="metrics">
           <span><b>4 секунды</b> на замер</span>
           <span><b>6 источников</b> в отчёте</span>
-          <span>чек на оплату</span>
+          
         </div>
       </div>
       <div class="panel rv">
@@ -77,20 +77,35 @@
     и что считается нарушением. Полный разбор с дословными цитатами — в
     <a href="karta-strogosti.html">карте строгости</a>.</p>
     <div class="servisy rv">
-      <span class="logo-tile" title="Steam"><img src="logo/steam.svg" alt="Steam" loading="lazy"></span>
-      <span class="logo-tile" title="Google Play"><img src="logo/google-play.svg" alt="Google Play" loading="lazy"></span>
-      <span class="logo-tile" title="Netflix"><img src="logo/netflix.svg" alt="Netflix" loading="lazy"></span>
-      <span class="logo-tile" title="Spotify"><img src="logo/spotify.svg" alt="Spotify" loading="lazy"></span>
-      <span class="logo-tile" title="Claude"><img src="logo/claude.svg" alt="Claude" loading="lazy"></span>
-      <span class="logo-tile" title="ChatGPT"><img src="logo/chatgpt.svg" alt="ChatGPT" loading="lazy"></span>
-      <span class="logo-tile" title="Apple ID"><img src="logo/apple.svg" alt="Apple ID" loading="lazy"></span>
-      <span class="logo-tile" title="Stripe"><img src="logo/stripe.svg" alt="Stripe" loading="lazy"></span>
-      <span class="logo-tile" title="Upwork"><img src="logo/upwork.svg" alt="Upwork" loading="lazy"></span>
-      <span class="logo-tile" title="Revolut"><img src="logo/revolut.svg" alt="Revolut" loading="lazy"></span>
-      <span class="logo-tile" title="Binance"><img src="logo/binance.svg" alt="Binance" loading="lazy"></span>
-      <span class="logo-tile" title="Bybit"><img src="logo/bybit.svg" alt="Bybit" loading="lazy"></span>
-      <span class="logo-tile" title="Coinbase"><img src="logo/coinbase.svg" alt="Coinbase" loading="lazy"></span>
-      <span class="logo-tile" title="Midjourney"><img src="logo/midjourney.svg" alt="Midjourney" loading="lazy"></span>
+      <div class="servisy-col">
+        <p class="servisy-h">Запрещают прямо или называют VPN причиной отказа</p>
+        <ul class="servisy-list">
+          <li><b>Steam</b><span>запрет маскировки адреса, лишение аккаунта без возврата средств</span></li>
+          <li><b>Google Play</b><span>VPN назван причиной отказа, смена страны заперта на 90 дней</span></li>
+          <li><b>Netflix</b><span>ошибка E106: «похоже, вы используете VPN или прокси»</span></li>
+          <li><b>Spotify</b><span>предписание отключить VPN, иначе блокировка запросов</span></li>
+          <li><b>Binance</b><span>запрет менять адрес, в том числе через virtual private network</span></li>
+        </ul>
+      </div>
+      <div class="servisy-col">
+        <p class="servisy-h">Слова «VPN» нет, но правила по стране и платежу есть</p>
+        <ul class="servisy-list">
+          <li><b>Claude</b><span>требование физически находиться в поддерживаемой стране</span></li>
+          <li><b>ChatGPT</b><span>карта должна быть выпущена в поддерживаемой стране</span></li>
+          <li><b>Apple ID</b><span>прямого запрета нет; карта продавцу не передаётся</span></li>
+          <li><b>Stripe</b><span>в платеже видно несовпадение стран карты и адреса</span></li>
+          <li><b>Bybit</b><span>запрещены неверные сведения о местоположении и проживании</span></li>
+        </ul>
+      </div>
+      <div class="servisy-col">
+        <p class="servisy-h">Разрешают или требуют не адреса, а проживания</p>
+        <ul class="servisy-list">
+          <li><b>Upwork</b><span>VPN разрешён при честно указанной стране в профиле</span></li>
+          <li><b>Revolut</b><span>требуется проживание в поддерживаемой стране</span></li>
+          <li><b>Coinbase</b><span>в полученной редакции — проживание в США</span></li>
+          <li><b>Midjourney</b><span>запрета нет, но блокировка возможна без объяснения причин</span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -124,10 +139,10 @@
     <h2 class="rv" style="max-width:20em">Одно сообщение от вас, дальше наша работа</h2>
     <div class="steps">
       <div class="step rv"><span class="n">01</span>
-        <h3>Присылаете адрес</h3>
-        <p>В Telegram. Если адресов несколько, перечислите все.</p></div>
+        <h3>Присылаете IP-адрес</h3>
+        <p>В Telegram, вместе с ответами на пять вопросов. Если адресов несколько — перечислите все.</p></div>
       <div class="step rv"><span class="n">02</span>
-        <h3>Мы проверяем</h3>
+        <h3>Мы проверяем адрес</h3>
         <p>Шесть источников, сверка между собой, поиск расхождений. Минуты.</p></div>
       <div class="step rv"><span class="n">03</span>
         <h3>Вы получаете отчёт</h3>

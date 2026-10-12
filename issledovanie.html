@@ -10,6 +10,7 @@
 <meta property="og:type" content="article">
 <meta name="theme-color" content="#08090a">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2308090a'/><circle cx='50' cy='50' r='24' fill='none' stroke='%2350d183' stroke-width='9'/><circle cx='50' cy='50' r='7' fill='%2350d183'/></svg>">
+<link rel="stylesheet" href="shrifty/shrifty.css">
 <link rel="stylesheet" href="stil-sayta.css">
 </head>
 <body>
@@ -24,8 +25,7 @@
       <a href="index.html#how">Как это работает</a>
       <a href="index.html#offer">Стоимость</a>
     </nav>
-    <a class="btn s" href="https://t.me/totallyaverage">Проверить адрес</a>
-    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobmenu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobmenu"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path class="l l1" d="M2 5h14"/><path class="l l2" d="M2 9h14"/><path class="l l3" d="M2 13h14"/></svg></button>
   </div>
   <nav class="mobmenu" id="mobmenu">
     <a href="issledovanie.html" aria-current="page">Исследование</a>
@@ -51,7 +51,7 @@
     <div class="metrics rv">
       <span><b>4,5 секунды</b> на замер</span>
       <span><b>6 групп данных</b> в отчёте</span>
-      <span>чек на оплату</span>
+      
     </div>
   </div>
 </section>
@@ -184,46 +184,46 @@
       <table>
         <thead><tr><th>Сервис</th><th>Кат.</th><th>Что требует по документам</th><th>Ключевой риск</th></tr></thead>
         <tbody>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/steam.svg" alt="" loading="lazy"></span><b>Steam</b></span></td><td><span class="tag i">I</span></td>
+          <tr><td><b>Steam</b></td><td><span class="tag i">I</span></td>
             <td>прямой запрет IP-прокси в соглашении (п. 3.A)</td>
             <td>лишение аккаунта <b>без возврата средств</b></td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/google-play.svg" alt="" loading="lazy"></span><b>Google Play</b></span></td><td><span class="tag ii">II</span></td>
+          <tr><td><b>Google Play</b></td><td><span class="tag ii">II</span></td>
             <td>VPN назван причиной отказа в смене страны; виртуальные карты не принимаются</td>
             <td>смена страны заперта на 90 дней</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/netflix.svg" alt="" loading="lazy"></span><b>Netflix</b></span></td><td><span class="tag ii">II</span></td>
+          <tr><td><b>Netflix</b></td><td><span class="tag ii">II</span></td>
             <td>ошибка E106: «похоже, вы используете VPN или прокси»</td>
             <td>каталог урезается до глобальных прав сервиса</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/spotify.svg" alt="" loading="lazy"></span><b>Spotify</b></span></td><td><span class="tag ii">II</span></td>
+          <tr><td><b>Spotify</b></td><td><span class="tag ii">II</span></td>
             <td>в статье о злоупотреблениях: «вы используете VPN» и предписание отключить</td>
             <td>блокировка запросов</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/claude.svg" alt="" loading="lazy"></span><b>Claude</b></span></td><td><span class="tag iii">III</span></td>
+          <tr><td><b>Claude</b></td><td><span class="tag iii">III</span></td>
             <td>слов «VPN» и «proxy» нет; требуется <b>физически находиться</b> в стране</td>
             <td>смена страны и платёжного звена</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/chatgpt.svg" alt="" loading="lazy"></span><b>ChatGPT</b></span></td><td><span class="tag iii">III</span></td>
+          <tr><td><b>ChatGPT</b></td><td><span class="tag iii">III</span></td>
             <td>слов «VPN»/«proxy» нет; карта должна быть из поддерживаемой страны</td>
             <td>регион выпуска карты, резкая смена адреса</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/apple.svg" alt="" loading="lazy"></span><b>Apple ID</b></span></td><td><span class="tag iii">III</span></td>
+          <tr><td><b>Apple ID</b></td><td><span class="tag iii">III</span></td>
             <td>прямого запрета нет; карта продавцу не передаётся</td>
             <td>блокировка при нарушениях</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/stripe.svg" alt="" loading="lazy"></span><b>Stripe</b></span></td><td><span class="tag iii">III</span></td>
+          <tr><td><b>Stripe</b></td><td><span class="tag iii">III</span></td>
             <td>не про VPN: несовпадение стран карты и адреса видно в платеже</td>
             <td>расхождение адреса и платёжных данных</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/upwork.svg" alt="" loading="lazy"></span><b>Upwork</b></span></td><td><span class="tag iv">IV</span></td>
+          <tr><td><b>Upwork</b></td><td><span class="tag iv">IV</span></td>
             <td>VPN разрешён при честно указанной стране в профиле</td>
             <td>искажение реального местоположения</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/binance.svg" alt="" loading="lazy"></span><b>Binance</b></span></td><td><span class="tag i">I</span></td>
+          <tr><td><b>Binance</b></td><td><span class="tag i">I</span></td>
             <td>запрет обходить ограничения, в том числе через virtual private network; запрет быть резидентом запрещённой юрисдикции</td>
             <td>заморозка средств и аккаунта до выяснения</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/bybit.svg" alt="" loading="lazy"></span><b>Bybit</b></span></td><td><span class="tag iii">III</span></td>
+          <tr><td><b>Bybit</b></td><td><span class="tag iii">III</span></td>
             <td>слова «VPN» нет; запрещены неверные сведения о местоположении и месте жительства</td>
             <td>закрытие аккаунта с ликвидацией позиций</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/coinbase.svg" alt="" loading="lazy"></span><b>Coinbase</b></span></td><td><span class="tag zero">особая</span></td>
+          <tr><td><b>Coinbase</b></td><td><span class="tag zero">особая</span></td>
             <td>слова «VPN» нет; в полученной редакции — требуется проживание в США</td>
             <td>блокировка без объяснения; 90 дней на вывод</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/midjourney.svg" alt="" loading="lazy"></span><b>Midjourney</b></span></td><td><span class="tag zero">вне шкалы</span></td>
+          <tr><td><b>Midjourney</b></td><td><span class="tag zero">вне шкалы</span></td>
             <td>слов «VPN», «proxy», «virtual private network» нет; требований к стране нет</td>
             <td>блокировка «в любое время и по любой причине»</td></tr>
-          <tr><td><span class="srv-name"><span class="logo-tile sm"><img src="logo/revolut.svg" alt="" loading="lazy"></span><b>Revolut</b></span></td><td><span class="tag zero">особая</span></td>
+          <tr><td><b>Revolut</b></td><td><span class="tag zero">особая</span></td>
             <td>требуется <b>проживание</b> в поддерживаемой стране</td>
             <td>для РФ не вариант: адресом не решается</td></tr>
         </tbody>
